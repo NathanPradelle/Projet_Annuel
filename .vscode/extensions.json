@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "waderyan.nodejs-extension-pack",
+    "xabikos.javascriptsnippets",
+    "eamodio.gitlens",
+    "dbaeumer.vscode-eslint",
+    "irongeek.vscode-env",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "nidu.copy-json-path",
+    "Lokalise.i18n-ally",
+    "cweijan.dbclient-jdbc"
+  ]
+}

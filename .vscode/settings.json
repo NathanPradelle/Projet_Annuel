@@ -1,0 +1,16 @@
+{
+  // Set the default
+  "editor.formatOnSave": true,
+  "prettier.printWidth": 100,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "javascript.updateImportsOnFileMove.enabled": "prompt",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "eslint.workingDirectories": ["./resources"],
+  "sortJSON.orderOverride": ["appName", "common"],
+  "i18n-ally.localesPaths": ["src/translation/languages"],
+  "i18n-ally.displayLanguage": "fr",
+  "i18n-ally.sourceLanguage": "fr",
+  "i18n-ally.keystyle": "nested"
+}

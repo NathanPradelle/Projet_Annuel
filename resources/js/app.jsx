@@ -1,4 +1,6 @@
 import './bootstrap';
+import './translation/i18n';
+
 import '../css/app.css';
 
 import { createRoot } from 'react-dom/client';
