@@ -1,16 +1,18 @@
 import { createTheme, StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const ThemeWrapper = ({ children }) => {
   const palette = {
-    primary: { main: '#27357c' },
-    coolBlue: { main: '#4973f2' },
-    secondary: { main: '#f5c300' },
-    coolGrey: { main: '#2E3A59' },
-    success: { main: '#0C9543' },
+    grey: { main: '#606060;' },
+    greyBright: { main: '#D9D9D9' },
+    strawberry: { main: '#BF3030' },
+    beige: { main: '#FFC061' },
+    beigeDark: { main: '#F1A330' },
+    blue: { main: '#4F46E5' },
+    green: { main: '#14FF00' },
+    secondary: { main: '#F5C300' },
     warning: { main: '#F27249' },
-    white: { main: '#FFFFFF' },
+    error: { main: '#FD0808' },
   };
 
   const themeName = 'GPCS';
@@ -23,10 +25,6 @@ const ThemeWrapper = ({ children }) => {
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </StyledEngineProvider>
   );
-};
-
-ThemeWrapper.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default ThemeWrapper;
