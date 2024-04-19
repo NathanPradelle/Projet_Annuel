@@ -12,7 +12,8 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        //
+        $appartement = Apartement::all();
+        return $apartment;
     }
 
     /**
