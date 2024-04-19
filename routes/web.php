@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -14,8 +15,23 @@ Route::get('/', function () {
     ]);
 });
 
+Route::resource('users', UserController::class);
+
+Route::get('/admin', [UserController::class, 'indexAdmin'])->name('users.admin');
+
+Route::post('/admin', [UserController::class, 'StoreAdmin'])->name('admin.store');
+
+Route::get('/admin/create', [UserController::class, 'CreateAdmin'])->name('admin.create');
+
+Route::get('/customer', [UserController::class, 'indexCustomer'])->name('users.customer');
+
+Route::get('/customer/{user}', [UserController::class, 'RGPDCustomer'])->name('customer.rgpd');
+
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    $user = auth()->user();
+    return Inertia::render('Dashboard', [
+        'user' => $user,
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

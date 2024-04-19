@@ -5,6 +5,7 @@ import UpdateProfileInformationForm from './Partials/UpdateProfileInformationFor
 import { Head } from '@inertiajs/react';
 
 export default function Edit({ auth, mustVerifyEmail, status }) {
+    console.log(auth);
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -14,21 +15,26 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+
+                    { auth.user.role !== 4 &&
+
                     <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                         <UpdateProfileInformationForm
                             mustVerifyEmail={mustVerifyEmail}
                             status={status}
                             className="max-w-xl"
                         />
-                    </div>
+                    </div>}
 
                     <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                         <UpdatePasswordForm className="max-w-xl" />
                     </div>
 
+                    { (auth.user.role == 1 || auth.user.role == 2 || auth.user.role == 3) &&
+
                     <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                         <DeleteUserForm className="max-w-xl" />
-                    </div>
+                    </div>}
                 </div>
             </div>
         </AuthenticatedLayout>
