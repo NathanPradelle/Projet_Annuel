@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('price_appartement', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreign('apartments_id')->references('id')->on('apartments');
+            $table->foreignId('apartments_id')->references('id')->on('apartments');
             $table->string('rule')->default('default');//semaine/week-end/ete/hiver/etc
             $table->timestamp('update_date');
             $table->float('prix',10)->nullable();

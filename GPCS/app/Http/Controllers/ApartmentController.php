@@ -21,8 +21,6 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
-
         $appartements = Apartment::query()
             ->select(['id', 'name', 'address', 'price', 'image', 'user_id'])
             ->latest()
@@ -38,11 +36,15 @@ class ApartmentController extends Controller
         ]);
 
 
-        /* $appartements = Appartement::with('tags','images','user');
-         return view('appartements.index', [
-             'appartements' => $appartements
-         ]);
-         */
+        /* 
+        $appartement = Apartement::all();
+        return $apartment;
+        
+        $appartements = Appartement::with('tags','images','user');
+        return view('appartements.index', [
+            'appartements' => $appartements
+        ]);
+        */
     }
 
     public function userIndex()
@@ -54,10 +56,6 @@ class ApartmentController extends Controller
         return Inertia::render('Appartements.userIndex', [
             'appartements' => $appartements
         ]);
-=======
-        $appartement = Apartement::all();
-        return $apartment;
->>>>>>> 2cf1cb3d91ea7d811340695f742ccf1e4b9ddf70
     }
 
     /**

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('picture_appartement', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreign('apartments_id')->references('id')->on('apartments');
+            $table->foreignId('apartments_id')->references('id')->on('apartments');
             $table->string('chemin');
         });
     }
