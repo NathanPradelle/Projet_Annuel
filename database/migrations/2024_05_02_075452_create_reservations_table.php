@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Apartment;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -12,18 +13,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('apartments', function (Blueprint $table) {
+        Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('address');
-            $table->integer('surface');
-            $table->integer('guestCount');
-            $table->integer('roomCount');
-            $table->text('description')->nullable();
-            $table->integer('price');
-            $table->boolean('availability')->default(true);
-            $table->string('image')->nullable();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Apartment::class)->constrained()->cascadeOnDelete();
+            $table->dateTime('start_time');
+            $table->dateTime('end_time');
+            $table->integer('guestCount');
+            $table->string('status')->default('en attente');
+            $table->integer('price');
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('apartments');
+        Schema::dropIfExists('reservations');
     }
 };

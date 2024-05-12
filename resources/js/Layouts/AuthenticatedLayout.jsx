@@ -25,24 +25,48 @@ export default function Authenticated({ user, header, children }) {
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                            <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
                             </div>
 
                             {user.role === 5 &&
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('users.admin')} active={route().current('users.admin')}>
-                                    Admin
-                                </NavLink>
-                            </div>}
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                    <NavLink href={route('users.admin')} active={route().current('users.admin')}>
+                                        Admin
+                                    </NavLink>
+                                </div>}
 
                             {(user.role === 5 || user.role === 4) &&
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                    <NavLink href={route('users.customer')} active={route().current('users.customer')}>
+                                        Client
+                                    </NavLink>
+                                </div>}
+
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('users.customer')} active={route().current('users.customer')}>
-                                    Client
+                                <NavLink href={route('apartment')} active={route().current('apartment')}>
+                                    Mes appartements
                                 </NavLink>
-                            </div>}
+                            </div>
+
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink href={route('appart.create')} active={route().current('appart.create')}>
+                                    Louer un appartement
+                                </NavLink>
+                            </div>
+
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink href={route('reservation')} active={route().current('reservation')}>
+                                    Mes Reservations
+                                </NavLink>
+                            </div>
+
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink href={route('tag.index')} active={route().current('tag.index')}>
+                                    Tags
+                                </NavLink>
+                            </div>
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
