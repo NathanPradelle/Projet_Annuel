@@ -1,6 +1,8 @@
 import { Link, Head } from '@inertiajs/react';
 import logoImage from '../../../public/favicon.png';
 
+import { t } from 'i18next';
+
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
     const handleImageError = () => {
         document.getElementById('screenshot-container')?.classList.add('!hidden');
@@ -41,13 +43,13 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                         href={route('login')}
                                         className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                                     >
-                                        Log in
+                                        {t('menu.unauthenticated.login')}
                                     </Link>
                                     <Link
                                         href={route('register')}
                                         className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                                     >
-                                        Register
+                                        {t('menu.unauthenticated.signIn')}
                                     </Link>
                                 </>
                             )}

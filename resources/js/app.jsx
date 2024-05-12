@@ -1,5 +1,8 @@
 import './bootstrap';
-import '../css/app.css';
+import './translation/i18n';
+
+import '@/theme/Fonts.less';
+import '@/theme/Main.less';
 
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
