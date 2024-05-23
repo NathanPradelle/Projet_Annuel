@@ -95,6 +95,7 @@
     "forgottenPassword": "Mot de Passe oublié"
   },
   "menu": {
+    "home": "Home",
     "unauthenticated": {
       "login": "Se Connecter",
       "signIn": "S'inscrire"

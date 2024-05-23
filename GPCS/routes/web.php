@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/apartment', [ApartmentController::class, 'userIndex'])->name('apartment');
     Route::delete('/appartimage/{id}', [ApartmentController::class, 'destroyImg'])->name('appart.destroyImg');
 
-        Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation');
+    Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation');
     Route::get('/reservation/{id}/edit', [ReservationController::class, 'edit'])->name('reservation.edit');
     Route::get('reservation/create/{appartement_id}', [ReservationController::class, 'create'])->name('reservation.create');
     Route::get('/reservations', [ReservationController::class, 'index'])->name('reservation.index');
