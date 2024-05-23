@@ -65,6 +65,6 @@ Route::middleware('auth')->group(function () {
     });    
 });
 
-Route::get('/factureclient', [FactureController::class, 'client']);
+Route::get('/factureclient', [FactureController::class, 'client']); // need fix
 
 require __DIR__.'/auth.php';
