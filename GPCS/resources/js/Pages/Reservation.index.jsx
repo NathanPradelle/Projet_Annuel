@@ -1,9 +1,8 @@
 import React from 'react';
-import { usePage, InertiaLink, useForm } from '@inertiajs/inertia-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Inertia} from "@inertiajs/inertia";
 
-const ReservationPage = ({ reservations, auth }) => {
+const ReservationPage = ({ reservations }) => {
 
     const handleCancelReservation = (e, reservationId) => {
         e.preventDefault();
@@ -13,8 +12,7 @@ const ReservationPage = ({ reservations, auth }) => {
     };
 
     return (
-        <AuthenticatedLayout
-        user={auth.user}>
+        <AuthenticatedLayout >
             <div>
                 {reservations.data.length === 0 ? (
                     <div className="py-8">

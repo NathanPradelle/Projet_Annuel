@@ -1,0 +1,18 @@
+Paris 2: domaine controller, server de fichier, 1 PC user(en windows), DMZ(connecté sur le firewall) sur lequel il y aura des conteneurs, backup, stockage,
+
+Nice avec un DHCP
+
+Trois: REDC ? 2 routeurs, 2 firewall
+
+pas besoin d'avoir tous les arrondissements sur les schémas
+
+wiregard -> règle de firewall -> permet d'accédé à ???
+pas de tunnel ipsec, mettre des vpn
+
+avec window server 2019> le DHCP en ipv6 doit être activé
+sinon ça va tout casser
+
+Pour la prochaine fois,
+Paris 2 fonctionnel
+Trois fonctionnel
+Schéma à faire pour la prochaine fois

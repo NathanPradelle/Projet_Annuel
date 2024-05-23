@@ -1,9 +1,12 @@
 import { Link, Head } from '@inertiajs/react';
 import logoImage from '../../../public/favicon.png';
 
+import { getCurrentUser } from '@/utils/user';
 import { t } from 'i18next';
 
-export default function Welcome({ auth, laravelVersion, phpVersion }) {
+export default function Welcome() {
+    const currentUser = getCurrentUser();
+
     const handleImageError = () => {
         document.getElementById('screenshot-container')?.classList.add('!hidden');
         document.getElementById('docs-card')?.classList.add('!row-span-1');
@@ -30,7 +33,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             </div>
                         </div>
                         <div className="text-2xl flex items-center">
-                            {auth.user ? (
+                            {currentUser ? (
                                 <Link
                                     href={route('dashboard')}
                                     className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"

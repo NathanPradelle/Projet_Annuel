@@ -1,26 +1,36 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
+import { t } from 'i18next';
 
 // Fonction pour mapper les rôles aux libellés correspondants
-const mapRoleToLabel = (role) => {
-    switch (role) {
+
+const profileTypes = {
+    admin: t('profile.admin'),
+    lessor: t('profile.lessor'),
+    management: t('profile.management'),
+    provider: t('profile.provider'),
+    traveler: t('profile.traveler'),
+}
+
+const roleLabel = (profileId) => {
+    switch (profileId) {
         case 1:
-            return 'Client';
+            return profileTypes.lessor;
         case 2:
-            return 'Prestataire';
+            return profileTypes.traveler;
         case 3:
-            return 'Bailleur';
+            return profileTypes.provider;
         default:
-            return 'Autre'; // Gérer les autres cas si nécessaire
+            return 'Autre';
     }
 };
 
-export default function CustomerIndex({ auth, users }) {
+export default function CustomerIndex({ users }) {
     const [searchTerm, setSearchTerm] = useState('');
 
     // Fonction pour filtrer les utilisateurs par nom ou par e-mail
-    const filteredUsers = users.data.filter(user =>
+    const filteredUsers = users.filter(user =>
         user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         user.email.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -32,7 +42,6 @@ export default function CustomerIndex({ auth, users }) {
 
     return (
         <AuthenticatedLayout
-            user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Liste des clients</h2>}
         >
             <Head title="CustomerIndex"/>
@@ -67,7 +76,7 @@ export default function CustomerIndex({ auth, users }) {
                                         <td className="px-6 py-4 whitespace-nowrap">{user.id}</td>
                                         <td className="px-6 py-4 whitespace-nowrap">{user.name}</td>
                                         <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap">{mapRoleToLabel(user.role)}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap">{user.profiles.map((profile) => roleLabel(profile.id))}</td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <a href={route("customer.rgpd",  { user: user.id })} className="text-red-600 hover:text-red-900">RGPD</a>
                                         </td>

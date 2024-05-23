@@ -4,13 +4,13 @@ import { Inertia } from '@inertiajs/inertia';
 import { useState } from 'react';
 import { InertiaLink } from '@inertiajs/inertia-react';
 
-export default function AdminIndex({ auth, users }) {
+export default function AdminIndex({ users }) {
     const [editingUserId, setEditingUserId] = useState(null); // Suivre l'ID de l'utilisateur en cours d'édition
     const [editedUserData, setEditedUserData] = useState({}); // Suivre les données éditées pour chaque utilisateur
-
+console.log(users);
     const handleEdit = (userId) => {
         setEditingUserId(userId);
-        const userToEdit = users.data.find(user => user.id === userId);
+        const userToEdit = users.find(user => user.id === userId);
         setEditedUserData({ ...userToEdit });
     };
 
@@ -42,19 +42,8 @@ export default function AdminIndex({ auth, users }) {
         });
     };
 
-    const renderRoleOption = (role) => {
-        return (
-            <option key={role} value={role}>
-                {role === 4 ? 'Gestionnaire' : 'Administrateur'}
-            </option>
-        );
-    };
-
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Liste Admin</h2>}
-        >
+        <AuthenticatedLayout header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Liste Admin</h2>} >
             <Head title="AdminIndex"/>
 
             <div className="py-12">
@@ -78,7 +67,7 @@ export default function AdminIndex({ auth, users }) {
                                 </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
-                                {users.data.map((user) => (
+                                {users.map((user) => (
                                     <tr key={user.id}>
                                         <td className="px-6 py-4 whitespace-nowrap">{user.id}</td>
                                         <td className="px-6 py-4 whitespace-nowrap">
@@ -109,13 +98,13 @@ export default function AdminIndex({ auth, users }) {
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             {editingUserId === user.id ? (
-                                                <select name="role" value={editedUserData.role}
+                                                <select name="profile" value={editedUserData.profile}
                                                         onChange={handleInputChange}>
-                                                    {renderRoleOption(4)}
-                                                    {renderRoleOption(5)}
+                                                    Gestionnaire
+                                                    Administrateur
                                                 </select>
                                             ) : (
-                                                user.role === 4 ? 'Gestionnaire' : 'Administrateur'
+                                                user.profile === 4 ? 'Gestionnaire' : 'Administrateur'
                                             )}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">

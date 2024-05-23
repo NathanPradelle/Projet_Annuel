@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Profile;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,6 +14,25 @@ use Inertia\Response;
 
 class ProfileController extends Controller
 {
+    #region Get
+
+    /// <summary>
+    /// Get profiles of a users.
+    /// </summary>
+    public function get($userId)
+    {
+        $profiles = Profile::query()
+            ->select('profile.id', 'profile.name')
+            ->leftJoin('user_profile', 'profile.id', '=', 'user_profile.profileId')
+            ->leftJoin('users', 'users.id', '=', 'user_profile.userId')
+            ->where('users.id', $userId)
+            ->get();
+    
+        return response()->json($profiles);
+    }
+
+    #endregion
+
     /**
      * Display the user's profile form.
      */
