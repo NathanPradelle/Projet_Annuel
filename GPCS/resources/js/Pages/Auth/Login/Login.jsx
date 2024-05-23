@@ -6,7 +6,6 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import Checkbox from '@/Components/Checkbox';
 import GuestLayout from '@/Layouts/GuestLayout';
 import SimpleButton from '@/Components/Buttons/SimpleButton';
-import NavBars from '@/Components/NavBars/NavBars';
 import SimpleField from '@/Components/SimpleField';
 
 const Login = ({ status, canResetPassword }) => {
@@ -28,13 +27,12 @@ const Login = ({ status, canResetPassword }) => {
     };
 
     return (
-        <div>
+        <GuestLayout>
             <Head title="Log in" />
-            <NavBars />
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
-
-            <GuestLayout>
+            
+            <form>
                 <SimpleField 
                     id="email"
                     type="email"
@@ -76,8 +74,8 @@ const Login = ({ status, canResetPassword }) => {
                         {t('common.connection')}
                     </SimpleButton>
                 </div>
-            </GuestLayout>
-        </div>
+            </form>
+        </GuestLayout>
     );
 }
 
