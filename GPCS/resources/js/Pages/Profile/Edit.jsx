@@ -3,20 +3,19 @@ import DeleteUserForm from './Partials/DeleteUserForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
 import { Head } from '@inertiajs/react';
+import { getCurrentUser } from '@/utils/user';
 
-export default function Edit({ auth, mustVerifyEmail, status }) {
-    console.log(auth);
+export default function Edit({ mustVerifyEmail, status }) {
+    const currentUser = getCurrentUser();
+
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Profile</h2>}
-        >
+        <AuthenticatedLayout header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Profile</h2>} >
             <Head title="Profile" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-                    { auth.user.role !== 4 &&
+                    {!currentUser.profiles.some((profile) => profile.id == 4) &&
 
                     <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                         <UpdateProfileInformationForm
@@ -30,7 +29,7 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
                         <UpdatePasswordForm className="max-w-xl" />
                     </div>
 
-                    { (auth.user.role == 1 || auth.user.role == 2 || auth.user.role == 3) &&
+                    {currentUser.profiles.some((profile) => [1, 2, 3].includes(profile.id)) &&
 
                     <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                         <DeleteUserForm className="max-w-xl" />

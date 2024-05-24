@@ -16,19 +16,18 @@ class User extends Authenticatable
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
-     */
+    */
     protected $fillable = [
         'name',
         'email',
-        'password',
-        'role'
+        'password'
     ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
-     */
+    */
     protected $hidden = [
         'password',
         'remember_token',
@@ -38,7 +37,7 @@ class User extends Authenticatable
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
-     */
+    */
     protected function casts(): array
     {
         return [
@@ -57,5 +56,27 @@ class User extends Authenticatable
 
     public function tags():HasMany {
         return $this->hasMany(Tag::class);
+    }
+
+    public function userProfiles() {
+        return $this->hasMany(UserProfile::class, 'userId', 'id');
+    }
+
+    /// <summary>
+    /// Fonction to set user to return
+    /// </summary>
+    /// <return> a formatted user </return>
+    public function formatUser(User $user)
+    {
+        $user = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'profiles' => $user->userProfiles->map(function ($userProfile) {
+                return ['id' => $userProfile->profileId];
+            })->toArray(),
+        ];
+
+        return $user;
     }
 }

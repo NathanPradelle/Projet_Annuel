@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 
-export default function AdminCreate({ auth, users }) {
+export default function AdminCreate() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -25,7 +25,7 @@ export default function AdminCreate({ auth, users }) {
     };
 
     return (
-        <AuthenticatedLayout user={auth.user}>
+        <AuthenticatedLayout>
             <div className="flex items-center justify-center h-full">
                 <div className="max-w-md w-full">
                     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">

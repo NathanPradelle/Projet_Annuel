@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Inertia} from "@inertiajs/inertia";
 import {InertiaLink} from "@inertiajs/inertia-react";
 
-export default function TagManagementPage ({ tags, auth }){
+export default function TagManagementPage ({ tags }){
     const handleDelete = (tagId) => {
         const deleteTagUrl = route('tag.destroy', { tag: tagId });
         Inertia.delete(deleteTagUrl, {
@@ -16,8 +16,7 @@ export default function TagManagementPage ({ tags, auth }){
     };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}>
+        <AuthenticatedLayout >
             <div>
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
                     Gestion des tags

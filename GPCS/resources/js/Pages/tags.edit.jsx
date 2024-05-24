@@ -2,7 +2,8 @@ import React from 'react';
 import { useForm } from '@inertiajs/inertia-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-const EditTagForm = ({ tag, auth }) => {
+const EditTagForm = ({ tag }) => {
+
     const { data, setData, put, errors } = useForm({
         name: tag.name,
     });
@@ -22,8 +23,7 @@ const EditTagForm = ({ tag, auth }) => {
     };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}>
+        <AuthenticatedLayout >
             <div>
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <input type="hidden" name="_method" value="PATCH" />

@@ -35,7 +35,6 @@ class ApartmentController extends Controller
             'appartements' => $appartements
         ]);
 
-
         /* 
         $appartement = Apartement::all();
         return $apartment;

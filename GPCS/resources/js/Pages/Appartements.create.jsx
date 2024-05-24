@@ -3,8 +3,8 @@ import { useForm, usePage } from '@inertiajs/inertia-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Inertia} from "@inertiajs/inertia";
 
-const CreateAppartForm = ({ tags, auth }) => {
-    const { data, setData, post, errors } = useForm({
+const CreateAppartForm = ({ tags }) => {
+    const { data, setData, errors } = useForm({
         name: '',
         address: '',
         surface: '',
@@ -32,8 +32,7 @@ const CreateAppartForm = ({ tags, auth }) => {
     };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}>
+        <AuthenticatedLayout>
             <div>
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div>

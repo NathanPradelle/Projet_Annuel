@@ -5,34 +5,47 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules;
 
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(){
+    #region Get
 
+    /**
+     * Get information of one user
+    */
+    public function get()
+    {
+        $userId = auth()?->user()?->id;
+        $user = User::query(['userProfiles'])->find($userId);
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        $formatUser = $user->formatUser($user);
+
+        return $formatUser;
     }
+
+    #endregion
 
     public function indexAdmin()
     {
-        $users = User::query()
-
-            ->select('id','name','email','role')
-            ->where('role', '=', 4)
-            ->orWhere('role', '=', 5)
-            ->paginate(10);
+        // Load users
+        $users = User::with(['userProfiles' => function ($query) {
+            $query->whereIn('profileId', [4, 5]);
+        }])->paginate(10);
+  
+        $formattedUsers = $users->map(function ($user) {
+            return $user->formatUser($user);
+        });
 
         return Inertia::render('AdminIndex', [
-            'users' => $users,
+            'users' => $formattedUsers,
         ]);
     }
 
@@ -63,20 +76,18 @@ class UserController extends Controller
 
     public function indexCustomer()
     {
-        $users = User::query()
+        $users = User::with(['userProfiles' => function ($query) {
+            $query->whereIn('profileId', [1, 2, 3])
+                ->where('email', '!=', null)
+                ->where('name', '!=', 'RGPD');
+        }])->paginate(10);
 
-            ->select('id','name','email','role')
-            ->where('email', '!=', null)
-            ->where('name', '!=', 'RGPD')
-            ->where(function($query) {
-                $query->where('role', '=', 1)
-                    ->orWhere('role', '=', 2)
-                    ->orWhere('role', '=', 3);
-            })
-            ->paginate(10);
+        $formattedUsers = $users->map(function ($user) {
+            return $user->formatUser($user);
+        });
 
         return Inertia::render('CustomerIndex', [
-            'users' => $users,
+            'users' => $formattedUsers,
         ]);
     }
 
