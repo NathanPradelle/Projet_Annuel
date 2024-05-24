@@ -1,9 +1,10 @@
-
-
 <style>
 
+body{
+    height: 600px;
+}
+
 .container{
-    
     margin: auto;
     margin-top: 30px;
     width: 95%;
@@ -11,6 +12,7 @@
 
 table {
     width: 100%;
+    height: 400px;
 }
 
 table, tr, th, td {
@@ -24,6 +26,10 @@ table, tr, th, td {
     margin-bottom: 30px;
 }
 
+.liste_service{
+    height: 100%;
+}
+
 </style>
 <div class="container">
     <div class="info_client">
@@ -31,18 +37,23 @@ table, tr, th, td {
         address <br>
         Ville <br>
     </div>
-    <table>
+    <table >
+        <thead>
         <tr>
-            <th>Service</th>
+            <th style="width:80%">Service</th>
             <th>Prix</th>
         </tr>
-        <tr>
-            <td>Service 1</td>
-            <td>Prix 1</td>
-        </tr>
-        <tr>
-            <td>Service 2</td>
-            <td>Prix 22</td>
-        </tr>
+        </thead>
+        <tbody>
+            <tr class="liste_service">
+                <td>Service 1</td>
+                <td>Prix 1</td>
+            </tr>
+            <tr class="liste_service">
+                <td>Service 2</td>
+                <td>Prix 2</td>
+            </tr>
+        </tbody>
+
       </table>
 </div>

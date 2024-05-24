@@ -17,5 +17,6 @@ class FactureController extends Controller
     public function client(){
         $pdf = Pdf::loadView('factureclient');
         return $pdf->stream('invoice.pdf');
+        return view('factureclient');
     }
 }
