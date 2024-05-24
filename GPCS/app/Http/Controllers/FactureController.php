@@ -9,7 +9,7 @@ use App\Models\Service;
 use Dompdf\Dompdf;
 
 
-//use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class FactureController extends Controller
