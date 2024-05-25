@@ -8,6 +8,7 @@ use App\Models\ClosedPeriod;
 use App\Models\Reservation;
 use App\Models\Tag;
 use Carbon\Carbon;
+use FilePaths;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,7 +53,7 @@ class ApartmentController extends Controller
 
         $appartements = $user->apartment;
 
-        return Inertia::render('Appartements.userIndex', [
+        return Inertia::render(FilePaths::MY_APARTMENTS, [
             'appartements' => $appartements
         ]);
     }
@@ -63,7 +64,7 @@ class ApartmentController extends Controller
     public function create()
     {
         $tags = Tag::all()->where("user_id", Auth()->id());
-        return Inertia::render('Appartements.create',[
+        return Inertia::render(FilePaths::APARTMENT_CREATION,[
             'tags' => $tags
         ]);
     }
@@ -142,7 +143,7 @@ class ApartmentController extends Controller
             })
             ->toArray();
 
-        return Inertia::render('Appartements.show', [
+        return Inertia::render(FilePaths::APARTMENTS, [
             'appartement' => $appartement,
             'fermetures' => $fermeture,
             'intervalles' => $intervalle,

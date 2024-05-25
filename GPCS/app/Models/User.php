@@ -20,7 +20,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password'
+        'password',
+        'profile_in_use'
     ];
 
     /**
@@ -59,7 +60,11 @@ class User extends Authenticatable
     }
 
     public function userProfiles() {
-        return $this->hasMany(UserProfile::class, 'userId', 'id');
+        return $this->hasMany(UserProfile::class, 'user', 'id');
+    }
+
+    public function profileInUse() {
+        return $this->belongsTo(Profile::class, 'profile_in_use', 'id');
     }
 
     /// <summary>
@@ -69,12 +74,13 @@ class User extends Authenticatable
     public function formatUser(User $user)
     {
         $user = [
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'profiles' => $user->userProfiles->map(function ($userProfile) {
-                return ['id' => $userProfile->profileId];
+            'id' => $user?->id,
+            'name' => $user?->name,
+            'email' => $user?->email,
+            'profiles' => $user?->userProfiles->map(function ($userProfile) {
+                return ['id' => $userProfile->profile];
             })->toArray(),
+            'profileInUse' => $user?->profile_in_use,
         ];
 
         return $user;

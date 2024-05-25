@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Apartment;
 use App\Models\ClosedPeriod;
 use App\Models\Reservation;
+use FilePaths;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,7 @@ class ReservationController extends Controller
             ->paginate(15);
 
         // Passer les réservations à la vue
-        return Inertia::render('Reservation.index', ['reservations' => $reservations]);
+        return Inertia::render(FilePaths::MY_RESERVATIONS, ['reservations' => $reservations]);
     }
 
 
@@ -111,7 +112,7 @@ class ReservationController extends Controller
     {
         $reservation = Reservation::findOrFail($id);
 
-        return Inertia::render('Reservation.index', ['reservation' => $reservation]);
+        return Inertia::render(FilePaths::MY_RESERVATION, ['reservation' => $reservation]);
     }
 
     /**

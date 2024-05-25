@@ -1,4 +1,3 @@
-
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
@@ -13,7 +12,7 @@ const SimpleField = ({
   name,
   onChange,
   errorMessage,
-  placeholder
+  placeholder,
 }) => {
   return (
     <div className={className}>
@@ -29,7 +28,7 @@ const SimpleField = ({
       />
 
       <InputError message={errorMessage} />
-  </div>
+    </div>
   );
 };
 

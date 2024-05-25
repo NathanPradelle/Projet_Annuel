@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
+use FilePaths;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
@@ -21,7 +22,7 @@ class TagController extends Controller
             ->latest()
             ->paginate(10);
 
-        return Inertia::render('tagIndex', [
+        return Inertia::render(FilePaths::TAGS, [
             'tags' => $tags
         ]);
     }
@@ -31,7 +32,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        return Inertia::render('tags.create');
+        return Inertia::render(FilePaths::TAG_CREATION);
     }
 
     /**
@@ -67,7 +68,7 @@ class TagController extends Controller
     public function edit($id)
     {
         $tag = Tag::findOrFail($id);
-        return Inertia::render('tags.edit', [
+        return Inertia::render(FilePaths::TAG_EDITION, [
             'tag' => $tag,
         ]);
     }

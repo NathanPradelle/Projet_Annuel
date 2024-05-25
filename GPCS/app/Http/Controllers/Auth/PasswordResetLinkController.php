@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use FilePaths;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -17,7 +18,7 @@ class PasswordResetLinkController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/ForgotPassword', [
+        return Inertia::render(FilePaths::FORGOT_PASSWORD, [
             'status' => session('status'),
         ]);
     }

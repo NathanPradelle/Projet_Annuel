@@ -12,17 +12,15 @@ class UserProfile extends Model
     * @var array<int, string>
     */
    protected $fillable = [
-       'userId',
-       'profileId',
+       'user',
+       'profile',
    ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'userId', 'id');
+    public function user() {
+        return $this->belongsTo(User::class, 'user', 'id');
     }
 
-    public function profile()
-    {
-        return $this->belongsTo(Profile::class, 'profileId', 'id');
+    public function profile() {
+        return $this->belongsTo(Profile::class, 'profile', 'id');
     }
 }

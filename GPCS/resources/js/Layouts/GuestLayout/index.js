@@ -1,3 +1,3 @@
-import GuestLayout from "./GuestLayout";
+import GuestLayout from './GuestLayout';
 
 export default GuestLayout;

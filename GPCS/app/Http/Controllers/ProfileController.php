@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Profile;
+use FilePaths;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,8 +24,8 @@ class ProfileController extends Controller
     {
         $profiles = Profile::query()
             ->select('profile.id', 'profile.name')
-            ->leftJoin('user_profile', 'profile.id', '=', 'user_profile.profileId')
-            ->leftJoin('users', 'users.id', '=', 'user_profile.userId')
+            ->leftJoin('user_profile', 'profile.id', '=', 'user_profile.profile')
+            ->leftJoin('users', 'users.id', '=', 'user_profile.user')
             ->where('users.id', $userId)
             ->get();
     
@@ -38,7 +39,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
-        return Inertia::render('Profile/Edit', [
+        return Inertia::render(FilePaths::PROFILE, [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
         ]);

@@ -1,4 +1,8 @@
-import { createTheme, StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
+import {
+  createTheme,
+  StyledEngineProvider,
+  ThemeProvider,
+} from '@mui/material/styles';
 import React from 'react';
 
 const ThemeWrapper = ({ children }) => {

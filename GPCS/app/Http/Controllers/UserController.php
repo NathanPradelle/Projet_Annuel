@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use FilePaths;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -37,21 +38,21 @@ class UserController extends Controller
     {
         // Load users
         $users = User::with(['userProfiles' => function ($query) {
-            $query->whereIn('profileId', [4, 5]);
+            $query->whereIn('profile', [4, 5]);
         }])->paginate(10);
   
         $formattedUsers = $users->map(function ($user) {
             return $user->formatUser($user);
         });
 
-        return Inertia::render('AdminIndex', [
+        return Inertia::render(FilePaths::ADMINS_PAGE, [
             'users' => $formattedUsers,
         ]);
     }
 
     public function CreateAdmin()
     {
-        return Inertia::render('CreateAdmin');
+        return Inertia::render(FilePaths::ADMIN_CREATION);
     }
 
     public function StoreAdmin(Request $request)
@@ -77,7 +78,7 @@ class UserController extends Controller
     public function indexCustomer()
     {
         $users = User::with(['userProfiles' => function ($query) {
-            $query->whereIn('profileId', [1, 2, 3])
+            $query->whereIn('profile', [1, 2, 3])
                 ->where('email', '!=', null)
                 ->where('name', '!=', 'RGPD');
         }])->paginate(10);
@@ -86,7 +87,7 @@ class UserController extends Controller
             return $user->formatUser($user);
         });
 
-        return Inertia::render('CustomerIndex', [
+        return Inertia::render(FilePaths::USERS, [
             'users' => $formattedUsers,
         ]);
     }

@@ -1,15 +1,25 @@
 {
   "recommendations": [
-    "esbenp.prettier-vscode",
-    "waderyan.nodejs-extension-pack",
-    "xabikos.javascriptsnippets",
-    "eamodio.gitlens",
-    "dbaeumer.vscode-eslint",
-    "irongeek.vscode-env",
-    "formulahendry.auto-close-tag",
-    "formulahendry.auto-rename-tag",
-    "nidu.copy-json-path",
-    "Lokalise.i18n-ally",
-    "cweijan.dbclient-jdbc"
+      "irongeek.vscode-env",
+      "dbaeumer.vscode-eslint",
+      "mhutchie.git-graph",
+      "github.vscode-pull-request-github",
+      "xabikos.javascriptsnippets",
+      "onecentlin.laravel5-snippets",
+      "cweijan.vscode-mysql-client2",
+      "howardzuo.vscode-npm-dependency",
+      "christian-kohler.npm-intellisense",
+      "richie5um2.vscode-sort-json",
+      "xabikos.reactsnippets",
+      "esbenp.prettier-vscode",
+      "christian-kohler.path-intellisense",
+      "formulahendry.auto-close-tag",
+      "formulahendry.auto-rename-tag",
+      "lwlz.autofix",
+      "nidu.copy-json-path",
+      "cweijan.dbclient-jdbc",
+      "ritwickdey.liveserver",
+      "ms-edgedevtools.vscode-edge-devtools",
+      "bmewburn.vscode-intelephense-client"
   ]
 }

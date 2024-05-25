@@ -1,3 +1,3 @@
-import SimpleField from "./SimpleField";
+import SimpleField from './SimpleField';
 
 export default SimpleField;

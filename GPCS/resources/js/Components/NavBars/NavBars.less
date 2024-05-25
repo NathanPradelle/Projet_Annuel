@@ -5,21 +5,30 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 5rem;
+  height: 4rem;
   background-color: black;
   img {
-    height: 4rem;
+    height: 3rem;
+    margin: 1rem;
   }
-  .navLink {
+  .side {
     display: flex;
-    align-items: center;
-    flex-direction: row;
-    padding: 1rem;
-    color: white !important;
-    text-decoration: none;
-    :hover {
-      color: @blue;
+    height: 4rem;
+    .navLink {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      padding: 1rem;
+      color: white;
+      text-decoration: none;
+      &:hover {
+        color: @beigeDark;
+      }
     }
+    .dropMenu{
+      background-color: @grey;
+    }
+
   }
 }
 

@@ -97,9 +97,15 @@
   },
   "menu": {
     "home": "Home",
+    "apartments": "Voir les appartements",
     "unauthenticated": {
       "login": "Se Connecter",
       "signIn": "S'inscrire"
+    },
+    "admin": {
+      "managers": "Liste des Gérants",
+      "users": "Liste d'utilisateur",
+      "tags": "Les tags"
     }
   }
 }

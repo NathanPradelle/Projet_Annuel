@@ -51,11 +51,11 @@ return new class extends Migration
 
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('userId')->references('id')->on('users');
-            $table->foreignId('profileId')->references('id')->on('profile');
+            $table->foreignId('user')->references('id')->on('users');
+            $table->foreignId('profile')->references('id')->on('profile');
         });
 
-        DB::statement("INSERT INTO user_profiles (userId, profileId) SELECT id, role FROM users");
+        DB::statement("INSERT INTO user_profiles (user, profile) SELECT id, role FROM users");
 
         DB::statement("ALTER TABLE users DROP COLUMN role");
 
@@ -73,12 +73,19 @@ return new class extends Migration
             $table->string('name');
         });
 
-        DB::statement("ALTER TABLE users ADD COLUMN role INTEGER");
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('role')->nullable();
+        });
+
         DB::statement("UPDATE users SET role = (
-            SELECT profileId FROM user_profiles 
-            WHERE user_profiles.userId = users.id 
+            SELECT profile FROM user_profiles 
+            WHERE user_profiles.user = users.id 
             LIMIT 1
         )");
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('role')->nullable(false)->change();
+        });
 
         Schema::dropIfExists('user_profiles');
         Schema::dropIfExists('profile');
