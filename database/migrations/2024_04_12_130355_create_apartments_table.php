@@ -22,7 +22,6 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->integer('price');
             $table->boolean('availability')->default(true);
-            $table->string('image')->nullable();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

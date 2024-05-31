@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ApartmentController extends Controller
@@ -19,7 +20,7 @@ class ApartmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function list()
     {
 
         $appartements = Apartment::query()
@@ -32,8 +33,11 @@ class ApartmentController extends Controller
             ->with(['images:*'])
             ->paginate(10);
 
-        return view('Appartements.index', [
-            'appartements' => $appartements
+        $storagePath = Storage::url('/');
+
+        return Inertia::render('Apartment.List', [
+            'appartements' => $appartements,
+            'storagePath' => $storagePath
         ]);
 
 
@@ -44,14 +48,16 @@ class ApartmentController extends Controller
          */
     }
 
-    public function userIndex()
+    public function index()
     {
         $user = Auth::user();
+        $appartements = $user->apartments()->with(['images', 'tags'])->get();
 
-        $appartements = $user->apartment;
+        $storagePath = Storage::url('/');
 
-        return Inertia::render('Appartements.userIndex', [
-            'appartements' => $appartements
+        return Inertia::render('ApartmentIndex', [
+            'appartements' => $appartements,
+            'storagePath' => $storagePath
         ]);
     }
 
@@ -119,7 +125,8 @@ class ApartmentController extends Controller
      */
     public function show($id)
     {
-        $appartement = Apartment::findOrFail($id);
+        $appartement = Apartment::with(['user:id,name'])->with(['images:*'])->with(['tags:*'])->findOrFail($id);
+//            ->with(['user:id,name'])
 
         $intervalle = Reservation::where("apartment_id", $appartement->id)
             ->select("start_time","end_time")
@@ -130,7 +137,7 @@ class ApartmentController extends Controller
             ->get();
 
         // Récupérer les dates déjà réservées pour cet appartement
-        $reservedDates = Reservation::where('apartment_id', $id)
+        $reservedDates = Reservation::where('apartment_id', $appartement->id)
             ->get() // Récupérez toutes les réservations
             ->map(function ($reservation) {
                 return [
@@ -140,11 +147,14 @@ class ApartmentController extends Controller
             })
             ->toArray();
 
-        return Inertia::render('Appartements.show', [
+        $storagePath = Storage::url('/');
+
+        return Inertia::render('Apartment.show', [
             'appartement' => $appartement,
             'fermetures' => $fermeture,
             'intervalles' => $intervalle,
-            'reservedDates' => $reservedDates
+            'reservedDates' => $reservedDates,
+            'storagePath' => $storagePath
         ]);
     }
     /**
@@ -152,14 +162,11 @@ class ApartmentController extends Controller
      */
     public function edit($id)
     {
-        $appartement = Apartment::findOrFail($id);
-
-        Gate::authorize('update', $appartement);
-
 
         $appartement = Apartment::findOrFail($id);
+        //        Gate::authorize('update', $appartement);
         $tags = Tag::all()->where("user_id", Auth()->id());
-        return view('Appartements.edit', [
+        return Inertia::render('Apartment.edit', [
             'appartement' => $appartement,
             'tags' => $tags
         ]);
@@ -172,7 +179,7 @@ class ApartmentController extends Controller
     {
         $appartement = Apartment::findOrFail($id);
 
-        Gate::authorize('update', $appartement);
+//        Gate::authorize('update', $appartement);
 
         $validatedData = $request->validate([
             'name' => ['required', 'string'],
@@ -196,7 +203,7 @@ class ApartmentController extends Controller
             $appartementImages = ApartmentImage::where('apartment_id', $appartement->id)->get();
 
             if($appartementImages->count() >= 4) {
-                return redirect()->route('appart.edit', $appartement->id)
+                return redirect()->route('apartment.edit', $appartement->id)
                     ->with('error', "Il y a déjà 4 images pour votre appartement. Pour en ajouter une nouvelle, veuillez en supprimer une autre.");
             }
 
@@ -205,7 +212,7 @@ class ApartmentController extends Controller
 
                 $appartementImage = new ApartmentImage();
                 $appartementImage->image = $path;
-                $appartementImage->appartement_id = $appartement->id;
+                $appartementImage->apartment_id = $appartement->id;
                 $appartementImage->save();
             }
         }
@@ -218,7 +225,7 @@ class ApartmentController extends Controller
             $appartement->tags()->detach();
         }
 
-        return redirect()->route('appart.edit', $appartement->id)
+        return redirect()->route('apartment.index', $appartement->id)
             ->with('success', "Appartement mis à jour avec succès");
     }
 
@@ -229,11 +236,11 @@ class ApartmentController extends Controller
     {
         $appartement = Apartment::findOrFail($id);
 
-        Gate::authorize('delete', $appartement);
+//        Gate::authorize('delete', $appartement);
 
         $appartement->delete();
 
-        return redirect(url('/'));
+        return redirect()->route('apartment.index');
     }
 
     public function destroyImg($id) : RedirectResponse {
@@ -241,7 +248,7 @@ class ApartmentController extends Controller
 
         $appartementImages->delete();
 
-        return redirect()->route('appart.edit', $appartementImages->appartement_id)
+        return redirect()->route('apartment.edit', $appartementImages->appartement_id)
             ->with('success', "Appartement mis à jour avec succès");
     }
 }

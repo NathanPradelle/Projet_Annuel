@@ -45,13 +45,13 @@ export default function Authenticated({ user, header, children }) {
                                 </div>}
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('apartment')} active={route().current('apartment')}>
+                                <NavLink href={route('apartment.index')} active={route().current('apartment')}>
                                     Mes appartements
                                 </NavLink>
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('appart.create')} active={route().current('appart.create')}>
+                                <NavLink href={route('apartment.create')} active={route().current('appart.create')}>
                                     Louer un appartement
                                 </NavLink>
                             </div>

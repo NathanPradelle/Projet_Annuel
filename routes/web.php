@@ -41,12 +41,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/customer', [UserController::class, 'indexCustomer'])->name('users.customer');
     Route::get('/customer/{user}', [UserController::class, 'RGPDCustomer'])->name('customer.rgpd');
 
-    Route::resource('appart', ApartmentController::class)->except(['index']);
+    Route::resource('apartment', ApartmentController::class);
     Route::resource('tag', TagController::class);
-    Route::get('/apartment', [ApartmentController::class, 'userIndex'])->name('apartment');
     Route::delete('/appartimage/{id}', [ApartmentController::class, 'destroyImg'])->name('appart.destroyImg');
 
-        Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation');
+    Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation');
     Route::get('/reservation/{id}/edit', [ReservationController::class, 'edit'])->name('reservation.edit');
     Route::get('reservation/create/{appartement_id}', [ReservationController::class, 'create'])->name('reservation.create');
     Route::get('/reservations', [ReservationController::class, 'index'])->name('reservation.index');
@@ -63,5 +62,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/fermetures', [ClosedPeriodController::class, 'store'])->name('fermeture.store');
     });
 });
+
+Route::get('/', [ApartmentController::class, 'list'])->name('apartment.list');
 
 require __DIR__.'/auth.php';
