@@ -1,6 +1,7 @@
-import { MANAGER_PROFILES, PROFILE } from '@/Constants/profiles';
 import { usePage } from '@inertiajs/react';
 import { t } from 'i18next';
+
+import { MANAGER_PROFILES, PROFILE } from '@/Constants/profiles';
 
 export const getCurrentUser = () => {
   return usePage().props?.auth?.currentUser;

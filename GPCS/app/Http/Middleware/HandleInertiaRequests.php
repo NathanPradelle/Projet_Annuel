@@ -31,7 +31,7 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $userController = new UserController();
-        $user = $userController->get();
+        $user = $userController->getForMiddleware();
 
         return [
             ...parent::share($request),

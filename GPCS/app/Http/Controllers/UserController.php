@@ -18,13 +18,13 @@ class UserController extends Controller
     /**
      * Get information of one user
     */
-    public function get()
+    public function getForMiddleware()
     {
         $userId = auth()?->user()?->id;
         $user = User::query(['userProfiles'])->find($userId);
 
         if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
+            return null;
         }
 
         $formatUser = $user->formatUser($user);

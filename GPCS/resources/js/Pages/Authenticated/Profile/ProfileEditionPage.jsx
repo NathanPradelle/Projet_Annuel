@@ -1,10 +1,12 @@
+import { Head } from '@inertiajs/react';
+
+import { PROFILE, USER_PROFILES } from '@/Constants/profiles';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { getCurrentUser } from '@/utils/user';
+
 import DeleteUserForm from './Components/DeleteUserForm';
 import UpdatePasswordForm from './Components/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Components/UpdateProfileInformationForm';
-import { Head } from '@inertiajs/react';
-import { getCurrentUser } from '@/utils/user';
-import { PROFILE, USER_PROFILES } from '@/Constants/profiles';
 
 const ProfileEditionPage = ({ mustVerifyEmail, status }) => {
   const currentUser = getCurrentUser();

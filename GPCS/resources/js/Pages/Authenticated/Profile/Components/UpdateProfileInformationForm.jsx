@@ -1,9 +1,10 @@
+import { Transition } from '@headlessui/react';
+import { Link, useForm } from '@inertiajs/react';
+
+import PrimaryButton from '@/Components/Buttons/PrimaryButton';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/Buttons/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import { Link, useForm } from '@inertiajs/react';
-import { Transition } from '@headlessui/react';
 import { getCurrentUser } from '@/utils/user';
 
 const UpdateProfileInformation = ({

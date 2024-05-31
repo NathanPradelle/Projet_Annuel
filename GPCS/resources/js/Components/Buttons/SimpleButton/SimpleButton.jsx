@@ -1,8 +1,8 @@
+import './SimpleButton.less';
+
+import { Link } from '@inertiajs/react';
 import clsx from 'clsx';
 import React from 'react';
-import { Link } from '@inertiajs/react';
-
-import './SimpleButton.less';
 
 /**
  * @param {import('./typesButton').ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>} param0
