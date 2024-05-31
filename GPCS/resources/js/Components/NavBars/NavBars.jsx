@@ -14,6 +14,7 @@ import UnauthenticatedMenu from './UnauthenticatedMenu/UnauthenticatedMenu';
 
 const NavBars = () => {
   const currentUser = getCurrentUser();
+    console.log(currentUser);
 
   return (
     <div className='navBars'>
