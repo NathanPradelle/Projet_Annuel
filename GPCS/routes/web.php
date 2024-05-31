@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\ClosedPeriodController;
 use App\Http\Controllers\ProfileController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FactureController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -60,10 +62,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/fermetures/create', [ClosedPeriodController::class, 'create'])->name('fermeture.create');
         Route::post('/fermetures', [ClosedPeriodController::class, 'store'])->name('fermeture.store');
     });
+    Route::get('/payment',[PaymentController::class, 'payment']);
 });
 
 Route::get('/', [ApartmentController::class, 'list'])->name('apartment.list');
 
 Route::get('/factureclient', [FactureController::class, 'client']); // need fix
+Route::post('/create-payment-intent', [StripeController::class, 'createPaymentIntent']);
 
 require __DIR__.'/auth.php';
