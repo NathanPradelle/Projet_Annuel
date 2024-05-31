@@ -6,7 +6,7 @@ use App\Models\Apartment;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class AppartementPolicy
+class ApartementPolicy
 {
     /**
      * Determine whether the user can view any models.

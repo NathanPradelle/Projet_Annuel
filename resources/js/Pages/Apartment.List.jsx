@@ -1,8 +1,8 @@
 import React from 'react';
 import { InertiaLink } from '@inertiajs/inertia-react';
 import {Head, Link} from "@inertiajs/react";
-import logoImage from "@/../../public/favicon.png";
-const AppartementsPage = ({ appartements, auth, storagePath,  laravelVersion, phpVersion }) => {
+import logoImage from "../../../public/favicon.png";
+const Appartements = ({ appartements, auth, storagePath,  laravelVersion, phpVersion }) => {
     const handleImageError = () => {
         document.getElementById('screenshot-container')?.classList.add('!hidden');
         document.getElementById('docs-card')?.classList.add('!row-span-1');
@@ -56,54 +56,54 @@ const AppartementsPage = ({ appartements, auth, storagePath,  laravelVersion, ph
                         </div>
                     </header>
                     <div class="flex justify-center">
-                        <div className="grid grid-cols-6 gap-6 w-9/12">
-                            {appartements.data.length > 0 ? (
-                                appartements.data.map((appartement) => (
-                                    <div key={appartement.id} className="mt-9">
-                                        <InertiaLink href={route('apartment.show', appartement.id)} className="block">
-                                            <article>
-                                                {appartement.images.length > 0 ? (
-                                                    <img
-                                                        className="rounded-md"
-                                                        src={storagePath + '/' + appartement.images[0].image}
-                                                        width="100%"
-                                                        style={{ height: "250px" }}
-                                                        alt="Appartement"
-                                                    />
-                                                ) : (
-                                                    <p>Aucune image disponible</p>
-                                                )}
-                                                <h1 className="text-2xl font-extrabold">{appartement.name}</h1>
-                                                <p>{appartement.address}</p>
-                                                <p>Loué par {appartement.user.name}</p>
-                                                <p><span className="font-extrabold">{appartement.price}€</span> par nuit</p>
-                                                {appartement.tags.map((tag) => (
-                                                    <span key={tag.id}
-                                                          className="bg-blue-900 text-blue-300 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-100 dark:text-blue-800">
+                    <div className="grid grid-cols-6 gap-6 w-9/12">
+                        {appartements.data.length > 0 ? (
+                            appartements.data.map((appartement) => (
+                                <div key={appartement.id} className="mt-9">
+                                    <InertiaLink href={route('apartment.show', appartement.id)} className="block">
+                                        <article>
+                                            {appartement.images.length > 0 ? (
+                                                <img
+                                                    className="rounded-md"
+                                                    src={storagePath + '/' + appartement.images[0].image}
+                                                    width="100%"
+                                                    style={{ height: "250px" }}
+                                                    alt="Appartement"
+                                                />
+                                            ) : (
+                                                <p>Aucune image disponible</p>
+                                            )}
+                                            <h1 className="text-2xl font-extrabold">{appartement.name}</h1>
+                                            <p>{appartement.address}</p>
+                                            <p>Loué par {appartement.user.name}</p>
+                                            <p><span className="font-extrabold">{appartement.price}€</span> par nuit</p>
+                                            {appartement.tags.map((tag) => (
+                                                <span key={tag.id}
+                                                      className="bg-blue-900 text-blue-300 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-100 dark:text-blue-800">
                                                     {tag.name}
                                                 </span>
-                                                ))}
-                                            </article>
+                                            ))}
+                                        </article>
+                                    </InertiaLink>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="py-12">
+                                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                                    <div
+                                        className="p-4 sm:p-8 bg-white shadow sm:rounded-lg flex flex-col items-center">
+                                        <p className="text-center text-gray-600 text-lg">Aucun appartement
+                                            disponible...</p>
+                                        <InertiaLink href={route('apartment.create')} className="mt-4">
+                                            <button className="btn btn-primary">Et si vous proposiez le vôtre ?</button>
                                         </InertiaLink>
                                     </div>
-                                ))
-                            ) : (
-                                <div className="py-12">
-                                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                                        <div
-                                            className="p-4 sm:p-8 bg-white shadow sm:rounded-lg flex flex-col items-center">
-                                            <p className="text-center text-gray-600 text-lg">Aucun appartement
-                                                disponible...</p>
-                                            <InertiaLink href={route('apartment.create')} className="mt-4">
-                                                <button className="btn btn-primary">Et si vous proposiez le vôtre ?</button>
-                                            </InertiaLink>
-                                        </div>
-                                    </div>
                                 </div>
-                            )}
-                        </div>
+                            </div>
+                        )}
                     </div>
                 </div>
+            </div>
             </div>
 
             <div className="flex-grow">
@@ -115,8 +115,8 @@ const AppartementsPage = ({ appartements, auth, storagePath,  laravelVersion, ph
             </footer>
 
         </>
-    )
-        ;
+)
+    ;
 };
 
-export default AppartementsPage;
+export default Appartements;

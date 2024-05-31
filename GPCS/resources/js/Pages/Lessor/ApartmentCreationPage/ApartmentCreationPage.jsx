@@ -19,7 +19,7 @@ const ApartmentCreationPage = ({ apartment, tags }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    Inertia.post(route('appart.store'), data);
+    Inertia.post(route('apartment.store'), data);
   };
 
   return (

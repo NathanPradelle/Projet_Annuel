@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Policies\ApartementPolicy;
 
 class Apartment extends Model
 {
+    protected $policy = ApartementPolicy::class;
+
     protected $fillable = [
         'name',
         'address',
@@ -17,8 +20,7 @@ class Apartment extends Model
         'guestCount',
         'roomCount',
         'description',
-        'price',
-        'image'
+        'price'
     ];
 
     protected $hidden = [
@@ -38,7 +40,7 @@ class Apartment extends Model
     }
 
     public function tags(): BelongsToMany {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class,     'apartment_tags');
     }
 
     public function closedperiodes(): HasMany {

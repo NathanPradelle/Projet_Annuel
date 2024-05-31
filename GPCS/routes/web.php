@@ -40,9 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/customer', [UserController::class, 'indexCustomer'])->name('users.customer');
     Route::get('/customer/{user}', [UserController::class, 'RGPDCustomer'])->name('customer.rgpd');
 
-    Route::resource('appart', ApartmentController::class)->except(['index']);
+    Route::resource('apartment', ApartmentController::class);
     Route::resource('tag', TagController::class);
-    Route::get('/apartment', [ApartmentController::class, 'userIndex'])->name('apartment');
     Route::delete('/appartimage/{id}', [ApartmentController::class, 'destroyImg'])->name('appart.destroyImg');
 
     Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation');
@@ -60,8 +59,10 @@ Route::middleware('auth')->group(function () {
         Route::patch('/fermetures/{fermeture}', [ClosedPeriodController::class, 'update'])->name('fermeture.update');
         Route::get('/fermetures/create', [ClosedPeriodController::class, 'create'])->name('fermeture.create');
         Route::post('/fermetures', [ClosedPeriodController::class, 'store'])->name('fermeture.store');
-    });    
+    });
 });
+
+Route::get('/', [ApartmentController::class, 'list'])->name('apartment.list');
 
 Route::get('/factureclient', [FactureController::class, 'client']); // need fix
 
