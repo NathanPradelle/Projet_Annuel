@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import DropdownButton from '@/Components/Buttons/DropdownButton';
-import { getCurrentUser } from '@/utils/user';
+import InputList from '@/Components/InputList';
+import { getCurrentUser, getProfileLabel } from '@/utils/user';
 
 import NavLink from '../NavLink';
 
 const DropMenu = () => {
   const currentUser = getCurrentUser();
 
+  const [value, setValue] = useState(false);
+  const profilesOptions = currentUser?.profiles?.map((profile) => {
+    return {
+      value: profile?.id,
+      label: getProfileLabel(profile?.id),
+      selected: profile?.id == currentUser?.profileInUse,
+    };
+  });
+
   return (
     <DropdownButton
       trigger={
-        <button type='button' className='navLink'>
+        <button type='button' className='nav-link'>
           {currentUser.name}
 
           <svg
@@ -27,16 +37,23 @@ const DropMenu = () => {
           </svg>
         </button>
       }
-      buttonClass='navLink'
+      buttonClass='nav-link'
       content={
         <>
           <NavLink href={route('profile.edit')}>Profile</NavLink>
           <NavLink href={route('logout')} method='post'>
             Log Out
           </NavLink>
+          <InputList
+            id='inputList'
+            setValue={setValue}
+            label='Profile utilisé'
+            options={profilesOptions}
+            styles={{ label: 'nav-input', option: 'nav-option' }}
+          />
         </>
       }
-      contentClass='dropMenu'
+      contentClass='drop-menu'
     />
   );
 };

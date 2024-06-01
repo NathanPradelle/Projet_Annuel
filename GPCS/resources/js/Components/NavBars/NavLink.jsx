@@ -7,7 +7,7 @@ const NavLink = ({ href, className, children, ...props }) => {
   return (
     <Link
       className={clsx(
-        'navLink',
+        'nav-link',
         className,
         isCurrentPage && 'border-b-2 border-indigo-400 focus:border-indigo-700 '
       )}

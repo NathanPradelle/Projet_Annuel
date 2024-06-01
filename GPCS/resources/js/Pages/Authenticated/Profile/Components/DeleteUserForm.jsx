@@ -81,7 +81,6 @@ const DeleteUserForm = ({ className = '' }) => {
               id='password'
               type='password'
               name='password'
-              ref={passwordInput}
               value={data.password}
               onChange={(e) => setData('password', e.target.value)}
               className='mt-1 block w-3/4'

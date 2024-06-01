@@ -1,11 +1,12 @@
+import { Link } from '@inertiajs/react';
 import { useState } from 'react';
+
 import logoImage from '@/../../public/favicon.png';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavBars/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
-import { getCurrentUser } from '@/utils/user';
 import { PROFILE } from '@/Constants/profiles';
+import { getCurrentUser } from '@/utils/user';
 
 const OldBar = ({ header, children }) => {
   const currentUser = getCurrentUser();
@@ -13,7 +14,7 @@ const OldBar = ({ header, children }) => {
   const [showingNavigationDropdown, setShowingNavigationDropdown] =
     useState(false);
   return (
-    <div className='min-h-screen bg-gray-100'>
+    <div className='bg-gray-100'>
       <nav className='bg-white border-b border-gray-100'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='flex justify-between h-16'>

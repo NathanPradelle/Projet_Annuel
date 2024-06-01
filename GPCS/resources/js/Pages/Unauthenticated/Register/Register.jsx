@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { t } from 'i18next';
+import { useEffect } from 'react';
 
-import GuestLayout from '@/Layouts/GuestLayout/GuestLayout';
+import PrimaryButton from '@/Components/Buttons/PrimaryButton';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/Buttons/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
+import GuestLayout from '@/Layouts/GuestLayout/GuestLayout';
 
 const Register = () => {
   const { data, setData, post, processing, errors, reset } = useForm({

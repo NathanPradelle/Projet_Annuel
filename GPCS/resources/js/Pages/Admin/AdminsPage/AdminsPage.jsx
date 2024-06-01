@@ -1,9 +1,10 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
 import { Inertia } from '@inertiajs/inertia';
-import { useState } from 'react';
 import { InertiaLink } from '@inertiajs/inertia-react';
+import { Head } from '@inertiajs/react';
+import { useState } from 'react';
+
 import { PROFILE } from '@/Constants/profiles';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 const AdminsPage = ({ users }) => {
   const [editingUserId, setEditingUserId] = useState(null); // Suivre l'ID de l'utilisateur en cours d'édition

@@ -10,7 +10,7 @@ const Dropdown = ({ className, children }) => {
   const [open, setOpen] = useState(false);
 
   const toggleOpen = () => {
-    setOpen((previousState) => !previousState);
+    setOpen(!open);
   };
 
   return (
@@ -21,7 +21,7 @@ const Dropdown = ({ className, children }) => {
 };
 
 const Trigger = ({ children }) => {
-  const { open, setOpen, toggleOpen } = useContext(DropDownContext);
+  const { toggleOpen } = useContext(DropDownContext);
 
   return (
     <>
@@ -33,7 +33,7 @@ const Trigger = ({ children }) => {
 };
 
 const Content = ({ className, children }) => {
-  const { open, setOpen } = useContext(DropDownContext);
+  const { open } = useContext(DropDownContext);
 
   return (
     <>
@@ -47,12 +47,7 @@ const Content = ({ className, children }) => {
         leaveFrom='opacity-100 scale-100'
         leaveTo='opacity-0 scale-95'
       >
-        <div
-          className={clsx('dropdownContent', className)}
-          onClick={() => setOpen(false)}
-        >
-          {children}
-        </div>
+        <div className={clsx('dropdown-content', className)}>{children}</div>
       </Transition>
     </>
   );

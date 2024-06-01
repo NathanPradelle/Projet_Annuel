@@ -1,32 +1,25 @@
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
 
-const SimpleField = ({
+import Checkbox from '../Checkbox';
+
+const SimpleCheckbox = ({
   id,
   className,
-  type,
   value,
   label,
   onChange,
   errorMessage,
-  placeholder,
 }) => {
   return (
     <div className={className}>
       <InputLabel htmlFor={id} value={label} />
 
-      <TextInput
-        id={id}
-        type={type}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-      />
+      <Checkbox id={id} checked={value} onChange={onChange} />
 
       <InputError message={errorMessage} />
     </div>
   );
 };
 
-export default SimpleField;
+export default SimpleCheckbox;

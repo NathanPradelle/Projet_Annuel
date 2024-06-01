@@ -1,4 +1,4 @@
-const InputLabel = ({ value, className = '', children, ...props }) => {
+const InputLabel = ({ value, className, children, ...props }) => {
   return (
     <label
       {...props}

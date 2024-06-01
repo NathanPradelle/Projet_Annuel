@@ -4,7 +4,7 @@ import React from 'react';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-const ApartmentCreationPage = ({ apartment, tags }) => {
+const ApartmentCreationPage = ({ tags }) => {
   const { data, setData, errors } = useForm();
 
   const handleChange = (e) => {

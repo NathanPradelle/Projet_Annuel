@@ -33,3 +33,15 @@ export const isUserManager = (user) => {
     MANAGER_PROFILES.includes(profile.id)
   );
 };
+
+export const isUserLessor = (user) => {
+  return user?.profiles?.some((profile) =>
+    [...MANAGER_PROFILES, PROFILE.LESSOR].includes(profile.id)
+  );
+};
+
+export const isUserProvider = (user) => {
+  return user?.profiles?.some((profile) =>
+    [...MANAGER_PROFILES, PROFILE.PROVIDER].includes(profile.id)
+  );
+};

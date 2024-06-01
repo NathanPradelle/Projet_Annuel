@@ -14,19 +14,19 @@ import UnauthenticatedMenu from './UnauthenticatedMenu/UnauthenticatedMenu';
 
 const NavBars = () => {
   const currentUser = getCurrentUser();
-    console.log(currentUser);
 
   return (
-    <div className='navBars'>
+    <div className='nav-bars'>
       <div className='side'>
         <NavLink href='/'>
           <img src={logoImage} alt='Logo' />
           {t('menu.home')}
         </NavLink>
 
-        <hr />
-
-        <NavLink href={route('dashboard')}>{t('menu.apartments')}</NavLink>
+        {isUserManager(currentUser) &&
+          MANAGER_PROFILES.includes(currentUser.ProfileInUse) && (
+            <NavLink href='/'>{t('menu.myApartments')}</NavLink>
+          )}
       </div>
 
       <div className='side'>

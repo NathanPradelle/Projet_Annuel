@@ -97,7 +97,7 @@
   },
   "menu": {
     "home": "Home",
-    "apartments": "Voir les appartements",
+    "myApartments": "Voir mes appartements",
     "unauthenticated": {
       "login": "Se Connecter",
       "signIn": "S'inscrire"

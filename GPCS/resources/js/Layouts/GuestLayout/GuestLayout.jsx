@@ -1,6 +1,6 @@
-import NavBars from '@/Components/NavBars/NavBars';
-
 import './GuestLayout.less';
+
+import NavBars from '@/Components/NavBars/NavBars';
 
 const GuestLayout = ({ children }) => {
   return (

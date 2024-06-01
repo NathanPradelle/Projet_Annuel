@@ -29,7 +29,7 @@ const LanguageSelector = () => {
   };
 
   return (
-    <FormControl className="langSelector">
+    <FormControl className='langSelector'>
       <InputLabel>{t('common.lang')}</InputLabel>
       <Select value={currentLang} onChange={changeLanguage}>
         <MenuItem value={LanguageENUM.FR}>Français</MenuItem>

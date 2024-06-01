@@ -13,7 +13,7 @@ const Appartements = ({ appartements, auth, storagePath,  laravelVersion, phpVer
         <>
             <Head title="Welcome" />
             <div
-                className="bg-gradient-to-br from-gray-800 to-gray-600 text-black/50 dark:bg-black dark:text-white/50 min-h-screen flex flex-col">
+                className="bg-gradient-to-br from-gray-800 to-gray-600 text-black/50 dark:bg-black dark:text-white/50 flex flex-col">
                 <div className="relative flex-shrink-0 py-10 lg:py-0">
                     <header className="flex justify-between items-center max-w-7xl mx-auto px-6 lg:px-8">
                         <div>
