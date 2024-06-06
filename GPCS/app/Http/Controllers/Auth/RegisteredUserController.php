@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
 use App\Models\User;
+use App\Models\UserProfile;
 use FilePaths;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -32,18 +32,29 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'profile_in_use' => 2,
-        ]);
+        $user = new User();
+        $user = $user->getUser((object) $validatedData);
+        $user->password = Hash::make($user->password);
+        $user->profile_in_use = 2;
+
+        $user->save();
+
+        $userProfiles = array(
+            new UserProfile(
+                [
+                    'user' => $user->id,
+                    'profile' => 2,
+                ]
+            )
+        );
+        
+        $user->userProfiles()->saveMany($userProfiles);
 
         event(new Registered($user));
 

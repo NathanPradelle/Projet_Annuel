@@ -71,18 +71,45 @@ class User extends Authenticatable
     /// Fonction to set user to return
     /// </summary>
     /// <return> a formatted user </return>
-    public function formatUser(User $user)
+    public function formatUser()
     {
         $user = [
-            'id' => $user?->id,
-            'name' => $user?->name,
-            'email' => $user?->email,
-            'profiles' => $user?->userProfiles->map(function ($userProfile) {
+            'id' => $this?->id,
+            'name' => $this?->name,
+            'email' => $this?->email,
+            'profiles' => $this?->userProfiles->map(function ($userProfile) {
                 return ['id' => $userProfile->profile];
             })->toArray(),
-            'profileInUse' => $user?->profile_in_use,
+            'profileInUse' => $this?->profile_in_use,
         ];
 
+        return $user;
+    }
+
+    /// <summary>
+    /// Fonction to set UserVm to User.
+    /// </summary>
+    /// <return>User.</return>
+    public function getUser($vm)
+    {
+        $userData = [
+            'id' => isset($vm?->id) ? $vm->id : null,
+            'name' => isset($vm?->name) ? $vm->name : null,
+            'email' => isset($vm?->email) ? $vm->email : null,
+            'email_verified_at' => isset($vm?->emailVerifiedAt) ? $vm->emailVerifiedAt : null,
+            'password' => isset($vm?->password) ? $vm->password : null,
+            'remember_token' => isset($vm?->rememberToken) ? $vm->rememberToken : null,
+            'created_at' => isset($vm?->createdAt) ? $vm->createdAt : null,
+            'updated_at' => isset($vm?->updatedAt) ? $vm->updatedAt : null,
+            'profile_in_use' => isset($vm?->profileInUse) ? $vm->profileInUse : null,
+        ];
+
+        $user = new User($userData);
+        
+        if (isset($vm?->profiles)) {
+            $user->userProfiles = $vm->profiles;
+        }
+        
         return $user;
     }
 }

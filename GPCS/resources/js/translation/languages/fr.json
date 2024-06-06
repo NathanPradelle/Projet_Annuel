@@ -3,6 +3,8 @@
   "common": {
     "back": "Retour",
     "connection": "Se Connecter",
+    "name": "Nom",
+    "email": "Adresse mail",
     "other": "Autre",
     "password": "Mot de passe"
   },
@@ -86,8 +88,10 @@
     "video": "Vidéo"
   },
   "signIn": {
+    "label": "S'inscrire",
     "alreadyRegistered": "Déjà connecter ? Cliquez ici",
     "password": {
+      "label":"Mot de passe",
       "confirmLabel": "Confirmation du mot de passe",
       "info": "Au moins 8 caractères, dont 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial"
     }

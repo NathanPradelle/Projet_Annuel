@@ -27,7 +27,7 @@ class UserController extends Controller
             return null;
         }
 
-        $formatUser = $user->formatUser($user);
+        $formatUser = $user->formatUser();
 
         return $formatUser;
     }
@@ -42,7 +42,7 @@ class UserController extends Controller
         }])->paginate(10);
   
         $formattedUsers = $users->map(function ($user) {
-            return $user->formatUser($user);
+            return $user->formatUser();
         });
 
         return Inertia::render(FilePaths::ADMINS_PAGE, [
@@ -84,7 +84,7 @@ class UserController extends Controller
         }])->paginate(10);
 
         $formattedUsers = $users->map(function ($user) {
-            return $user->formatUser($user);
+            return $user->formatUser();
         });
 
         return Inertia::render(FilePaths::USERS, [
@@ -100,38 +100,6 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('users.customer');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-
     }
 
     /**
