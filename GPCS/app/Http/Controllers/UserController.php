@@ -18,16 +18,17 @@ class UserController extends Controller
     /**
      * Get information of one user
     */
-    public function getForMiddleware()
+        public function getForMiddleware()
     {
-        $userId = auth()?->user()?->id;
-        $user = User::query(['userProfiles'])->find($userId);
+        $userId = auth()?->user();
 
-        if (!$user) {
+//        $user = User::query(['userProfiles'])->find($userId);
+//
+        if (!$userId) {
             return null;
         }
 
-        $formatUser = $user->formatUser();
+        $formatUser = $userId->formatUser();
 
         return $formatUser;
     }
@@ -40,7 +41,7 @@ class UserController extends Controller
         $users = User::with(['userProfiles' => function ($query) {
             $query->whereIn('profile', [4, 5]);
         }])->paginate(10);
-  
+
         $formattedUsers = $users->map(function ($user) {
             return $user->formatUser();
         });

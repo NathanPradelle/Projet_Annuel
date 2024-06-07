@@ -135,40 +135,22 @@ const ApartmentPage = ({
       ],
     });
 
-    document
-      .getElementById('start_time')
-      .addEventListener('change', updateTotalPrice);
-    document
-      .getElementById('end_time')
-      .addEventListener('change', updateTotalPrice);
-    document
-      .getElementById('nombre_de_personne')
-      .addEventListener('input', updateTotalPrice);
+      document.addEventListener('DOMContentLoaded', function() {
+          document.getElementById('start_time').addEventListener('change', updateTotalPrice);
+          document.getElementById('end_time').addEventListener('change', updateTotalPrice);
+          document.getElementById('nombre_de_personne').addEventListener('input', updateTotalPrice);
 
-    document
-      .getElementById('start_time')
-      .addEventListener('change', disableReservedDates);
-    document
-      .getElementById('end_time')
-      .addEventListener('change', disableReservedDates);
+          document.getElementById('start_time').addEventListener('change', disableReservedDates);
+          document.getElementById('end_time').addEventListener('change', disableReservedDates);
 
-    return () => {
-      document
-        .getElementById('start_time')
-        .removeEventListener('change', updateTotalPrice);
-      document
-        .getElementById('end_time')
-        .removeEventListener('change', updateTotalPrice);
-      document
-        .getElementById('nombre_de_personne')
-        .removeEventListener('input', updateTotalPrice);
-      document
-        .getElementById('start_time')
-        .removeEventListener('change', disableReservedDates);
-      document
-        .getElementById('end_time')
-        .removeEventListener('change', disableReservedDates);
-    };
+          return () => {
+              document.getElementById('start_time').removeEventListener('change', updateTotalPrice);
+              document.getElementById('end_time').removeEventListener('change', updateTotalPrice);
+              document.getElementById('nombre_de_personne').removeEventListener('input', updateTotalPrice);
+              document.getElementById('start_time').removeEventListener('change', disableReservedDates);
+              document.getElementById('end_time').removeEventListener('change', disableReservedDates);
+          };
+      });
   }, [appartement.price, intervalles, fermetures]);
 
   return (
@@ -201,10 +183,6 @@ const ApartmentPage = ({
                     {tag.name}
                   </span>
                 ))}
-                <p className='text-xl'>
-                  <span>{appartement.guestCount} voyageurs</span>·
-                  <span>{appartement.roomCount} chambres</span>
-                </p>
                 <p className='text-xl'>{appartement.address}</p>
                 <p className='text-xl'>Loué par {appartement.user.name}</p>
 
@@ -219,7 +197,7 @@ const ApartmentPage = ({
                   par nuit
                 </p>
 
-                <form method='POST' action='/reservation/store'>
+                <form method='POST' action={route("reservation.store")}>
                   <input
                     type='hidden'
                     name='appartement_id'
