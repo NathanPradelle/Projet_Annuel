@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import { Inertia } from '@inertiajs/inertia';
+import axios from 'axios';
+import React, { useCallback, useState } from 'react';
 
 import DropdownButton from '@/Components/Buttons/DropdownButton';
 import InputList from '@/Components/InputList';
@@ -9,7 +11,8 @@ import NavLink from '../NavLink';
 const DropMenu = () => {
   const currentUser = getCurrentUser();
 
-  const [value, setValue] = useState(false);
+  const [value, setValue] = useState(0);
+
   const profilesOptions = currentUser?.profiles?.map((profile) => {
     return {
       value: profile?.id,
@@ -17,6 +20,15 @@ const DropMenu = () => {
       selected: profile?.id == currentUser?.profileInUse,
     };
   });
+
+  const onProfileChange = useCallback(
+    (data) => {
+      axios
+        .post(route('user.profileToUse'), { id: data.value })
+        .then(() => Inertia.reload());
+    },
+    [value]
+  );
 
   return (
     <DropdownButton
@@ -49,6 +61,7 @@ const DropMenu = () => {
             setValue={setValue}
             label='Profile utilisé'
             options={profilesOptions}
+            onChange={onProfileChange}
             styles={{ label: 'nav-input', option: 'nav-option' }}
           />
         </>

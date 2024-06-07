@@ -5,7 +5,7 @@ import InputLabel from '@/Components/InputLabel';
 
 import DropdownButton from '../Buttons/DropdownButton';
 
-const InputList = ({ id, setValue, label, options, styles }) => {
+const InputList = ({ id, setValue, label, options, onChange, styles }) => {
   const [selectedOption, setSelectedOption] = useState();
 
   useEffect(() => {
@@ -16,6 +16,7 @@ const InputList = ({ id, setValue, label, options, styles }) => {
     (selected) => {
       setSelectedOption(selected.label);
       setValue(selected.value);
+      onChange && onChange(selected);
     },
     [setValue]
   );

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserProfile;
 use FilePaths;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -20,17 +21,33 @@ class UserController extends Controller
     */
         public function getForMiddleware()
     {
-        $userId = auth()?->user();
+        $user = User::find(auth()->id());
 
-//        $user = User::query(['userProfiles'])->find($userId);
-//
-        if (!$userId) {
+        // $user = User::query(['userProfiles'])->find($userId);
+        if (!$user) {
             return null;
         }
 
-        $formatUser = $userId->formatUser();
+        $formatUser = $user->formatUser();
 
         return $formatUser;
+    }
+
+    public function profileToUse(Request $profile)
+    {
+        $user = User::find(auth()->id());
+
+        $profileExists = $user->userProfiles->contains('profile', $profile->id);
+
+        if (!$profileExists) {
+            return response()->json(['error' => 'Unauthorized or profile not found'], 403);
+        }
+
+        $user->profile_in_use = $profile->id;
+        
+        $user->save();
+
+        return response()->json($user->formatUser(), 200);
     }
 
     #endregion
