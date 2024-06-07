@@ -29,7 +29,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::post('/user', [UserController::class, 'profileToUse'])->name('user.profileToUse');
+    Route::post('/userProfile', [UserController::class, 'profileToUse'])->name('user.profileToUse');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -40,6 +40,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', [UserController::class, 'indexAdmin'])->name('users.admin');
     Route::post('/admin', [UserController::class, 'StoreAdmin'])->name('admin.store');
     Route::get('/admin/create', [UserController::class, 'CreateAdmin'])->name('admin.create');
+
+    Route::get('/user/{id}', [UserController::class, 'user'])->name('user');
+    Route::post('/user', [UserController::class, 'StoreAdmin'])->name('user.update');
+    Route::post('/user/exclude', [UserController::class, 'CreateAdmin'])->name('user.exclude');
 
     Route::get('/customer', [UserController::class, 'indexCustomer'])->name('users.customer');
     Route::get('/customer/{user}', [UserController::class, 'RGPDCustomer'])->name('customer.rgpd');

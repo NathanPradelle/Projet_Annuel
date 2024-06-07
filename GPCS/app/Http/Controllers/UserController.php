@@ -73,6 +73,27 @@ class UserController extends Controller
         return Inertia::render(FilePaths::ADMIN_CREATION);
     }
 
+    public function user($id)
+    {
+        $currentUser = User::join('user_profiles', 'users.id', '=', 'user_profiles.user')
+        ->where('user.id', '=', auth()->id())
+        ->whereIn('user_profiles.profile', [4, 5]);
+        
+        if (!$currentUser) {
+            return null; // response()->json(['error' => 'Unauthorized'], 401);
+        }
+        
+        $user = User::find($id);
+        
+        if (!$user) {
+            return null; // response()->json(['error' => 'User not found'], 404);
+        }
+
+        return Inertia::render(FilePaths::USER, [
+            'user' => $user,
+        ]);
+    }
+
     public function StoreAdmin(Request $request)
     {
         $request->validate([
@@ -95,11 +116,17 @@ class UserController extends Controller
 
     public function indexCustomer()
     {
-        $users = User::with(['userProfiles' => function ($query) {
-            $query->whereIn('profile', [1, 2, 3])
-                ->where('email', '!=', null)
-                ->where('name', '!=', 'RGPD');
-        }])->paginate(10);
+        // Ta fonction elle fais 2 requetes, renvoyant le résultat de la mauvaise
+        // $users = User::with(['userProfiles' => function ($query) {
+        //     $query->whereIn('profile', [1, 2, 3])
+        //         ->where('email', '!=', null)
+        //         ->where('name', '!=', 'RGPD');
+        // }])->paginate(10);
+
+        $users = User::join('user_profiles', 'users.id', '=', 'user_profiles.user')
+        ->whereIn('user_profiles.profile', [1, 2, 3])
+        ->distinct()
+        ->paginate(10);
 
         $formattedUsers = $users->map(function ($user) {
             return $user->formatUser();

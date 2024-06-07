@@ -1,15 +1,16 @@
 import { Head } from '@inertiajs/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { getProfileLabel } from '@/utils/user';
 
-const UsersPage = ({ users }) => {
-  console.log(users);
+const UserPage = ({ user }) => {
+  console.log(user);
+  return <AuthenticatedLayout> test </AuthenticatedLayout>;
   const [searchTerm, setSearchTerm] = useState('');
 
   // Fonction pour filtrer les utilisateurs par nom ou par e-mail
-  const filteredUsers = users?.filter(
+  const filteredUsers = users.filter(
     (user) =>
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase())
@@ -127,4 +128,4 @@ const UsersPage = ({ users }) => {
   );
 };
 
-export default UsersPage;
+export default UserPage;

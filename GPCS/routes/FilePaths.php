@@ -25,6 +25,7 @@ class FilePaths {
     const TAG_EDITION = 'Admin/TagEditionPage/TagEditionPage';
     const TAGS = 'Admin/TagsPage/TagsPage';
     const USERS = 'Admin/UsersPage/UsersPage';
+    const USER = 'Admin/UserPage/UserPage';
 
     /* Lessor */
     const APARTMENT_CREATION = 'Lessor/ApartmentCreationPage/ApartmentCreationPage';
