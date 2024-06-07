@@ -33,7 +33,7 @@ class ApartmentController extends Controller
             ->with(['images:*'])
             ->paginate(10);
 
-        $storagePath = Storage::url('/');
+        $storagePath = FilePaths::IMAGE_URL;
 
         return Inertia::render(FilePaths::APARTMENTS, [
             'appartements' => $appartements,
@@ -53,7 +53,7 @@ class ApartmentController extends Controller
         $user = Auth::user();
         $appartements = $user->apartments()->with(['images', 'tags'])->get();
 
-        $storagePath = Storage::url('/');
+        $storagePath = FilePaths::IMAGE_URL;
 
         return Inertia::render(FilePaths::MY_APARTMENTS, [
             'appartements' => $appartements,
@@ -148,8 +148,8 @@ class ApartmentController extends Controller
             ->toArray();
 
 
-        $storagePath = Storage::url('/');
-        return Inertia::render(FilePaths::APARTMENTS, [
+        $storagePath = FilePaths::IMAGE_URL;
+        return Inertia::render(FilePaths::APARTMENT, [
             'appartement' => $appartement,
             'fermetures' => $fermeture,
             'intervalles' => $intervalle,

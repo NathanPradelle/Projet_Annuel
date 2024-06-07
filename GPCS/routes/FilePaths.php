@@ -1,9 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Storage;
+
 class FilePaths {
     /* Unauthenticated */
     const WELCOME = 'Unauthenticated/Welcome/Welcome';
     const APARTMENTS = 'Unauthenticated/ApartmentsPage/ApartmentsPage';
+    const APARTMENT = 'Unauthenticated/ApartmentPage/ApartmentPage';
     const LOGIN = "Unauthenticated/Login/Login";
     const REGISTER = "Unauthenticated/Register/Register";
 
@@ -31,5 +34,8 @@ class FilePaths {
     /* Traveler */
     const MY_RESERVATION = 'Traveler/MyReservationPage/MyReservationPage';
     const MY_RESERVATIONS = 'Traveler/MyReservationsPage/MyReservationsPage';
+
+    /* Images */
+    const IMAGE_URL = "http://127.0.0.1:8000/Storage/";
 
 }

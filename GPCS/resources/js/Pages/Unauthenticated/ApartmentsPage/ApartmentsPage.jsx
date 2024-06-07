@@ -27,11 +27,12 @@ const AppartementsPage = ({ appartements, storagePath }) => {
               >
                 {appartement.images.length > 0 ? (
                   <img
-                    src={storagePath + '/' + appartement.images[0].image}
+                    src={storagePath + appartement.images[0].image}
                     width='100%'
                     style={{ height: '250px' }}
                     alt='Appartement'
                   />
+
                 ) : (
                   <p>Aucune image disponible</p>
                 )}

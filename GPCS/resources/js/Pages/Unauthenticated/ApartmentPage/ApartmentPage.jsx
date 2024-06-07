@@ -182,7 +182,7 @@ const ApartmentPage = ({
                 <img
                   key={index}
                   className='rounded-md'
-                  src={storagePath + '/' + image.image}
+                  src={storagePath + image.image}
                   width='25%'
                   style={{ height: '250px' }}
                   alt='Appartement'
