@@ -24,7 +24,7 @@ const NavBars = () => {
         </NavLink>
 
         {isUserManager(currentUser) &&
-          MANAGER_PROFILES.includes(currentUser.ProfileInUse) && (
+          MANAGER_PROFILES.includes(currentUser.profileInUse) && (
             <NavLink href='/'>{t('menu.myApartments')}</NavLink>
           )}
       </div>
@@ -33,7 +33,7 @@ const NavBars = () => {
         {currentUser ? (
           <>
             {isUserManager(currentUser) &&
-              MANAGER_PROFILES.includes(currentUser.ProfileInUse) && (
+              MANAGER_PROFILES.includes(currentUser.profileInUse) && (
                 <ManagerMenu />
               )}
 

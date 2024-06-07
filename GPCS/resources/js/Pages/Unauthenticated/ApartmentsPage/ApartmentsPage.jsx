@@ -1,9 +1,12 @@
 import { InertiaLink } from '@inertiajs/inertia-react';
+import { t } from 'i18next';
 import React from 'react';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-const AppartementsPage = ({ appartements, storagePath }) => {
+import ApartmentWindow from './ApartmentWindow';
+
+const AppartementsPage = ({ apartments, storagePath }) => {
   //   const handleImageError = () => {
   //     document.getElementById('screenshot-container')?.classList.add('!hidden');
   //     document.getElementById('docs-card')?.classList.add('!row-span-1');
@@ -14,61 +17,29 @@ const AppartementsPage = ({ appartements, storagePath }) => {
   return (
     <AuthenticatedLayout
       head='Welcome'
-      className='bg-gradient-to-br from-gray-800 to-gray-600 text-black/50 dark:bg-black dark:text-white/50 flex-col'
+      className='bg-gradient-to-br from-gray-800 to-gray-600 dark:bg-black dark:text-white/50 flex-col'
     >
-      <h3 className='flex-center m-2'>Grand Paris Caretaker Services</h3>
-            <div className='mt-9 ml-11'>
-                    {appartements.data.length > 0 ? (
-                        appartements.data.map((appartement) => (
-                            <InertiaLink
-                                href={route('apartment.show', appartement.id)}
-                                className='block'
-                            >
-                                {appartement.images.length > 0 ? (
-                                    <img
-                                        key={appartement.id}
-                                        src={storagePath + appartement.images[0].image}
-                                        className='rounded-md'
-                                        width='25%'
-                                        style={{height: '250px'}}
-                                        alt='Appartement'
-                                    />
-
-                                ) : (
-                                    <p>Aucune image disponible</p>
-                                )}
-                                <h1 className='text-2xl font-extrabold'>{appartement.name}</h1>
-                                <p>{appartement.address}</p>
-                                <p>Loué par {appartement.user.name}</p>
-                                <p>
-                                    <span className='font-extrabold'>{appartement.price}€</span>{' '}
-                                    par nuit
-                                </p>
-                                {appartement.tags.map((tag) => (
-                                    <span
-                                        key={tag.id}
-                                        className='bg-blue-900 text-blue-300 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-100 dark:text-blue-800'
-                                    >
-                    {tag.name}
-                  </span>
-                                ))}
-                            </InertiaLink>
-                        ))
-                    ) : (
-                        <div className='p-4 sm:p-8 bg-white shadow sm:rounded-lg flex flex-col items-center'>
-                            <p className='text-center text-gray-600 text-lg'>
-                                Aucun appartement disponible...
-                            </p>
-                            <InertiaLink href={route('apartment.create')} className='mt-4'>
-                                <button className='btn btn-primary'>
-                                    Et si vous proposiez le vôtre ?
-                                </button>
-                            </InertiaLink>
-                        </div>
-                    )}
-            </div>
+      <h3 className='flex-center m-2'>{t('appLongName')}</h3>
+      {apartments?.data?.length > 0 ? (
+        apartments?.data?.map((apartment) => (
+          <ApartmentWindow
+            key={apartment.id} // unused, otherwise ide go crazy
+            apartment={apartment}
+            storagePath={storagePath}
+          />
+        ))
+      ) : (
+        <div className='p-4 sm:p-8 bg-white shadow sm:rounded-lg flex flex-col items-center'>
+          <p className='text-center text-gray-600 text-lg'>
+            {t('apartment.noApartmentAvailable')}
+          </p>
+          <InertiaLink href={route('apartment.create')} className='mt-4'>
+            {t('apartment.askYours')}
+          </InertiaLink>
+        </div>
+      )}
     </AuthenticatedLayout>
-);
+  );
 };
 
 export default AppartementsPage;

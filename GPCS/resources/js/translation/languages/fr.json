@@ -1,5 +1,6 @@
 {
   "appName": "GPCS",
+  "appLongName": "Grand Paris Caretaker Service",
   "common": {
     "back": "Retour",
     "connection": "Se Connecter",
@@ -111,5 +112,11 @@
       "users": "Liste d'utilisateur",
       "tags": "Les tags"
     }
+  },
+  "apartment": {
+    "noApartmentAvailable": "Aucun appartement disponible...",
+    "noPictureAvailable": "Aucune image disponible",
+    "perNight": "par nuit",
+    "askYours": "Et si vous proposiez le vôtre ?"
   }
 }
