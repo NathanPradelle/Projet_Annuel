@@ -68,12 +68,17 @@ Route::middleware('auth')->group(function () {
         Route::get('/fermetures/create', [ClosedPeriodController::class, 'create'])->name('fermeture.create');
         Route::post('/fermetures', [ClosedPeriodController::class, 'store'])->name('fermeture.store');
     });
-    Route::get('/payment',[PaymentController::class, 'payment']);
+    Route::get('/payment',[StripeController::class, 'payment']);
+
 });
 
 Route::get('/', [ApartmentController::class, 'list'])->name('apartment.list');
 
-Route::get('/factureclient', [FactureController::class, 'client']); // need fix
+Route::get('/factureclient', [FactureController::class, 'client']);
+
+Route::get('/test-create-payment-intent', [StripeController::class, 'createPaymentIntent']);
 Route::post('/create-payment-intent', [StripeController::class, 'createPaymentIntent']);
+Route::get('/test-get-payment-intent/{id}',  [StripeController::class, 'capturePaymentIntent']);
+Route::post('/get-payment-intent/{id}',  [StripeController::class, 'capturePaymentIntent']);
 
 require __DIR__.'/auth.php';

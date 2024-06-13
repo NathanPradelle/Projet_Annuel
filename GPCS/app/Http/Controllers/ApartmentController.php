@@ -77,6 +77,7 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
+
         $validateData = $request->validate([
             'name' => ['required', 'max:255', 'regex:/^[a-zA-Z\s]*$/'],
             'address' => ['required', 'max:255'],

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\StripeController;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -17,7 +18,10 @@ class PaymentController extends Controller
     public function payment()
     {
         $price = 100;
-        return Inertia::render('Payment/Payment', [
+
+        $id = capturePaymentIntent();
+        var_dump($id);
+        return Inertia::render('Authenticated/Payment/Payment', [
             'price' => $price,
         ]);
     }

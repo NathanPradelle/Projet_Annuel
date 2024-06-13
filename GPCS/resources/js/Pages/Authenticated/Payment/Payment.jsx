@@ -1,17 +1,44 @@
 import { Head } from '@inertiajs/react';
+import { Elements, useStripe } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import { data } from 'autoprefixer';
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const response = await axios.post('/create-payment-intent', {
-    amount: parseFloat(amount),
-  });
-};
+import CheckoutForm from './CheckoutForm';
 
-const Payment = ({ auth, price }) => {
+const stripePromise = loadStripe(
+  'pk_test_51N8RtXFpcWCjc9LprUhXkYau0AZ4L6JgrVbiHhsRKEXtTuENs45IN7G2nHii9Jnb6gd0jKmC2ZBhLDuPqv2y0U5M007tYSY1YU'
+);
+
+const Payment = ({ auth, price, id }) => {
+  const [clientSecret, setClientSecret] = useState('');
+
+  useEffect(() => {
+    // Create PaymentIntent as soon as the page loads
+    // console.log(
+    //   'c : ',
+    //   fetch('/get-payment-intent/pi_3PR97lFpcWCjc9Lp1yzuaAkH', {
+    //     method: 'POST',
+    //   })
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       setClientSecret(data.clientSecret);
+    //     })
+    // );
+    setClientSecret(id);
+  }, []);
+
+  const appearance = {
+    theme: 'stripe',
+  };
+  const options = {
+    clientSecret,
+    appearance,
+  };
+
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -22,28 +49,13 @@ const Payment = ({ auth, price }) => {
       }
     >
       <Head title='Payment' />
-
-      <body>
-        <div>
-          <form onSubmit={handleSubmit}>
-            <label>
-              Montant:
-              <input
-                type='text'
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-              />
-            </label>
-            <button type='submit'>Payer</button>
-          </form>
-          {errorMessage && <p>{errorMessage}</p>}
-          {clientSecret && <StripePaymentForm clientSecret={clientSecret} />}
-        </div>
-        {price}€
-        <form action='/create-checkout-session' method='POST'>
-          <button type='submit'>Checkout</button>
-        </form>
-      </body>
+      <div className='App'>
+        {clientSecret && (
+          <Elements options={options} stripe={stripePromise}>
+            <CheckoutForm />
+          </Elements>
+        )}
+      </div>
     </AuthenticatedLayout>
   );
 };
