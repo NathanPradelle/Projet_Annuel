@@ -63,7 +63,7 @@ const Login = ({ status, canResetPassword }) => {
             </Link>
           )}
 
-          <SimpleButton className='ms-4' onClick={onSubmit}>
+          <SimpleButton className='ms-4' type='submit'>
             {t('common.connection')}
           </SimpleButton>
         </div>

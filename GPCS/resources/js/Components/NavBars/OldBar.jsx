@@ -45,7 +45,7 @@ const OldBar = ({ header, children }) => {
                 (profile) => profile.id == PROFILE.MANAGEMENT
               ) && (
                 <div className='space-x-8 sm:-my-px sm:ms-10 sm:flex'>
-                  <NavLink href={route('users.customer')}>Client</NavLink>
+                  <NavLink href={route('users')}>Client</NavLink>
                 </div>
               )}
 

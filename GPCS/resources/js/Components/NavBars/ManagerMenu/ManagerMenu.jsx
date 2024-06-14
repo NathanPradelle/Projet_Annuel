@@ -10,7 +10,7 @@ const ManagerMenu = () => {
 
       <hr />
 
-      <NavLink href={route('users.customer')}>{t('menu.admin.users')}</NavLink>
+      <NavLink href={route('users')}>{t('menu.admin.users')}</NavLink>
     </>
   );
 };

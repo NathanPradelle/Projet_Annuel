@@ -9,6 +9,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FactureController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Middleware\CheckUserProfile;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -41,13 +42,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin', [UserController::class, 'StoreAdmin'])->name('admin.store');
     Route::get('/admin/create', [UserController::class, 'CreateAdmin'])->name('admin.create');
 
-    Route::get('/user/{id}', [UserController::class, 'user'])->name('user');
-    Route::post('/user', [UserController::class, 'StoreAdmin'])->name('user.update');
-    Route::post('/user/exclude', [UserController::class, 'CreateAdmin'])->name('user.exclude');
-
-    Route::get('/customer', [UserController::class, 'indexCustomer'])->name('users.customer');
-    Route::get('/customer/{user}', [UserController::class, 'RGPDCustomer'])->name('customer.rgpd');
-
+    Route::middleware(CheckUserProfile::class.':isManager')->group(function () {
+        Route::get('/user/{id}', [UserController::class, 'user'])->name('user');
+        // Route::post('/user', [UserController::class, 'update'])->name('user.update'); may be change to a simple api call
+        Route::get('/users', [UserController::class, 'indexCustomer'])->name('users');
+        Route::post('/user/exclude', [UserController::class, 'RGPDCustomer'])->name('user.exclude');
+    });
+    
     Route::resource('apartment', ApartmentController::class);
     Route::resource('tag', TagController::class);
     Route::delete('/appartimage/{id}', [ApartmentController::class, 'destroyImg'])->name('appart.destroyImg');

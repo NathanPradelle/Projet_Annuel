@@ -4,8 +4,9 @@
   "common": {
     "back": "Retour",
     "connection": "Se Connecter",
-    "name": "Nom",
+    "details": "Détails",
     "email": "Adresse mail",
+    "name": "Nom",
     "other": "Autre",
     "password": "Mot de passe"
   },
@@ -16,16 +17,15 @@
     "409": "La ressource n'est pas a jour. Recharger la page avant de faire votre action",
     "422": "Un ou plusieurs de vos données saisies ne sont pas acceptables (un email ou autre information qui a déjà été prise)",
     "arrayMinLengthOne": "Au moins 1 élément doit être sélectionné",
-    "takenEmail": "Un des emails saisis n'est plus disponible",
     "cannotBeEmpty": "Le champ est obligatoire",
-    "noInformationSent": "aucune information n'a été envoyée",
-    "notFound": "Erreur : La valeur recherchée n'a pas été trouvée",
+    "cityError": "Saisie incorrecte, entrez un code postal ou une ville",
     "disconnected": "Vous avez été déconnecté, veuillez vous authentifier à nouveau",
     "generic": "Une erreur est survenue",
     "inputError": "saisie incorrecte,",
-    "cityError": "Saisie incorrecte, entrez un code postal ou une ville",
-    "invalidFilename": "Un nom de fichier ne peut pas contenir les caractères suivants:  \\ / : “ * ? < > |"
-
+    "invalidFilename": "Un nom de fichier ne peut pas contenir les caractères suivants:  \\ / : “ * ? < > |",
+    "noInformationSent": "aucune information n'a été envoyée",
+    "notFound": "Erreur : La valeur recherchée n'a pas été trouvée",
+    "takenEmail": "Un des emails saisis n'est plus disponible"
   },
   "civility": {
     "F": "Mme.",
@@ -41,8 +41,8 @@
     "traveler": "Voyageur"
   },
   "chart": {
+    "sign": "Signer la charte",
     "confirm": "Je soussigné(e) {{name}} m'engage:",
-    "butonSigner": "Signer la charte",
     "error": "La charte n'est pas signée",
     "fifthPara": "C'est en ce sens que nous vous invitons à signer cette charte d'engagement de l'Alternant(e) et à respecter les consignes suivantes tout au long de la période de recherche d'entreprise qui s'ouvre et dont vos Référents CFA en seront les superviseurs.",
     "fifthcommitment": "A choisir rapidement en cas de propositions multiples de missions entreprise",
@@ -114,9 +114,9 @@
     }
   },
   "apartment": {
+    "askYours": "Et si vous proposiez le vôtre ?",
     "noApartmentAvailable": "Aucun appartement disponible...",
     "noPictureAvailable": "Aucune image disponible",
-    "perNight": "par nuit",
-    "askYours": "Et si vous proposiez le vôtre ?"
+    "perNight": "par nuit"
   }
 }

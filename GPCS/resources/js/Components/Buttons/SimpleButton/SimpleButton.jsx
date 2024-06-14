@@ -15,7 +15,7 @@ const SimpleButton = ({
   loading,
   to,
   target,
-  tag,
+  type,
   ...props
 }) => {
   const childrenRender = Array.isArray(children) ? (
@@ -26,28 +26,25 @@ const SimpleButton = ({
     children
   );
 
-  const Tag = tag || 'button';
-
   const button = (
-    <Tag
+    <button
       className={clsx('gpcs-button', className, {
         disabled: disabled || loading,
         [color]: color,
         loading,
       })}
-      {...props}
-      type={props.type || 'button'}
+      type={type || 'button'}
       disabled={disabled || loading}
     >
       {loading && <CircularProgress size={20} className='absolute' />}
       {childrenRender}
-    </Tag>
+    </button>
   );
 
   if (to) {
     return (
       <Link
-        to={to}
+        href={to}
         target={target}
         className='redirection-button-link'
         {...props}

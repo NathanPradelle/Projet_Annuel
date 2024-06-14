@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\UserProfile;
 use FilePaths;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -11,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Illuminate\Validation\Rules;
 
+use function PHPUnit\Framework\isEmpty;
 
 class UserController extends Controller
 {
@@ -75,22 +75,14 @@ class UserController extends Controller
 
     public function user($id)
     {
-        $currentUser = User::join('user_profiles', 'users.id', '=', 'user_profiles.user')
-        ->where('user.id', '=', auth()->id())
-        ->whereIn('user_profiles.profile', [4, 5]);
-        
-        if (!$currentUser) {
-            return null; // response()->json(['error' => 'Unauthorized'], 401);
-        }
-        
         $user = User::find($id);
-        
-        if (!$user) {
+
+        if (is_null($user)) {
             return null; // response()->json(['error' => 'User not found'], 404);
         }
 
         return Inertia::render(FilePaths::USER, [
-            'user' => $user,
+            'user' => $user->formatUser(),
         ]);
     }
 
@@ -144,7 +136,7 @@ class UserController extends Controller
             'email'=> null,
         ]);
 
-        return redirect()->route('users.customer');
+        return redirect()->route('users');
     }
 
     /**
