@@ -18,9 +18,21 @@ class ProfileController extends Controller
     #region Get
 
     /// <summary>
+    /// Get all profiles.
+    /// </summary>
+    public function get()
+    {
+        $profiles = Profile::query()
+            ->select('profile.id', 'profile.name')
+            ->get();
+    
+        return response()->json($profiles);
+    }
+
+    /// <summary>
     /// Get profiles of a users.
     /// </summary>
-    public function get($userId)
+    public function getForUser($userId)
     {
         $profiles = Profile::query()
             ->select('profile.id', 'profile.name')

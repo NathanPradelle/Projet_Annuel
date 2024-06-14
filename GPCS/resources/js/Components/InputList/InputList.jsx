@@ -5,20 +5,28 @@ import InputLabel from '@/Components/InputLabel';
 
 import DropdownButton from '../Buttons/DropdownButton';
 
-const InputList = ({ id, setValue, label, options, onChange, styles }) => {
+const InputList = ({
+  id,
+  setData,
+  label,
+  options,
+  onChange,
+  disabled,
+  styles,
+}) => {
   const [selectedOption, setSelectedOption] = useState();
 
   useEffect(() => {
     setSelectedOption(options?.find((option) => !!option?.selected)?.label);
-  }, [options]);
+  }, []);
 
   const onClickChange = useCallback(
     (selected) => {
       setSelectedOption(selected.label);
-      setValue(selected.value);
+      setData(id, selected.value);
       onChange && onChange(selected);
     },
-    [setValue]
+    [setData]
   );
 
   return (
@@ -26,19 +34,23 @@ const InputList = ({ id, setValue, label, options, onChange, styles }) => {
       trigger={
         <>
           <InputLabel htmlFor={id} value={label} className={styles?.label} />
-          <button id={id}>{selectedOption}</button>
+          <button id={id} type='button'>
+            {selectedOption}
+          </button>
         </>
       }
       content={options.map((option) => (
         <button
           key={option?.value}
           value={option?.value}
-          onClick={() => onClickChange(option)}
+          onClick={!disabled && (() => onClickChange(option))}
           className={clsx('p-0_5', styles?.option)}
+          type='button'
         >
           {option?.label}
         </button>
       ))}
+      disabled={disabled}
     />
   );
 };

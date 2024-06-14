@@ -43,6 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/create', [UserController::class, 'CreateAdmin'])->name('admin.create');
 
     Route::middleware(CheckUserProfile::class.':isManager')->group(function () {
+        Route::get('/profile/get', [ProfileController::class, 'get'])->name('profile.get');
+
         Route::get('/user/{id}', [UserController::class, 'user'])->name('user');
         // Route::post('/user', [UserController::class, 'update'])->name('user.update'); may be change to a simple api call
         Route::get('/users', [UserController::class, 'indexCustomer'])->name('users');

@@ -12,6 +12,7 @@ const SimpleField = ({
   errorMessage,
   placeholder,
   required,
+  disabled,
 }) => {
   return (
     <div className={className}>
@@ -24,6 +25,7 @@ const SimpleField = ({
         onChange={onChange}
         placeholder={placeholder}
         required={required}
+        disabled={disabled}
       />
 
       <InputError message={errorMessage} />

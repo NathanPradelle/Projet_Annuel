@@ -3,12 +3,15 @@
   "appLongName": "Grand Paris Caretaker Service",
   "common": {
     "back": "Retour",
+    "client": "Client",
     "connection": "Se Connecter",
     "details": "Détails",
     "email": "Adresse mail",
+    "modify": "Modifier",
     "name": "Nom",
     "other": "Autre",
-    "password": "Mot de passe"
+    "password": "Mot de passe",
+    "save": "Enregistrer"
   },
   "errorMessage": {
     "401": "Veuillez vous authentifier pour accéder à cette page",

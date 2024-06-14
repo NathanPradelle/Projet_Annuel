@@ -20,8 +20,8 @@ const Dropdown = ({ className, children }) => {
   );
 };
 
-const Trigger = ({ children }) => {
-  const { toggleOpen } = useContext(DropDownContext);
+const Trigger = ({ disabled, children }) => {
+  const { toggleOpen } = !disabled && useContext(DropDownContext);
 
   return (
     <>

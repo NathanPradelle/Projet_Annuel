@@ -16,6 +16,7 @@ const SimpleButton = ({
   to,
   target,
   type,
+  onClick,
   ...props
 }) => {
   const childrenRender = Array.isArray(children) ? (
@@ -35,6 +36,7 @@ const SimpleButton = ({
       })}
       type={type || 'button'}
       disabled={disabled || loading}
+      onClick={onClick}
     >
       {loading && <CircularProgress size={20} className='absolute' />}
       {childrenRender}
