@@ -3,12 +3,9 @@
 namespace App\Providers;
 
 use App\Models\User;
-use App\Events\Reservation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
-use App\Listeners\ReservationNotification;
 
 class AppServiceProvider extends ServiceProvider
 {

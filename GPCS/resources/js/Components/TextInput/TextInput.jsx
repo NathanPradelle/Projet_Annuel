@@ -1,7 +1,10 @@
 import clsx from 'clsx';
 import { useEffect, useRef } from 'react';
 
-const TextInput = ({ type = 'text', className, isFocused, ...props }, ref) => {
+const TextInput = (
+  { type = 'text', className, isFocused, disabled, ...props },
+  ref
+) => {
   const input = ref ? ref : useRef();
 
   useEffect(() => {
@@ -15,7 +18,8 @@ const TextInput = ({ type = 'text', className, isFocused, ...props }, ref) => {
       {...props}
       type={type}
       className={clsx(
-        'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ',
+        'border-1-grey focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ',
+        disabled ? 'text-grey bg-transparent' : 'bg-white',
         className
       )}
     />

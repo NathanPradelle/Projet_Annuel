@@ -1,7 +1,7 @@
 import { useForm } from '@inertiajs/react';
 import axios from 'axios';
 import { t } from 'i18next';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import SimpleButton from '@/Components/Buttons/SimpleButton';
 import InputListMultiple from '@/Components/InputListMultiple';
@@ -10,7 +10,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { getProfileLabel } from '@/utils/user';
 
 const UserPage = ({ user }) => {
-  const { data, setData, post, errors } = useForm(user);
+  const { data, setData, reset, post, errors } = useForm(user);
   const [disabled, setDisabled] = useState(true);
   const [profiles, setProfiles] = useState([]);
 
@@ -29,17 +29,20 @@ const UserPage = ({ user }) => {
         return {
           value: profile?.id,
           label: getProfileLabel(profile?.id),
-          selected: !!user?.profiles?.find((e) => e?.id == profile?.id),
         };
       }),
     [profiles]
   );
 
-  const onSubmit = (e) => {
+  const onSubmit = useCallback((e) => {
     e.preventDefault();
+    post(route('api.user.update')).then(() => route('user', user.id));
+  }, []);
 
-    post(route('register'));
-  };
+  const onReset = useCallback(() => {
+    setDisabled(!disabled);
+    reset(user);
+  }, [disabled]);
 
   return (
     <AuthenticatedLayout
@@ -50,10 +53,19 @@ const UserPage = ({ user }) => {
         </h2>
       }
     >
-      <SimpleButton className='ms-4' onClick={() => setDisabled(!disabled)}>
-        {t('common.modify')}
-      </SimpleButton>
-
+      <div className='flex'>
+        <SimpleButton className='ms-4' onClick={onReset}>
+          {disabled ? t('common.modify') : t('common.back')}
+        </SimpleButton>
+        <SimpleButton
+          className='ms-4'
+          type='submit'
+          onClick={onSubmit}
+          disabled={disabled}
+        >
+          {t('common.save')}
+        </SimpleButton>
+      </div>
       <form onSubmit={onSubmit}>
         <SimpleField
           id='name'
@@ -77,16 +89,13 @@ const UserPage = ({ user }) => {
         />
 
         <InputListMultiple
-          id='baf'
+          id='profiles'
+          value={data.profiles}
           setData={setData}
           label="Profils de l'utilisateur"
           options={profilesOptions}
           disabled={disabled}
         />
-
-        <SimpleButton className='ms-4' type='submit' disabled={disabled}>
-          {t('common.save')}
-        </SimpleButton>
       </form>
     </AuthenticatedLayout>
   );

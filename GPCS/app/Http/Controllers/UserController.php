@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Illuminate\Validation\Rules;
 
-use function PHPUnit\Framework\isEmpty;
-
 class UserController extends Controller
 {
     #region Get
@@ -140,18 +138,21 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a specific user.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        $user->update([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'role' => $request['role'],
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'profiles' => 'required|array|min:1'
         ]);
 
-        return redirect()->back()->with('success', 'User updated successfully.');
-
+        $user = new User();
+        $user = $user->getUser((object) $validatedData);
+        $user->save();
+        
+        return response()->json('success', 200);
     }
 
     /**
