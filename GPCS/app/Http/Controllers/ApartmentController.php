@@ -128,19 +128,19 @@ class ApartmentController extends Controller
      */
     public function show($id)
     {
-        $appartement = Apartment::with(['user:id,name'])->with(['images:*'])->with(['tags:*'])->findOrFail($id);
+        $apartment = Apartment::with(['user:id,name'])->with(['images:*'])->with(['tags:*'])->findOrFail($id);
 //            ->with(['user:id,name'])
 
-        $intervalle = Reservation::where("apartment_id", $appartement->id)
+        $intervalle = Reservation::where("apartment_id", $apartment->id)
             ->select("start_time","end_time")
             ->get();
 
-        $fermeture = ClosedPeriod::where("apartment_id", $appartement->id)
+        $fermeture = ClosedPeriod::where("apartment_id", $apartment->id)
             ->select("start_time","end_time")
             ->get();
 
         // Récupérer les dates déjà réservées pour cet appartement
-        $reservedDates = Reservation::where('apartment_id', $appartement->id)
+        $reservedDates = Reservation::where('apartment_id', $apartment->id)
             ->get() // Récupérez toutes les réservations
             ->map(function ($reservation) {
                 return [
@@ -153,7 +153,7 @@ class ApartmentController extends Controller
 
         $storagePath = FilePaths::IMAGE_URL;
         return Inertia::render(FilePaths::APARTMENT, [
-            'appartement' => $appartement,
+            'apartment' => $apartment->modelSetter(),
             'fermetures' => $fermeture,
             'intervalles' => $intervalle,
             'reservedDates' => $reservedDates,

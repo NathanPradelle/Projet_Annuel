@@ -26,7 +26,7 @@ class UserController extends Controller
             return null;
         }
 
-        $formatUser = $user->formatUser();
+        $formatUser = $user->modelSetter();
 
         return $formatUser;
     }
@@ -45,7 +45,7 @@ class UserController extends Controller
         
         $user->save();
 
-        return response()->json($user->formatUser(), 200);
+        return response()->json($user->modelSetter(), 200);
     }
 
     #endregion
@@ -58,7 +58,7 @@ class UserController extends Controller
         }])->paginate(10);
 
         $formattedUsers = $users->map(function ($user) {
-            return $user->formatUser();
+            return $user->modelSetter();
         });
 
         return Inertia::render(FilePaths::ADMINS_PAGE, [
@@ -80,7 +80,7 @@ class UserController extends Controller
         }
 
         return Inertia::render(FilePaths::USER, [
-            'user' => $user->formatUser(),
+            'user' => $user->modelSetter(),
         ]);
     }
 
@@ -119,7 +119,7 @@ class UserController extends Controller
         ->paginate(10);
 
         $formattedUsers = $users->map(function ($user) {
-            return $user->formatUser();
+            return $user->modelSetter();
         });
 
         return Inertia::render(FilePaths::USERS, [
@@ -149,7 +149,7 @@ class UserController extends Controller
         ]);
 
         $user = new User();
-        $user = $user->getUser((object) $validatedData);
+        $user = $user->modelGetter((object) $validatedData);
         $user->save();
         
         return response()->json('success', 200);

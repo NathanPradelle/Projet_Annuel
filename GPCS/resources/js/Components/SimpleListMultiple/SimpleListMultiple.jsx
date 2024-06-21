@@ -5,7 +5,7 @@ import InputLabel from '@/Components/InputLabel';
 
 import DropdownButton from '../Buttons/DropdownButton';
 
-const InputListMultiple = ({
+const SimpleListMultiple = ({
   id,
   value,
   setData,
@@ -88,4 +88,4 @@ const InputListMultiple = ({
   );
 };
 
-export default InputListMultiple;
+export default SimpleListMultiple;

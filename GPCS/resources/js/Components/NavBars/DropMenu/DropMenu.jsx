@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { useCallback } from 'react';
 
 import DropdownButton from '@/Components/Buttons/DropdownButton';
-import InputList from '@/Components/InputList';
+import InputList from '@/Components/SimpleList';
 import { getCurrentUser, getProfileLabel } from '@/utils/user';
 
 import NavLink from '../NavLink';

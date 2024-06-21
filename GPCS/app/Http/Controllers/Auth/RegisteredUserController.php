@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = new User();
-        $user = $user->getUser((object) $validatedData);
+        $user = $user->modelGetter((object) $validatedData);
         $user->password = Hash::make($user->password);
         $user->profile_in_use = 2;
 

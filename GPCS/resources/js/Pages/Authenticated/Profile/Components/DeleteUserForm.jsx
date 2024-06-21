@@ -6,7 +6,7 @@ import SecondaryButton from '@/Components/Buttons/SecondaryButton';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import Modal from '@/Components/Modal';
-import TextInput from '@/Components/TextInput';
+import TextInput from '@/Components/InputText';
 
 const DeleteUserForm = ({ className = '' }) => {
   const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);

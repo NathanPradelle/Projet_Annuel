@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import PrimaryButton from '@/Components/Buttons/PrimaryButton';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
+import TextInput from '@/Components/InputText';
 import GuestLayout from '@/Layouts/GuestLayout/GuestLayout';
 
 const ResetPassword = ({ token, email }) => {

@@ -5,6 +5,8 @@
     "back": "Retour",
     "client": "Client",
     "connection": "Se Connecter",
+    "dateStart": "Date de début",
+    "dateEnd": "Date de fin",
     "details": "Détails",
     "email": "Adresse mail",
     "modify": "Modifier",
@@ -118,8 +120,10 @@
   },
   "apartment": {
     "askYours": "Et si vous proposiez le vôtre ?",
+    "nbPeople": "Nombre de personnes",
     "noApartmentAvailable": "Aucun appartement disponible...",
     "noPictureAvailable": "Aucune image disponible",
-    "perNight": "par nuit"
+    "perNight": "par nuit",
+    "rent": "Réserver"
   }
 }

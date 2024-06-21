@@ -71,7 +71,7 @@ class User extends Authenticatable
     /// Fonction to set user to return
     /// </summary>
     /// <return> a formatted user </return>
-    public function formatUser()
+    public function modelSetter()
     {
         $user = [
             'id' => $this?->id,
@@ -90,7 +90,7 @@ class User extends Authenticatable
     /// Fonction to set UserVm to User.
     /// </summary>
     /// <return>User.</return>
-    public function getUser($vm)
+    public function modelGetter($vm)
     {
         $userData = [
             'id' => isset($vm?->id) ? $vm->id : null,

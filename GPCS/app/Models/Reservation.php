@@ -32,4 +32,58 @@ class Reservation extends Model
     public function apartment() : BelongsTo{
         return $this->belongsTo(Apartment::class, 'apartment_id');
     }
+
+    /// <summary>
+    /// Fonction to set user to return
+    /// </summary>
+    /// <return> a formatted user </return>
+    public function modelSetter()
+    {
+        $reservation = [
+            'id' =>  $this?->id,
+            "dateStart" => $this?->start_time,
+            "dateEnd" => $this?->end_time,
+            'guestCount' =>  $this?->guestCount,
+            'status' =>  $this?->status,
+            'price' =>  $this?->price,
+            'comment' =>  $this?->comment,
+            'createdAt' =>  $this?->created_at,
+            'updatedAt' =>  $this?->updated_at,
+
+            'user' => $this?->user,
+            'apartment' => $this?->apartment,
+        ];
+
+        return $reservation;
+    }
+
+    /// <summary>
+    /// Fonction to set UserVm to User.
+    /// </summary>
+    /// <return>User.</return>
+    public function modelGetter($vm)
+    {
+        $reservationData = [
+            'id' => isset($vm?->id) ? $vm->id : null,
+            'dateStart' => isset($vm?->dateStart) ? $vm->dateStart : null,
+            'dateEnd' => isset($vm?->dateEnd) ? $vm->dateEnd : null,
+            'guestCount' => isset($vm?->guestCount) ? $vm->guestCount : null,
+            'status' => isset($vm?->status) ? $vm->status : null,
+            'price' => isset($vm?->price) ? $vm->price : null,
+            'comment' => isset($vm?->comment) ? $vm->comment : null,
+            'created_at' => isset($vm?->createdAt) ? $vm->createdAt : null,
+            'updated_at' => isset($vm?->updatedAt) ? $vm->updatedAt : null,
+        ];
+
+        $reservation = new Apartment($reservationData);
+        
+        if (isset($vm?->user)) {
+            $reservation->user = $vm->user;
+        }
+        if (isset($vm?->apartment)) {
+            $reservation->apartment = $vm->apartment;
+        }
+        
+        return $reservation;
+    }
 }

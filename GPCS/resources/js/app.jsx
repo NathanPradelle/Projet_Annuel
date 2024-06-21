@@ -3,6 +3,7 @@ import './translation/i18n';
 import '../css/app.css';
 import '@/theme/Fonts.less';
 import '@/theme/Main.less';
+import 'flatpickr/dist/flatpickr.min.css';
 
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';

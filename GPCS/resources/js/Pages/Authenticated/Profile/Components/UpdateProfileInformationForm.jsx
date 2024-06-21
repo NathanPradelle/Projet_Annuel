@@ -4,7 +4,7 @@ import { Link, useForm } from '@inertiajs/react';
 import PrimaryButton from '@/Components/Buttons/PrimaryButton';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
+import TextInput from '@/Components/InputText';
 import { getCurrentUser } from '@/utils/user';
 
 const UpdateProfileInformation = ({

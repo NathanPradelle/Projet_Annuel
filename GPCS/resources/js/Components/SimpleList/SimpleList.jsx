@@ -5,7 +5,7 @@ import InputLabel from '@/Components/InputLabel';
 
 import DropdownButton from '../Buttons/DropdownButton';
 
-const InputList = ({
+const SimpleList = ({
   id,
   setData,
   label,
@@ -55,4 +55,4 @@ const InputList = ({
   );
 };
 
-export default InputList;
+export default SimpleList;

@@ -4,8 +4,8 @@ import { t } from 'i18next';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import SimpleButton from '@/Components/Buttons/SimpleButton';
-import InputListMultiple from '@/Components/InputListMultiple';
 import SimpleField from '@/Components/SimpleField';
+import SimpleListMultiple from '@/Components/SimpleListMultiple';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { getProfileLabel } from '@/utils/user';
 
@@ -88,7 +88,7 @@ const UserPage = ({ user }) => {
           disabled={disabled}
         />
 
-        <InputListMultiple
+        <SimpleListMultiple
           id='profiles'
           value={data.profiles}
           setData={setData}
