@@ -1,5 +1,3 @@
-import 'flatpickr/dist/flatpickr.min.css';
-
 import flatpickr from 'flatpickr';
 import React, { useEffect } from 'react';
 
@@ -135,22 +133,42 @@ const ApartmentPage = ({
       ],
     });
 
-      document.addEventListener('DOMContentLoaded', function() {
-          document.getElementById('start_time').addEventListener('change', updateTotalPrice);
-          document.getElementById('end_time').addEventListener('change', updateTotalPrice);
-          document.getElementById('nombre_de_personne').addEventListener('input', updateTotalPrice);
+    document.addEventListener('DOMContentLoaded', function () {
+      document
+        .getElementById('start_time')
+        .addEventListener('change', updateTotalPrice);
+      document
+        .getElementById('end_time')
+        .addEventListener('change', updateTotalPrice);
+      document
+        .getElementById('nombre_de_personne')
+        .addEventListener('input', updateTotalPrice);
 
-          document.getElementById('start_time').addEventListener('change', disableReservedDates);
-          document.getElementById('end_time').addEventListener('change', disableReservedDates);
+      document
+        .getElementById('start_time')
+        .addEventListener('change', disableReservedDates);
+      document
+        .getElementById('end_time')
+        .addEventListener('change', disableReservedDates);
 
-          return () => {
-              document.getElementById('start_time').removeEventListener('change', updateTotalPrice);
-              document.getElementById('end_time').removeEventListener('change', updateTotalPrice);
-              document.getElementById('nombre_de_personne').removeEventListener('input', updateTotalPrice);
-              document.getElementById('start_time').removeEventListener('change', disableReservedDates);
-              document.getElementById('end_time').removeEventListener('change', disableReservedDates);
-          };
-      });
+      return () => {
+        document
+          .getElementById('start_time')
+          .removeEventListener('change', updateTotalPrice);
+        document
+          .getElementById('end_time')
+          .removeEventListener('change', updateTotalPrice);
+        document
+          .getElementById('nombre_de_personne')
+          .removeEventListener('input', updateTotalPrice);
+        document
+          .getElementById('start_time')
+          .removeEventListener('change', disableReservedDates);
+        document
+          .getElementById('end_time')
+          .removeEventListener('change', disableReservedDates);
+      };
+    });
   }, [appartement.price, intervalles, fermetures]);
 
   return (
@@ -197,7 +215,7 @@ const ApartmentPage = ({
                   par nuit
                 </p>
 
-                <form method='POST' action={route("reservation.store")}>
+                <form method='POST' action={route('reservation.store')}>
                   <input
                     type='hidden'
                     name='appartement_id'
