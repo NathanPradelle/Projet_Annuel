@@ -1,26 +1,21 @@
-import { InertiaLink } from '@inertiajs/inertia-react';
 import { t } from 'i18next';
 import React from 'react';
 
+import SimpleButton from '@/Components/Buttons/SimpleButton';
+
 const ApartmentWindow = ({ apartment, storagePath }) => {
   return (
-    <InertiaLink
-      key={apartment?.id}
-      href={route('apartment.show', apartment.id)}
-      className='block'
-    >
-      {apartment?.images?.length > 0 ? (
-        <img
-          key={apartment.id}
-          src={storagePath + apartment.images[0].image}
-          className='rounded-md'
-          width='25%'
-          style={{ height: '250px' }}
-          alt='Appartement'
-        />
-      ) : (
-        t('apartment.noApartmentAvailable')
-      )}
+    <div key={apartment?.id} className='apartment-window'>
+      {apartment?.images?.length > 0
+        ? apartment?.images.map((image) => (
+            <img
+              key={image.id}
+              src={storagePath + image}
+              className='rounded-md'
+              alt='Apartment'
+            />
+          ))
+        : t('apartment.noPictureAvailable')}
       <h1 className='text-2xl font-extrabold'>{apartment?.name}</h1>
       <p>{apartment?.address}</p>
       <p>Loué par {apartment?.user?.name}</p>
@@ -37,7 +32,10 @@ const ApartmentWindow = ({ apartment, storagePath }) => {
           {tag.name}
         </span>
       ))}
-    </InertiaLink>
+      <SimpleButton className='ms-4' to={route('apartment.show', apartment.id)}>
+        {t('common.connection')}
+      </SimpleButton>
+    </div>
   );
 };
 

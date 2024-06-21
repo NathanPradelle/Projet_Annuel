@@ -12,8 +12,6 @@ use FilePaths;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ApartmentController extends Controller
@@ -23,7 +21,7 @@ class ApartmentController extends Controller
      */
     public function list()
     {
-        $appartements = Apartment::query()
+        $apartmentsPaginated = Apartment::query()
             ->select(['id', 'name', 'address', 'price', 'image', 'user_id'])
             ->latest()
             ->with(['user:id,name'])
@@ -35,8 +33,10 @@ class ApartmentController extends Controller
 
         $storagePath = FilePaths::IMAGE_URL;
 
+        $apartments = $apartmentsPaginated;
+
         return Inertia::render(FilePaths::APARTMENTS, [
-            'appartements' => $appartements,
+            'apartments' => $apartments,
             'storagePath' => $storagePath
         ]);
 
