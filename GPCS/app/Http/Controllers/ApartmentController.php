@@ -21,7 +21,11 @@ class ApartmentController extends Controller
      */
     public function list()
     {
-        $apartmentsPaginated = Apartment::query()
+        /*
+        dd(Apartment::select(['id', 'name', 'address', 'price', 'image', 'user_id'])
+        ->get());
+        */
+        $apartments = Apartment::query()
             ->select(['id', 'name', 'address', 'price', 'image', 'user_id'])
             ->latest()
             ->with(['user:id,name'])
@@ -33,7 +37,6 @@ class ApartmentController extends Controller
 
         $storagePath = FilePaths::IMAGE_URL;
 
-        $apartments = $apartmentsPaginated;
 
         return Inertia::render(FilePaths::APARTMENTS, [
             'apartments' => $apartments,

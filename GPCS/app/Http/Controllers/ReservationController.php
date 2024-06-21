@@ -58,12 +58,18 @@ class ReservationController extends Controller
         ]);
     }
 
+    public function test(Request $request){
+        dd($request);
+    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
+        //dd("ok");
+        dd($request);
+        //abort('404');
 
         $validatedData = $request->validate([
             'start_time' => ['required', 'date', 'after_or_equal:today'],
@@ -73,6 +79,7 @@ class ReservationController extends Controller
             'price' => ['required', 'numeric'],
         ]);
 
+        dd(0);
 
         $conflictingReservation = Reservation::where('apartment_id', $validatedData['apartment_id'])
             ->where(function ($query) use ($validatedData) {
@@ -85,11 +92,12 @@ class ReservationController extends Controller
             })
             ->exists();
 
-
         if ($conflictingReservation) {
-            return redirect()->route('appart.show', $validatedData['apartment_id'])->with('error', "Les dates choisies ne sont pas disponibles. Veuillez choisir d'autres dates.");
+            dd(1);
+            //return redirect()->route('appart.show', $validatedData['apartment_id'])->with('error', "Les dates choisies ne sont pas disponibles. Veuillez choisir d'autres dates.");
         }
 
+        dd(2);
 
         $reservation = new Reservation();
         $reservation->appartement_id = $validatedData['apartment_id'];
@@ -97,10 +105,16 @@ class ReservationController extends Controller
         $reservation->start_time = $validatedData['start_time'];
         $reservation->end_time = $validatedData['end_time'];
         $reservation->nombre_de_personne = $validatedData['guestCount'];
-        $reservation->prix = $validatedData['price'];
-        $reservation->save();
+        $reservation->prix = 50;
+        if($reservation->save()){
+            return redirect()->route('reservation.index')->with('success', "Réservation bien prise en compte");
+        } else { 
+            dd(4);
+            abort('404');
+        }
+        
 
-        return redirect()->route('reservation.index')->with('success', "Réservation bien prise en compte");
+        
     }
 
 

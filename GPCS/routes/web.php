@@ -9,12 +9,15 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FactureController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\TestController;
 use App\Http\Middleware\CheckUserProfile;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 require_once 'FilePaths.php';
+
+Route::get('/test', [TestController::class, 'test']);
 
 Route::get('/', function () {
     return Inertia::render(FilePaths::WELCOME, [
@@ -59,6 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/reservation/{id}/edit', [ReservationController::class, 'edit'])->name('reservation.edit');
     Route::get('reservation/create/{appartement_id}', [ReservationController::class, 'create'])->name('reservation.create');
     Route::get('/reservations', [ReservationController::class, 'index'])->name('reservation.index');
+    //Route::get('/reservation', [ReservationController::class, 'test'])->name('reservation.test'); //test
     Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
     Route::patch('/reservation/validate/{id}', [ReservationController::class, 'validate'])->name('reservation.validate');
     Route::patch('/reservation/refused/{id}', [ReservationController::class, 'refused'])->name('reservation.refused');
@@ -77,6 +81,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/', [ApartmentController::class, 'list'])->name('apartment.list');
 
 Route::get('/factureclient', [FactureController::class, 'client']); // need fix
-Route::post('/create-payment-intent', [StripeController::class, 'createPaymentIntent']);
+Route::get('/create-payment-intent', [StripeController::class, 'createPaymentIntent']);
+
+
 
 require __DIR__.'/auth.php';

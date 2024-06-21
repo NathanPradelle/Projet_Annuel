@@ -21,7 +21,7 @@ class StripeController extends Controller
             ]);
 
             return response()->json([
-                'clientSecret' => $paymentIntent->client_secret,
+                'clientSecret' => $paymentIntent,
                 //$paymentIntent
             ]);
         } catch (\Exception $e) {

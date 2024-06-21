@@ -1,3 +1,5 @@
+import 'flatpickr/dist/flatpickr.min.css';
+
 import flatpickr from 'flatpickr';
 import React, { useEffect } from 'react';
 
@@ -215,13 +217,12 @@ const ApartmentPage = ({
                   par nuit
                 </p>
 
-                <form method='POST' action={route('reservation.store')}>
+                <form method='GET' action={route('reservation.store')}>
                   <input
                     type='hidden'
                     name='appartement_id'
                     value={appartement.id}
                   />
-
                   <div className='mb-4'>
                     <label
                       htmlFor='start_time'
@@ -237,7 +238,6 @@ const ApartmentPage = ({
                       className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                     />
                   </div>
-
                   <div className='mb-4'>
                     <label
                       htmlFor='end_time'
@@ -257,7 +257,6 @@ const ApartmentPage = ({
                       className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                     />
                   </div>
-
                   <div className='mb-4'>
                     <label
                       htmlFor='nombre_de_personne'
@@ -274,7 +273,6 @@ const ApartmentPage = ({
                       max={appartement.guestCount}
                     />
                   </div>
-
                   <div
                     className='mb-4'
                     id='total_price_container'
@@ -283,9 +281,13 @@ const ApartmentPage = ({
                     <p>
                       Total : <span id='total_price'>0 €</span>
                     </p>
-                    <input type='hidden' name='prix' id='prix' />
+                    <input
+                      type='hidden'
+                      name='prix'
+                      id='prix'
+                      //value={appartement.price}
+                    />
                   </div>
-
                   <div className='mb-4'>
                     <button
                       type='submit'
