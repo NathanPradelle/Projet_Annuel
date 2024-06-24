@@ -6,6 +6,7 @@ use App\Http\Controllers\ClosedPeriodController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FactureController;
 use App\Http\Controllers\PaymentController;
@@ -53,10 +54,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/users', [UserController::class, 'indexCustomer'])->name('users');
         Route::post('/user/exclude', [UserController::class, 'RGPDCustomer'])->name('user.exclude');
     });
-    
+
     Route::resource('apartment', ApartmentController::class);
     Route::resource('tag', TagController::class);
     Route::delete('/appartimage/{id}', [ApartmentController::class, 'destroyImg'])->name('appart.destroyImg');
+    Route::resource('ticket', TicketController::class);
 
     Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation');
     Route::get('/reservation/{id}/edit', [ReservationController::class, 'edit'])->name('reservation.edit');

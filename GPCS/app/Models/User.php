@@ -58,6 +58,9 @@ class User extends Authenticatable
     public function tags():HasMany {
         return $this->hasMany(Tag::class);
     }
+    public function tickets():HasMany {
+        return $this->hasMany(Ticket::class);
+    }
 
     public function userProfiles() {
         return $this->hasMany(UserProfile::class, 'user', 'id');
@@ -105,11 +108,11 @@ class User extends Authenticatable
         ];
 
         $user = new User($userData);
-        
+
         if (isset($vm?->profiles)) {
             $user->userProfiles = $vm->profiles;
         }
-        
+
         return $user;
     }
 }
