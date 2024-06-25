@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
+use FilePaths;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class TicketController extends Controller
 {
@@ -15,7 +17,7 @@ class TicketController extends Controller
         $tickets = Ticket::query()
             ->select(['id', 'objet', 'description'])
             ->with(['user:id,name'])
-            ->with(['ticket_category:id,name'])
+            ->with(['ticketCategory:id,name'])
             ->latest()
             ->paginate(25);
 
@@ -27,7 +29,7 @@ class TicketController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render(FilePaths::TICKET);
     }
 
     /**
@@ -35,8 +37,25 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'category' => 'required|integer|in:1,2,3,4',
+            'subject' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        $validateData['user_id'] = Auth()->id();
+
+
+        $ticket = new Ticket();
+        $ticket->user()->associate($validateData['user_id']);
+        $ticket->ticket_category_id = $validateData['category'];
+        $ticket->objet = $validateData['subject'];
+        $ticket->description = $validateData['description'];
+        $ticket->save();
+
+        return redirect()->route('dashboard')->with('success', 'Ticket créé avec succès!');
     }
+
 
     /**
      * Display the specified resource.
@@ -62,6 +81,8 @@ class TicketController extends Controller
         //
     }
 
+
+
     /**
      * Remove the specified resource from storage.
      */
@@ -80,5 +101,9 @@ class TicketController extends Controller
         return response()->json([
             'message' => 'Ticket deleted successfully',
         ], 200);
+    }
+    public function contact()
+    {
+        return Inertia::render(FilePaths::CONTACT);
     }
 }

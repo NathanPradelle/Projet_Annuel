@@ -13,14 +13,13 @@ class Ticket extends Model
     protected $fillable = [
         'description',
         'objet',
-        'description'
     ];
 
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);
     }
 
-    public function tickeCategory(): BelongsTo {
+    public function ticketCategory(): BelongsTo {
         return $this->belongsTo(ticket_category::class);
     }
 

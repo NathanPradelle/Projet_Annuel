@@ -20,6 +20,12 @@ require_once 'FilePaths.php';
 
 Route::get('/test', [TestController::class, 'test']);
 
+Route::delete('/ticket/{id}', [TicketController::class, 'destroy'])->name('ticket.delete');
+Route::get('/ticket/{id}/edit', [TicketController::class, 'edit'])->name('ticket.edit');
+Route::put('/ticket/{id}', [TicketController::class, 'update'])->name('ticket.update');
+Route::get('/ticket', [TicketController::class, 'index'])->name('ticket.index');
+
+
 Route::get('/', function () {
     return Inertia::render(FilePaths::WELCOME, [
         'canLogin' => Route::has('login'),
@@ -34,6 +40,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/contact', [TicketController::class, 'contact'])->name('contact.show');
+    Route::get('/ticket/create', [TicketController::class, 'create'])->name('ticket.create');
+    Route::post('/ticket', [TicketController::class, 'store'])->name('ticket.store');
+
     Route::post('/userProfile', [UserController::class, 'profileToUse'])->name('user.profileToUse');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -58,7 +69,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('apartment', ApartmentController::class);
     Route::resource('tag', TagController::class);
     Route::delete('/appartimage/{id}', [ApartmentController::class, 'destroyImg'])->name('appart.destroyImg');
-    Route::resource('ticket', TicketController::class);
 
     Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation');
     Route::get('/reservation/{id}/edit', [ReservationController::class, 'edit'])->name('reservation.edit');
