@@ -12,6 +12,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FactureController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\BanController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\PriceController;
+use App\Http\Controllers\checkTableController;
 use App\Http\Middleware\CheckUserProfile;
 use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Application;
@@ -61,7 +65,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/user/{id}', [UserController::class, 'user'])->name('user');
         Route::post('/user/{id}', [UserController::class, 'update'])->name('user.update');
         Route::post('/user/exclude', [UserController::class, 'RGPDCustomer'])->name('user.exclude');
+        Route::get('/user/{id}/ban', [BanController::class, 'addban']);
+        Route::get('/user/{id}/ban/list', [BanController::class, 'banlist']);
     });
+    
+    Route::get('/service/create', [ServiceController::class, 'create']);
+    Route::get('/service', [ServiceController::class, 'list']);
+    Route::get('/service/provider', [ServiceController::class, 'addProviderPage']);
+    Route::get('/service/provider/price', [PriceController::class, 'priceUpdate']);
 
     Route::resource('apartment', ApartmentController::class);
     Route::delete('/appartimage/{id}', [ApartmentController::class, 'destroyImg'])->name('appart.destroyImg');
@@ -93,6 +104,7 @@ Route::get('/', [ApartmentController::class, 'list'])->name('apartment.list');
 Route::get('/factureclient', [FactureController::class, 'client']); // need fix
 Route::get('/create-payment-intent', [StripeController::class, 'createPaymentIntent']);
 
+Route::get('/check-table', [CheckTableController::class, 'checkTableBan']);
 
 
 require __DIR__.'/auth.php';

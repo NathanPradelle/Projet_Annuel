@@ -27,6 +27,8 @@ const NavBars = () => {
           MANAGER_PROFILES.includes(currentUser.profileInUse) && (
             <NavLink href='/'>{t('menu.myApartments')}</NavLink>
           )}
+
+        <NavLink href='/service'>Service</NavLink>
       </div>
 
       <div className='side'>
