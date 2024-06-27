@@ -33,7 +33,7 @@ const ApartmentWindow = ({ apartment, storagePath }) => {
         </span>
       ))}
       <SimpleButton className='ms-4' to={route('apartment.show', apartment.id)}>
-        {t('common.connection')}
+        {t('common.details')}
       </SimpleButton>
     </div>
   );

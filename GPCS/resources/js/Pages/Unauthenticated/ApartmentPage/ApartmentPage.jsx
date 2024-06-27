@@ -22,7 +22,6 @@ const ApartmentPage = ({
   // reservedDates,
 }) => {
   const { data, setData, post, errors } = useForm(apartment);
-  console.log(apartment);
   const totalPrice = useMemo(() => {
     if (data?.dateStart && data?.dateEnd && data?.guestCount > 0) {
       return data?.price * dateDiffInDays(data?.dateStart, data?.dateEnd);
@@ -31,10 +30,13 @@ const ApartmentPage = ({
     return 0;
   }, [data]);
 
-  const onSubmit = useCallback((e) => {
-    e.preventDefault();
-    post(route('reservation.store'));
-  }, []);
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      post(route('reservation.store', data));
+    },
+    [data]
+  );
 
   return (
     <AuthenticatedLayout user={auth.user}>

@@ -1,24 +1,24 @@
 import { Inertia } from '@inertiajs/inertia';
 import React from 'react';
 
+import Table from '@/Components/Table';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-const MyReservationsPage = ({ reservations }) => {
-  const handleCancelReservation = (e, reservationId) => {
-    e.preventDefault();
-    if (confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')) {
-      Inertia.patch(route('reservation.refused', reservationId));
-    }
-  };
+import useColumns from './useColumns';
+
+const MyReservationsPage = ({ reservations, pagination }) => {
+  const columns = useColumns();
+
+  console.log(reservations, pagination);
 
   return (
     <AuthenticatedLayout>
+      <h1 className='text-2xl font-semibold mb-4'>
+        Récapitulatif de mes réservations
+      </h1>
       <div>
-        {reservations.data.length === 0 ? (
+        {reservations?.length === 0 ? (
           <div className='py-8'>
-            <h1 className='text-2xl font-semibold mb-4'>
-              Récapitulatif de mes réservations
-            </h1>
             <p className='text-gray-600'>
               Vous n'avez aucune réservation pour le moment.
             </p>
@@ -26,7 +26,9 @@ const MyReservationsPage = ({ reservations }) => {
         ) : (
           <div className='py-12'>
             <div className='max-w-7xl mx-auto sm:px-6 lg:px-8'>
-              <table className='w-full bg-white shadow-md rounded my-4'>
+              <Table columns={columns} data={reservations} />
+
+              {/*<table className='w-full bg-white shadow-md rounded my-4'>
                 <thead>
                   <tr className='bg-gray-200 text-gray-600 uppercase text-sm leading-normal'>
                     <th className='py-3 px-6 text-left'>Appartement</th>
@@ -39,20 +41,19 @@ const MyReservationsPage = ({ reservations }) => {
                   </tr>
                 </thead>
                 <tbody className='text-gray-600 text-sm font-light'>
-                  {reservations.data.map((reservation) => (
+                  {reservations?.map((reservation) => (
                     <tr
                       key={reservation.id}
                       className='border-b border-gray-200'
                     >
-                      {/*<td className="py-3 px-6 text-left">{reservation.apartment.name}</td>*/}
                       <td className='py-3 px-6 text-left'>
                         {reservation.price}€
                       </td>
                       <td className='py-3 px-6 text-left'>
-                        {reservation.start_time}
+                        {reservation.dateStart}
                       </td>
                       <td className='py-3 px-6 text-left'>
-                        {reservation.end_time}
+                        {reservation.dateEnd}
                       </td>
                       <td className='py-3 px-6 text-left'>
                         {reservation.created_at}
@@ -68,7 +69,7 @@ const MyReservationsPage = ({ reservations }) => {
                             <button
                               className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
                               onClick={(e) =>
-                                handleCancelReservation(e, reservation.id)
+                                handleCancelReservation(e, row?.id)
                               }
                             >
                               Annuler
@@ -78,7 +79,7 @@ const MyReservationsPage = ({ reservations }) => {
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </table>*/}
             </div>
           </div>
         )}

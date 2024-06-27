@@ -15,7 +15,7 @@ const AppartementsPage = ({ apartments, storagePath }) => {
   //     document.getElementById('docs-card-content')?.classList.add('!flex-row');
   //     document.getElementById('background')?.classList.add('!hidden');
   //   };
-  console.log(apartments);
+
   return (
     <AuthenticatedLayout
       head='Welcome'

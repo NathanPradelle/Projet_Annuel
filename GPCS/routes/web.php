@@ -48,19 +48,20 @@ Route::middleware('auth')->group(function () {
     Route::middleware(CheckUserProfile::class.':isManager')->group(function () {
         Route::get('/profile/get', [ProfileController::class, 'get'])->name('profile.get');
 
-        Route::get('/user/{id}', [UserController::class, 'user'])->name('user');
-        // Route::post('/user', [UserController::class, 'update'])->name('user.update'); may be change to a simple api call
         Route::get('/users', [UserController::class, 'indexCustomer'])->name('users');
+        Route::get('/user/{id}', [UserController::class, 'user'])->name('user');
+        Route::post('/user/{id}', [UserController::class, 'update'])->name('user.update');
         Route::post('/user/exclude', [UserController::class, 'RGPDCustomer'])->name('user.exclude');
     });
     
     Route::resource('apartment', ApartmentController::class);
-    Route::resource('tag', TagController::class);
     Route::delete('/appartimage/{id}', [ApartmentController::class, 'destroyImg'])->name('appart.destroyImg');
+
+    Route::resource('tag', TagController::class);
 
     Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation');
     Route::get('/reservation/{id}/edit', [ReservationController::class, 'edit'])->name('reservation.edit');
-    Route::get('reservation/create/{appartement_id}', [ReservationController::class, 'create'])->name('reservation.create');
+    Route::get('reservation/create/{apartment_id}', [ReservationController::class, 'create'])->name('reservation.create');
     Route::get('/reservations', [ReservationController::class, 'index'])->name('reservation.index');
     //Route::get('/reservation', [ReservationController::class, 'test'])->name('reservation.test'); //test
     Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');

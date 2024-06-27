@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 const Table = ({ columns, data }) => {
   const cols = useMemo(() => columns, []);
   return (
-    <table className='min-w-full divide-y divide-gray-200'>
+    <table className='w-full bg-white shadow-md rounded my-4'>
       <thead>
         <tr>
           {cols.map((col) => (

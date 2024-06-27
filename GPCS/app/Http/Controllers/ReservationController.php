@@ -14,17 +14,35 @@ use Inertia\Inertia;
 class ReservationController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the list of user's reservation.
      */
     public function index()
     {
-
         $reservations = Reservation::where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
             ->paginate(15);
 
+        $pagination = [
+            'current_page' => $reservations->currentPage(),
+            'first_page_url' => $reservations->url(1),
+            'from' => $reservations->firstItem(),
+            'last_page' => $reservations->lastPage(),
+            'last_page_url' => $reservations->url($reservations->lastPage()),
+            'links' => $reservations->linkCollection(),
+            'next_page_url' => $reservations->nextPageUrl(),
+            'path' => $reservations->path(),
+            'per_page' => $reservations->perPage(),
+            'prev_page_url' => $reservations->previousPageUrl(),
+            'to' => $reservations->lastItem(),
+            'total' => $reservations->total(),
+        ];
+
+        $formattedReservations = $reservations->map(function ($reservation) {
+            return $reservation->modelSetter();
+        });
+
         // Passer les réservations à la vue
-        return Inertia::render(FilePaths::MY_RESERVATIONS, ['reservations' => $reservations]);
+        return Inertia::render(FilePaths::MY_RESERVATIONS, ['reservations' => $formattedReservations, 'pagination' => $pagination]);
     }
 
 
@@ -34,17 +52,17 @@ class ReservationController extends Controller
     public function create(Request $request)
     {
 
-        $appartement_id = $request->route('apartment_id');
+        $apartment_id = $request->route('apartment_id');
 
-        $selectedAppartement = Apartment::find($appartement_id);
+        $selectedAppartement = Apartment::find($apartment_id);
         $appartements = Apartment::all();
         $prixAppartement = $selectedAppartement->prix;
 
-        $intervalle = Reservation::where("apartment_id", $appartement_id)
+        $intervalle = Reservation::where("apartment_id", $apartment_id)
             ->select("start_time","end_time")
             ->get();
 
-        $fermeture = ClosedPeriod::where("apartment_id", $appartement_id)
+        $fermeture = ClosedPeriod::where("apartment_id", $apartment_id)
             ->select("start_time","end_time")
             ->get();
 
@@ -52,7 +70,7 @@ class ReservationController extends Controller
             'fermetures' => $fermeture,
             'appartements' => $appartements,
             'selectedAppartement' => $selectedAppartement,
-            'appartement_id' => $appartement_id,
+            'apartment_id' => $apartment_id,
             'prixAppartement' => $prixAppartement,
             'intervalles' => $intervalle,
         ]);
@@ -62,59 +80,51 @@ class ReservationController extends Controller
         dd($request);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    /// <summary>
+    /// Fonction to create a new reservation
+    /// </summary>
+    /// <params> apartmentVm </params>
+    /// <return> reservation page with a reservationVm </return>
     public function store(Request $request)
     {
-        //dd("ok");
-        dd($request);
-        //abort('404');
-
         $validatedData = $request->validate([
-            'start_time' => ['required', 'date', 'after_or_equal:today'],
-            'end_time' => ['required', 'date', 'after:start_date'],
+            'id' => ['required', 'exists:apartments,id'],
+            'dateStart' => ['required', 'date', 'after_or_equal:today'],
+            'dateEnd' => ['required', 'date', 'after:dateStart'],
             'guestCount' => ['required', 'numeric'],
-            'apartment_id' => ['required', 'exists:apartments,id'],
             'price' => ['required', 'numeric'],
         ]);
+    
+        $user = $request->user();
+    
+        $reservation = new Reservation([
+            'user_id' => $user->id,
+            'apartment_id' => $validatedData['id'],
+            'start_time' => $validatedData['dateStart'],
+            'end_time' => $validatedData['dateEnd'],
+            'guestCount' => $validatedData['guestCount'],
+            'price' => $validatedData['price'],
+        ]);
 
-        dd(0);
-
-        $conflictingReservation = Reservation::where('apartment_id', $validatedData['apartment_id'])
-            ->where(function ($query) use ($validatedData) {
-                $query->whereBetween('start_time', [$validatedData['start_time'], $validatedData['end_time']])
-                    ->orWhereBetween('end_time', [$validatedData['start_time'], $validatedData['end_time']])
-                    ->orWhere(function ($query) use ($validatedData) {
-                        $query->where('start_time', '<=', $validatedData['start_time'])
-                            ->where('end_time', '>=', $validatedData['end_time']);
+        $conflictingReservation = Reservation::where('apartment_id', $reservation['apartment_id'])
+            ->where(function ($query) use ($reservation) {
+                $query->whereBetween('start_time', [$reservation['start_time'], $reservation['end_time']])
+                    ->orWhereBetween('end_time', [$reservation['start_time'], $reservation['end_time']])
+                    ->orWhere(function ($query) use ($reservation) {
+                        $query->where('start_time', '<=', $reservation['start_time'])
+                            ->where('end_time', '>=', $reservation['end_time']);
                     });
             })
             ->exists();
 
         if ($conflictingReservation) {
             dd(1);
-            //return redirect()->route('appart.show', $validatedData['apartment_id'])->with('error', "Les dates choisies ne sont pas disponibles. Veuillez choisir d'autres dates.");
+            return redirect()->route('appart.show', $reservation['apartment_id'])->with('error', "Les dates choisies ne sont pas disponibles. Veuillez choisir d'autres dates.");
         }
 
-        dd(2);
+        $reservation->save();
 
-        $reservation = new Reservation();
-        $reservation->appartement_id = $validatedData['apartment_id'];
-        $reservation->user_id = Auth::id();
-        $reservation->start_time = $validatedData['start_time'];
-        $reservation->end_time = $validatedData['end_time'];
-        $reservation->nombre_de_personne = $validatedData['guestCount'];
-        $reservation->prix = 50;
-        if($reservation->save()){
-            return redirect()->route('reservation.index')->with('success', "Réservation bien prise en compte");
-        } else { 
-            dd(4);
-            abort('404');
-        }
-        
-
-        
+        return redirect()->route('reservation.index')->with('success', "Réservation bien prise en compte");       
     }
 
 
@@ -197,13 +207,13 @@ class ReservationController extends Controller
     }
 
 
-    public function showAll($appartement_id)
+    public function showAll($apartment_id)
     {
-        $reservations = Reservation::where('appartement_id', $appartement_id)
+        $reservations = Reservation::where('apartment_id', $apartment_id)
             ->latest('created_at')
             ->paginate(15);
 
-        $appartement_name = Apartment::findOrFail($appartement_id)->name;
+        $appartement_name = Apartment::findOrFail($apartment_id)->name;
 
         return view('Reservation.showAll', compact('reservations', 'appartement_name'));
     }

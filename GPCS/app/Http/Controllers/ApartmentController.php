@@ -250,7 +250,7 @@ class ApartmentController extends Controller
 
         $appartementImages->delete();
 
-        return redirect()->route('apartment.edit', $appartementImages->appartement_id)
+        return redirect()->route('apartment.edit', $appartementImages->apartment_id)
             ->with('success', "Appartement mis à jour avec succès");
     }
 }
