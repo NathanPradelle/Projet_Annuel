@@ -1,15 +1,32 @@
 <?php
 
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckUserProfile;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;;
 
-require_once 'FilePaths.php';
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
 
-Route::middleware('auth')->group(function () {
-    Route::middleware(CheckUserProfile::class.':isManager')->group(function () {
-        Route::post('/api/user/{id}', [UserController::class, 'update'])->name('api.user.update');
-    });
+Route::middleware('guest:sanctum')->group(function () {
+    Route::post('/login', [AuthenticatedSessionController::class, 'apiLogin']);
 });
 
-require __DIR__.'/auth.php';
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthenticatedSessionController::class, 'apiLogout']);
+    Route::get('/tickets', [TicketController::class, 'index']);
+    Route::get('/tickets/{id}', [TicketController::class, 'show']);
+    Route::patch('/tickets/{id}', [TicketController::class, 'update']);
+});
+
+//Route::middleware('auth')->group(function () {
+//    Route::middleware(CheckUserProfile::class.':isManager')->group(function () {
+//        Route::post('/api/user/{id}', [UserController::class, 'update'])->name('api.user.update');
+//    });
+//});
+//
+//require __DIR__.'/auth.php';

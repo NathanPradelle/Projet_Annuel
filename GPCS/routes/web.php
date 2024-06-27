@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\ClosedPeriodController;
@@ -12,19 +13,15 @@ use App\Http\Controllers\FactureController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TestController;
 use App\Http\Middleware\CheckUserProfile;
+use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 require_once 'FilePaths.php';
 
+
 Route::get('/test', [TestController::class, 'test']);
-
-Route::delete('/ticket/{id}', [TicketController::class, 'destroy'])->name('ticket.delete');
-Route::get('/ticket/{id}/edit', [TicketController::class, 'edit'])->name('ticket.edit');
-Route::put('/ticket/{id}', [TicketController::class, 'update'])->name('ticket.update');
-Route::get('/ticket', [TicketController::class, 'index'])->name('ticket.index');
-
 
 Route::get('/', function () {
     return Inertia::render(FilePaths::WELCOME, [

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
+use App\Http\Controllers\Controller;
 use FilePaths;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -16,8 +17,8 @@ class TicketController extends Controller
     {
         $tickets = Ticket::query()
             ->select(['id', 'objet', 'description'])
-            ->with(['user:id,name'])
-            ->with(['ticketCategory:id,name'])
+//            ->with(['user:id,name'])
+//            ->with(['ticketCategory:id,name'])
             ->latest()
             ->paginate(25);
 
@@ -60,9 +61,15 @@ class TicketController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Ticket $ticket)
+    public function show($id)
     {
-        //
+        $ticket = Ticket::with(['ticketCategory', 'user'])->find($id);
+
+        if (!$ticket) {
+            return response()->json(['message' => 'Ticket not found'], 404);
+        }
+
+        return response()->json($ticket);
     }
 
     /**
@@ -76,10 +83,23 @@ class TicketController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Ticket $ticket)
+    public function update(Request $request, $id)
     {
-        //
+        $ticket = Ticket::find($id);
+        if (!$ticket) {
+            return response()->json(['message' => 'Ticket not found'], 404);
+        }
+
+        $request->validate([
+            'solution' => 'required|string',
+        ]);
+
+        $ticket->solution = $request->input('solution');
+        $ticket->save();
+
+        return response()->json($ticket);
     }
+
 
 
 
@@ -88,19 +108,18 @@ class TicketController extends Controller
      */
     public function destroy($id)
     {
-        $ticket = Ticket::findOrFail($id);
+        try {
+            $ticket = Ticket::findOrFail($id);
+            $ticket->delete();
 
-        if (!$ticket) {
+            return response()->json([
+                'message' => 'Ticket deleted successfully',
+            ], 200);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
                 'message' => 'Ticket not found',
             ], 404);
         }
-
-        $ticket->delete();
-
-        return response()->json([
-            'message' => 'Ticket deleted successfully',
-        ], 200);
     }
     public function contact()
     {

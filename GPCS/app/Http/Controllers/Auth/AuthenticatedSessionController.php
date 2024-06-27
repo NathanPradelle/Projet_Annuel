@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use FilePaths;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -50,4 +52,45 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
+    public function apiLogin(LoginRequest $request)
+    {
+        try {
+            $request->authenticate();
+
+            $user = Auth::user();
+            Log::info('User authenticated', ['user_id' => $user->id]);
+
+            $token = $user->createToken('auth_token')->plainTextToken;
+            Log::info('Token created', ['token' => $token]);
+
+            return response()->json([
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+                'user' => [
+                    'user_id'=> $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                ]
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Login error: ' . $e->getMessage());
+            return response()->json(['message' => 'Internal Server Error'], 500);
+        }
+    }
+
+    /**
+     * Destroy an authenticated session for API.
+     */
+    public function apiLogout(Request $request)
+    {
+        try {
+            $request->user()->currentAccessToken()->delete();
+            return response()->json(['message' => 'Logged out successfully'], 200);
+        } catch (\Exception $e) {
+            Log::error('Logout error: ' . $e->getMessage());
+            return response()->json(['message' => 'Internal Server Error'], 500);
+        }
+    }
+
 }
