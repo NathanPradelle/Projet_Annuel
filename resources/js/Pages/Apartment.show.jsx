@@ -150,7 +150,7 @@ export default function Appartements({ appartement, auth, storagePath, fermeture
                                 </p>
 
                                 <form method="POST" action="/reservation/store">
-                                    <input type="hidden" name="appartement_id" value={appartement.id} />
+                                    <input type="hidden" name="apartment_id" value={appartement.id} />
 
                                     <div className="mb-4">
                                         <label htmlFor="start_time" className="block text-gray-700 text-sm font-bold mb-2">

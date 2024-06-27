@@ -1,8 +1,7 @@
-import {Head, Link} from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
+import clsx from 'clsx';
 
 import NavBars from '@/Components/NavBars';
-import {t} from "i18next";
-import {InertiaLink} from "@inertiajs/inertia-react";
 
 const AuthenticatedLayout = ({ headTitle, header, className, children }) => {
   return (
@@ -18,26 +17,21 @@ const AuthenticatedLayout = ({ headTitle, header, className, children }) => {
         </header>
       )}
 
-      <main id='content' className={className}>
+      <main id='content' className={clsx('py-12', className)}>
         {children}
       </main>
 
-        <footer
-            className='py-4 flex justify-center items-center text-sm text-black dark:text-white/70 bg-gray-800 relative'>
-            <div className='absolute left-4'>
-            </div>
-            <div>
-                Maxime Ahmad Nathan
-            </div>
-            <div className='absolute right-4'>
-                <Link href={route('contact.show')}>
-                    <button className='bg-blue-500 text-white py-2 px-4 rounded'>
-                        Nous Contactez !
-                    </button>
-                </Link>
-            </div>
-        </footer>
-
+      <footer className='py-4 flex justify-center items-center text-sm text-black dark:text-white/70 bg-gray-800 relative'>
+        <div className='absolute left-4'></div>
+        <div>Maxime Ahmad Nathan</div>
+        <div className='absolute right-4'>
+          <Link href={route('contact.show')}>
+            <button className='bg-blue-500 text-white py-2 px-4 rounded'>
+              Nous Contactez !
+            </button>
+          </Link>
+        </div>
+      </footer>
     </div>
   );
 };

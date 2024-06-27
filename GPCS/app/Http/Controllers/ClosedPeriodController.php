@@ -14,38 +14,35 @@ class ClosedPeriodController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Apartment $appartement)
+    public function index(Apartment $apartment)
     {
-
-        $appartement_id = $appartement->id;
-
-        $intervalle = Reservation::where("appartement_id", $appartement_id)
+        $intervalle = Reservation::where("apartment_id", $apartment->id)
             ->select("start_time","end_time")
             ->get();
 
 
-        $fermetures = ClosedPeriod::where('appartement_id', $appartement->id)->get();
+        $fermetures = ClosedPeriod::where('apartment_id', $apartment->id)->get();
         return Inertia::render('Fermetures.index', ['fermetures' => $fermetures,
-            'appartement' => $appartement,
+            'appartement' => $apartment,
             'intervalles' => $intervalle]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create($appartement)
+    public function create($apartment)
     {
 
-        $intervalle = Reservation::where("appartement_id", $appartement)
+        $intervalle = Reservation::where("apartment_id", $apartment)
             ->select("start_time","end_time")
             ->get();
 
-        $fermeture = ClosedPeriod::where("appartement_id", $appartement)
+        $fermeture = ClosedPeriod::where("apartment_id", $apartment)
             ->select("start_time","end_time")
             ->get();
 
 
-        return Inertia::render('Fermetures.create', ['appartement'=>$appartement,
+        return Inertia::render('Fermetures.create', ['apartment'=>$apartment,
             'intervalles'=>$intervalle,
             'fermetures'=>$fermeture]);
     }
@@ -53,7 +50,7 @@ class ClosedPeriodController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, $appartement)
+    public function store(Request $request, $apartment)
     {
         $validator = Validator::make($request->all(), [
             'start_time' => ['required', 'date', 'after_or_equal:today'],
@@ -65,12 +62,12 @@ class ClosedPeriodController extends Controller
         $fermeture = new ClosedPeriod();
         $fermeture->start_time = $validatedData['start_time'];
         $fermeture->end_time = $validatedData['end_time'];
-        $fermeture->appartement_id = $appartement;
+        $fermeture->apartment_id = $apartment;
         $fermeture->save();
 
-        $appartement = Apartment::findOrFail($appartement);
+        $apartment = Apartment::findOrFail($apartment);
 
-        return redirect()->route('fermeture.index', ['appartement' => $appartement])->with('success', "Réservation bien prise en compte");
+        return redirect()->route('fermeture.index', ['appartement' => $apartment])->with('success', "Réservation bien prise en compte");
     }
 
     /**

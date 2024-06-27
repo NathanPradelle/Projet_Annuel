@@ -108,6 +108,7 @@
   "menu": {
     "home": "Home",
     "myApartments": "Voir mes appartements",
+    "myReservations": "Mes réservations",
     "unauthenticated": {
       "login": "Se Connecter",
       "signIn": "S'inscrire"
@@ -125,5 +126,9 @@
     "noPictureAvailable": "Aucune image disponible",
     "perNight": "par nuit",
     "rent": "Réserver"
+  },
+  "reservation": {
+    "recap": "Récapitulatif de mes réservations",
+    "noReservation": "Vous n'avez aucune réservation pour le moment"
   }
 }
