@@ -1,8 +1,12 @@
 import { Link } from '@inertiajs/react';
 import { t } from 'i18next';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
+import Modal from '@/Components/Modal';
 import { getProfileLabel } from '@/utils/user';
+
+import BanUserForm from './BanUserForm';
+import BanUserList from './BanUserList';
 
 const useColumns = () => {
   const columns = useMemo(
@@ -45,6 +49,14 @@ const useColumns = () => {
             RGPD
           </a>
         ),
+      },
+      {
+        renderCell: (row) => (
+          <BanUserForm userId={row?.id} className='max-w-xl' />
+        ),
+      },
+      {
+        renderCell: (row) => <BanUserList userId={row?.id} />,
       },
     ],
     []

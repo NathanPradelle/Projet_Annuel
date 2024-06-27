@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\ban;
 use FilePaths;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -129,6 +130,7 @@ class UserController extends Controller
 
     public function RGPDCustomer(User $user)
     {
+
         $user->update([
             'name'=>'RGPD',
             'email'=> null,
@@ -136,6 +138,8 @@ class UserController extends Controller
 
         return redirect()->route('users');
     }
+
+
 
     /**
      * Update a specific user.

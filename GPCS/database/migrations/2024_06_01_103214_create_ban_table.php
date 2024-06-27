@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('ban', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->integer('user_id');
+            $table->index('user_id');
+            $table->timestamp('date_start');
+            $table->timestamp('date_end');
+            $table->string('raison',100);
         });
     }
 
