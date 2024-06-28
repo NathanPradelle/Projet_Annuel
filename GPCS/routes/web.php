@@ -68,14 +68,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/user/{id}/ban', [BanController::class, 'addban']);
         Route::get('/user/{id}/ban/list', [BanController::class, 'banlist']);
     });
-<<<<<<< Updated upstream
-=======
     
-    Route::get('/service/create', [ServiceController::class, 'create']);
+    Route::post('/service/create', [ServiceController::class, 'create'])->name('service.creates');
+    Route::get('/service/addprovider/{id}', [ServiceController::class, 'addprovider'])->name('service.provider.add');
+    Route::post('/service/addprovider', [ServiceController::class, 'addProviderVerif'])->name('service.addprovider.post');
+    Route::get('/service/create/page', [ServiceController::class, 'create_page'])->name('service.create');
     Route::get('/service', [ServiceController::class, 'list']);
     Route::get('/service/provider', [ServiceController::class, 'addProviderPage']);
-    Route::get('/service/provider/price', [PriceController::class, 'priceUpdate']);
->>>>>>> Stashed changes
+    Route::post('/service/provider/price', [PriceController::class, 'priceUpdate'])->name('service.provider.price');
 
     Route::resource('apartment', ApartmentController::class);
     Route::delete('/appartimage/{id}', [ApartmentController::class, 'destroyImg'])->name('appart.destroyImg');

@@ -6,8 +6,8 @@ import SecondaryButton from '@/Components/Buttons/SecondaryButton';
 import DateInput from '@/Components/DateInput';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
+import InputText from '@/Components/InputText';
 import Modal from '@/Components/Modal';
-import TextInput from '@/Components/TextInput';
 
 const BanUserForm = ({ userId, className = '' }) => {
   const [confirmingUserBan, setConfirmingUserBan] = useState(false);
@@ -76,14 +76,14 @@ const BanUserForm = ({ userId, className = '' }) => {
           </div>
           <div className='mt-6'>
             <InputLabel htmlFor='raison' value='Raison' />
-            <TextInput
+            <InputText
               id='raison'
               name='raison'
               value={data.raison}
               onChange={(e) => setData('raison', e.target.value)}
               isFocused
               placeholder='raison'
-            ></TextInput>
+            ></InputText>
             <InputError></InputError>
           </div>
 

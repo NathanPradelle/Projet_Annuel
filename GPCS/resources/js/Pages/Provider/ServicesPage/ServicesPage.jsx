@@ -2,17 +2,19 @@ import { InertiaLink } from '@inertiajs/inertia-react';
 import React from 'react';
 
 import PrimaryButton from '@/Components/Buttons/PrimaryButton';
+import SimpleButton from '@/Components/Buttons/SimpleButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-const PagePropositionService = () => {
-  window.location.href = '/';
+const PagePropositionService = (id) => {
+  window.location.href = `/service/addprovider/${id}`;
 };
 
 const PageNouveauService = () => {
-  window.location.href = '/';
+  window.location.href = '/service/create/page';
 };
 
-const List = ({ service }) => {
+const ServicesPage = ({ service }) => {
+  console.log(service);
   return (
     <AuthenticatedLayout>
       <div>
@@ -21,10 +23,12 @@ const List = ({ service }) => {
           {service && service.length > 0 ? (
             service.map((item) => (
               <li key={item.id}>
+                <br />
+                <input type='hidden' id='id' name='id' value={item.id}></input>
                 {item.categorie} {item.nom}{' '}
                 <PrimaryButton
                   className='ms-4'
-                  onClick={PagePropositionService}
+                  onClick={() => PagePropositionService(item.id)}
                 >
                   Proposer service
                 </PrimaryButton>
@@ -43,4 +47,4 @@ const List = ({ service }) => {
   );
 };
 
-export default List;
+export default ServicesPage;

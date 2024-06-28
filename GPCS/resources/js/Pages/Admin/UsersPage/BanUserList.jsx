@@ -14,6 +14,7 @@ const BanUserList = ({ userId }) => {
       .get(`/user/${userId}/ban/list`)
       .then((response) => {
         setBans(response.data);
+        setIsModalOpen(false);
       })
       .catch((error) => {
         console.error('Error fetching ban list:', error);

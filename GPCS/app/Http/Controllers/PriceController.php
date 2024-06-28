@@ -17,6 +17,10 @@ class PriceController extends Controller
             $price->prix_defaut=$request['PrixRegulier'];
         }
         //dd($price,$request,$request['PrixRegulier']);
-        dd($price->save());
+        if($price->save()){
+            return redirect('/service/provider')->with('success', 'Prix enregistré');
+        } else {
+            dd(0);
+        }
     }
 }
