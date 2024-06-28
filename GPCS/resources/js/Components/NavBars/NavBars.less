@@ -6,7 +6,6 @@
   justify-content: space-between;
   align-items: center;
   height: 5rem;
-  gap: 2rem;
   background-color: black;
   img {
     height: 3rem;
@@ -15,15 +14,17 @@
   .center {
     display: flex;
     align-items: center;
-    gap: 2rem;
     height: inherit;
     overflow-x: auto;
     overflow-y: hidden;
   }
   .nav-link {
     display: flex;
-    padding: 1rem;
-    height: 4rem;
+    padding: 1rem 2rem;
+    height: 100%;
+    min-width: 8rem;
+    width: -moz-fit-content;
+    width: fit-content;
     align-items: center;
     color: white;
     text-decoration: none;

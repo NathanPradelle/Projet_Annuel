@@ -9,6 +9,7 @@
     "dateEnd": "Date de fin",
     "delete": "Supprimer",
     "details": "Détails",
+    "edit": "Éditer",
     "email": "Adresse mail",
     "modify": "Modifier",
     "name": "Nom",
@@ -117,7 +118,8 @@
     "admin": {
       "managers": "Liste des Gérants",
       "users": "Liste d'utilisateur",
-      "tags": "Les tags"
+      "tags": "Liste des Tags",
+      "services": "Services enregistré"
     }
   },
   "apartment": {
@@ -141,5 +143,11 @@
     "datePriceChange": "Date de changement du prix",
     "regularPrice": "Prix Régulier",
     "create": "Créer un service"
+  },
+  "tag": {
+    "create": "Créer un tag",
+    "manage": "Gérer les tags",
+    "noTags": "Il n'y a pas encore de tags"
   }
+
 }

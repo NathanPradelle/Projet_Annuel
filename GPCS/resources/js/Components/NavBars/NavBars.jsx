@@ -23,23 +23,27 @@ const NavBars = () => {
 
   return (
     <div className='nav-bars'>
-      <NavLink href='/'>
+      <NavLink href={route('apartment.list')}>
         <img src={logoImage} alt='Logo' />
         {t('menu.home')}
       </NavLink>
       <div className='center'>
         {isUserLessor(currentUser) &&
           MANAGER_PROFILES.includes(currentUser.profileInUse) && (
-            <NavLink href='/apartment'>{t('menu.myApartments')}</NavLink>
+            <NavLink href={route('apartment.index')}>
+              {t('menu.myApartments')}
+            </NavLink>
           )}
 
         {currentUser && (
-          <NavLink href='/reservations'>{t('menu.myReservations')}</NavLink>
+          <NavLink href={route('reservation.index')}>
+            {t('menu.myReservations')}
+          </NavLink>
         )}
 
         {isUserProvider(currentUser) &&
           MANAGER_PROFILES.includes(currentUser.profileInUse) && (
-            <NavLink href='/service'>Service</NavLink>
+            <NavLink href={route('services')}>Service</NavLink>
           )}
 
         {isUserManager(currentUser) &&

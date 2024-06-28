@@ -183,8 +183,6 @@ class UserController extends Controller
         }
 
         $user->userProfiles()->saveMany($userProfiles);
-
-        return "test";
     }
 
     /**

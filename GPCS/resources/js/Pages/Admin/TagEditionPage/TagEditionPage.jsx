@@ -1,5 +1,6 @@
-import React from 'react';
 import { useForm } from '@inertiajs/inertia-react';
+import React from 'react';
+
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 const TagEditionPage = ({ tag }) => {
@@ -24,25 +25,25 @@ const TagEditionPage = ({ tag }) => {
   return (
     <AuthenticatedLayout>
       <div>
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
-          <input type="hidden" name="_method" value="PATCH" />
+        <form onSubmit={handleSubmit} encType='multipart/form-data'>
+          <input type='hidden' name='_method' value='PATCH' />
 
           <div>
-            <label htmlFor="name">Nom</label>
+            <label htmlFor='name'>Nom</label>
             <input
-              id="name"
-              className="block mt-1 w-full"
-              type="text"
-              name="name"
+              id='name'
+              className='block mt-1 w-full'
+              type='text'
+              name='name'
               value={data.name}
               onChange={handleChange}
             />
             {errors.name && (
-              <div className="text-red-500 mt-2">{errors.name}</div>
+              <div className='text-red-500 mt-2'>{errors.name}</div>
             )}
           </div>
 
-          <button type="submit" className="ms-3 mt-5 ml-0">
+          <button type='submit' className='ms-3 mt-5 ml-0'>
             Modifier un tag
           </button>
         </form>

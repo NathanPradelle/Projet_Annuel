@@ -5,6 +5,7 @@ import React, { useCallback, useMemo } from 'react';
 import SimpleButton from '@/Components/Buttons/SimpleButton';
 import SimpleDate from '@/Components/SimpleDate';
 import SimpleField from '@/Components/SimpleField';
+import ApartmentWindowFull from '@/Features/ApartmentWindowFull/ApartmentWindowFull';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { dateDiffInDays } from '@/utils/date';
 
@@ -41,44 +42,14 @@ const ApartmentPage = ({
       <div className='flex justify-center'>
         <article>
           <h1 className='text-3xl font-extrabold'>{apartment.name}</h1>
-          {apartment.images.length > 0 ? (
-            apartment.images.map((image, index) => (
-              <img
-                key={index}
-                className='rounded-md'
-                src={storagePath + image.image}
-                width='25%'
-                style={{ height: '250px' }}
-                alt='apartment'
-              />
-            ))
-          ) : (
-            <p>Aucune image disponible</p>
-          )}
           <div className='flex justify-between mt-5'>
-            <div className='mt-1 w-80'>
-              {apartment.tags.map((tag, index) => (
-                <span
-                  key={index}
-                  className='bg-blue-900 text-blue-300 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-100 dark:text-blue-800'
-                >
-                  {tag.name}
-                </span>
-              ))}
-              <p className='text-xl'>{apartment.address}</p>
-              <p className='text-xl'>Loué par {apartment.user.name}</p>
+            <ApartmentWindowFull
+              apartment={apartment}
+              storagePath={storagePath}
+              bg='bg-strawberry'
+            />
 
-              <p className='mt-10'>Description</p>
-              <div className='border-t-2 border-grey overflow-x-auto'>
-                <p className='text-xl'>{apartment.description}</p>
-              </div>
-            </div>
             <div className='p-4 sm:p-8 ml-20 bg-white sm:rounded-lg shadow-xl'>
-              <p className='text-xl'>
-                <span className='font-extrabold'>{apartment.price}€</span>{' '}
-                {t('apartment.perNight')}
-              </p>
-
               <form>
                 <input type='hidden' name='apartment_id' value={apartment.id} />
 

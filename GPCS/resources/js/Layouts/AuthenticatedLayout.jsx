@@ -17,7 +17,10 @@ const AuthenticatedLayout = ({ headTitle, header, className, children }) => {
         </header>
       )}
 
-      <main id='content' className={clsx('py-12', className)}>
+      <main
+        id='content'
+        className={clsx('py-12  max-w-7xl mx-auto', className)}
+      >
         {children}
       </main>
 

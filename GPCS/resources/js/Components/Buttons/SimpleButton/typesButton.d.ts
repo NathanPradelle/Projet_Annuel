@@ -1,4 +1,4 @@
-export type ButtonColor = 'beige' | 'other';
+export type ButtonColor = 'beige' | 'red' | 'other';
 
 export interface ButtonProps {
   color: ButtonColor | null;

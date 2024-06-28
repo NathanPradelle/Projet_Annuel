@@ -57,6 +57,7 @@ const DropMenu = () => {
           </NavLink>
           <SimpleList
             id='currentUserProfile'
+            className='nav-link'
             setData={setData}
             label='Profile utilisé'
             options={profilesOptions}

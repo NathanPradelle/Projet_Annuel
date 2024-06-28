@@ -20,16 +20,13 @@ const MyReservationsPage = ({ reservations, pagination }) => {
         </h2>
       }
     >
-      <div className='max-w-7xl mx-auto sm:px-6 lg:px-8'>
-        {reservations?.length === 0 ? (
-          <div className='py-8'>
-            <p className='text-gray-600'>{t('reservation.noReservation')}</p>
-          </div>
-        ) : (
-          <div className='bg-white shadow-sm sm:rounded-lg p-6 text-gray-900'>
-            <Table columns={columns} data={reservations} />
-          </div>
-        )}
+      <div className='bg-white shadow-sm sm:rounded-lg p-6 text-gray-900'>
+        <Table
+          columns={columns}
+          data={reservations}
+          placeholder={t('reservation.noReservation')}
+          pagination={pagination}
+        />
       </div>
     </AuthenticatedLayout>
   );

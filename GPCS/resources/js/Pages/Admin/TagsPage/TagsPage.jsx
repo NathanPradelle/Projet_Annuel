@@ -1,54 +1,33 @@
+import { t } from 'i18next';
+
+import SimpleButton from '@/Components/Buttons/SimpleButton';
+import Table from '@/Components/Table';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Inertia } from '@inertiajs/inertia';
-import { InertiaLink } from '@inertiajs/inertia-react';
+
+import useColumns from './useColumns';
 
 const TagsPage = ({ tags }) => {
-  const handleDelete = (tagId) => {
-    const deleteTagUrl = route('tag.destroy', { tag: tagId });
-    Inertia.delete(deleteTagUrl, {
-      onSuccess: () => {
-        console.log('Tag deleted successfully');
-      },
-      onError: (error) => {
-        console.error('Failed to delete Tag:', error);
-      },
-    });
-  };
+  const columns = useColumns();
 
   return (
-    <AuthenticatedLayout>
-      <div>
-        <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-          Gestion des tags
+    <AuthenticatedLayout
+      headTitle='Tags'
+      header={
+        <h2 className='font-semibold text-xl text-gray-800 leading-tight'>
+          {t('tag.manage')}
         </h2>
+      }
+    >
+      <div className='flex justify-end'>
+        <SimpleButton to={route('tag.create')}>{t('tag.create')}</SimpleButton>
+      </div>
 
-        <InertiaLink
-          href={route('tag.create')}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Create tag
-        </InertiaLink>
-
-        <div className="flex justify-center">
-          {tags.data.length > 0 ? (
-            tags.data.map((tag) => (
-              <div key={tag.id} className="mt-9">
-                <p>{tag.name}</p>
-                <a href={route('tag.edit', tag.id)} className="mr-2">
-                  <button className="btn btn-primary">Editer</button>
-                </a>
-                <button
-                  onClick={() => handleDelete(tag.id)}
-                  className="text-red-600 hover:text-red-900"
-                >
-                  Supprimer
-                </button>
-              </div>
-            ))
-          ) : (
-            <p>Il n'y a pas encore de tag</p>
-          )}
-        </div>
+      <div className='bg-white overflow-hidden shadow-sm sm:rounded-lg'>
+        <Table
+          columns={columns}
+          data={tags?.data}
+          placeholder={t('tag.noTags')}
+        />
       </div>
     </AuthenticatedLayout>
   );
