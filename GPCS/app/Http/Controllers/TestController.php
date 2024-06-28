@@ -12,6 +12,8 @@ class TestController extends Controller
     public function test(){
         var_dump(class_exists(FilePaths::class)); // Vérifie si la classe est chargée
         dd(FilePaths::test()); // Vérifie le résultat de la méthode
+        /*$appartement = Apartment::all();
+        dd($appartement);*/
         return view('test');
     }
 }

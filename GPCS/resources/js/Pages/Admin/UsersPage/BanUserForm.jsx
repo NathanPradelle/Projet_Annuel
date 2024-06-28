@@ -76,14 +76,7 @@ const BanUserForm = ({ userId, className = '' }) => {
           </div>
           <div className='mt-6'>
             <InputLabel htmlFor='raison' value='Raison' />
-            <InputText
-              id='raison'
-              name='raison'
-              value={data.raison}
-              onChange={(e) => setData('raison', e.target.value)}
-              isFocused
-              placeholder='raison'
-            ></InputText>
+            <InputText name='raison' placeholder='raison'></InputText>
             <InputError></InputError>
           </div>
 
