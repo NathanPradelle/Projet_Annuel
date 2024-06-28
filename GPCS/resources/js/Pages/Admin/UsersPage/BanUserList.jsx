@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import DangerButton from '@/Components/Buttons/DangerButton';
 import SecondaryButton from '@/Components/Buttons/SecondaryButton';
@@ -9,7 +9,7 @@ const BanUserList = ({ userId }) => {
   const [bans, setBans] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
+  const getUserBanHistory = useCallback(() => {
     axios
       .get(`/user/${userId}/ban/list`)
       .then((response) => {
@@ -21,13 +21,14 @@ const BanUserList = ({ userId }) => {
       });
   }, [userId]);
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
+    getUserBanHistory();
     setIsModalOpen(true);
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsModalOpen(false);
-  };
+  }, []);
 
   return (
     <div>

@@ -5,7 +5,13 @@ import React from 'react';
 
 import logoImage from '@/../../public/favicon.png';
 import { MANAGER_PROFILES, PROFILE } from '@/Constants/profiles';
-import { getCurrentUser, isUserAdmin, isUserManager } from '@/utils/user';
+import {
+  getCurrentUser,
+  isUserAdmin,
+  isUserLessor,
+  isUserManager,
+  isUserProvider,
+} from '@/utils/user';
 
 import DropMenu from './DropMenu/DropMenu';
 import ManagerMenu from './ManagerMenu/ManagerMenu';
@@ -17,41 +23,38 @@ const NavBars = () => {
 
   return (
     <div className='nav-bars'>
-      <div className='side'>
-        <NavLink href='/'>
-          <img src={logoImage} alt='Logo' />
-          {t('menu.home')}
-        </NavLink>
+      <NavLink href='/'>
+        <img src={logoImage} alt='Logo' />
+        {t('menu.home')}
+      </NavLink>
+      <div className='center'>
+        {isUserLessor(currentUser) &&
+          MANAGER_PROFILES.includes(currentUser.profileInUse) && (
+            <NavLink href='/apartment'>{t('menu.myApartments')}</NavLink>
+          )}
+
+        {currentUser && (
+          <NavLink href='/reservations'>{t('menu.myReservations')}</NavLink>
+        )}
+
+        {isUserProvider(currentUser) &&
+          MANAGER_PROFILES.includes(currentUser.profileInUse) && (
+            <NavLink href='/service'>Service</NavLink>
+          )}
 
         {isUserManager(currentUser) &&
           MANAGER_PROFILES.includes(currentUser.profileInUse) && (
-            <NavLink href='/'>{t('menu.myApartments')}</NavLink>
+            <ManagerMenu />
           )}
 
-        <NavLink href='/service'>Service</NavLink>
+        {isUserAdmin(currentUser) &&
+          currentUser.profileInUse == PROFILE.ADMIN && (
+            <NavLink href={route('users.admin')}>
+              {t('menu.admin.managers')}
+            </NavLink>
+          )}
       </div>
-
-      <div className='side'>
-        {currentUser ? (
-          <>
-            {isUserManager(currentUser) &&
-              MANAGER_PROFILES.includes(currentUser.profileInUse) && (
-                <ManagerMenu />
-              )}
-
-            {isUserAdmin(currentUser) &&
-              currentUser.profileInUse == PROFILE.ADMIN && (
-                <NavLink href={route('users.admin')}>
-                  {t('menu.admin.managers')}
-                </NavLink>
-              )}
-
-            <DropMenu />
-          </>
-        ) : (
-          <UnauthenticatedMenu />
-        )}
-      </div>
+      {currentUser ? <DropMenu /> : <UnauthenticatedMenu />}
     </div>
   );
 };

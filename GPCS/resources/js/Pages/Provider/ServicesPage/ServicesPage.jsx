@@ -1,24 +1,21 @@
-import { InertiaLink } from '@inertiajs/inertia-react';
 import React from 'react';
 
-import PrimaryButton from '@/Components/Buttons/PrimaryButton';
 import SimpleButton from '@/Components/Buttons/SimpleButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-const PagePropositionService = (id) => {
-  window.location.href = `/service/addprovider/${id}`;
-};
-
-const PageNouveauService = () => {
-  window.location.href = '/service/create/page';
-};
-
 const ServicesPage = ({ service }) => {
   console.log(service);
+
   return (
-    <AuthenticatedLayout>
+    <AuthenticatedLayout
+      head='Welcome'
+      header={
+        <h2 className='font-semibold text-xl text-gray-800 leading-tight'>
+          Service List
+        </h2>
+      }
+    >
       <div>
-        <h1>Service List</h1>
         <ul>
           {service && service.length > 0 ? (
             service.map((item) => (
@@ -26,21 +23,18 @@ const ServicesPage = ({ service }) => {
                 <br />
                 <input type='hidden' id='id' name='id' value={item.id}></input>
                 {item.categorie} {item.nom}{' '}
-                <PrimaryButton
-                  className='ms-4'
-                  onClick={() => PagePropositionService(item.id)}
-                >
+                <SimpleButton to={route('service.provider.add', item.id)}>
                   Proposer service
-                </PrimaryButton>
+                </SimpleButton>
               </li>
             ))
           ) : (
             <li>No services available</li>
           )}
-          <br></br>
-          <PrimaryButton className='ms-4' onClick={PageNouveauService}>
+          <br />
+          <SimpleButton to={route('service.create')}>
             Nouveau service
-          </PrimaryButton>
+          </SimpleButton>
         </ul>
       </div>
     </AuthenticatedLayout>

@@ -7,14 +7,14 @@ import SimpleField from '@/Components/SimpleField';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { getCurrentUser } from '@/utils/user';
 
-const AddProviderPage = ({ service, id }) => {
+const AddProviderPage = ({ service }) => {
   const currentUser = getCurrentUser();
-  console.log(service);
+
   const { data, setData, post, errors } = useForm({
     ...service,
     user: currentUser,
   });
-  console.log(data);
+
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -24,20 +24,26 @@ const AddProviderPage = ({ service, id }) => {
   );
 
   return (
-    <AuthenticatedLayout>
+    <AuthenticatedLayout
+      head='Welcome'
+      header={
+        <h2 className='font-semibold text-xl text-gray-800 leading-tight'>
+          Ajout provider :
+        </h2>
+      }
+    >
       <div>
-        <h1>Ajout provider : </h1>
         <form>
           <SimpleField
             id='PrixRegulier'
             type='number'
             value={data.PrixRegulier}
-            label={'PrixRegulier'}
+            label={t('service.regularPrice')}
             onChange={(e) => setData('PrixRegulier', e.target.value)}
             errorMessage={errors.PrixRegulier}
             required
           />
-          <SimpleButton className='ms-4' type='submit' onClick={onSubmit}>
+          <SimpleButton type='submit' onClick={onSubmit}>
             Enregistrer nouveau prix
           </SimpleButton>
         </form>

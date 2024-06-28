@@ -34,10 +34,13 @@ const UserPage = ({ user }) => {
     [profiles]
   );
 
-  const onSubmit = useCallback((e) => {
-    e.preventDefault();
-    post(route('api.user.update')).then(() => route('user', user.id));
-  }, []);
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      post(route('user.update', data)).then(() => route('user', user.id));
+    },
+    [data]
+  );
 
   const onReset = useCallback(() => {
     setDisabled(!disabled);
@@ -54,15 +57,10 @@ const UserPage = ({ user }) => {
       }
     >
       <div className='flex'>
-        <SimpleButton className='ms-4' onClick={onReset}>
+        <SimpleButton onClick={onReset}>
           {disabled ? t('common.modify') : t('common.back')}
         </SimpleButton>
-        <SimpleButton
-          className='ms-4'
-          type='submit'
-          onClick={onSubmit}
-          disabled={disabled}
-        >
+        <SimpleButton type='submit' onClick={onSubmit} disabled={disabled}>
           {t('common.save')}
         </SimpleButton>
       </div>

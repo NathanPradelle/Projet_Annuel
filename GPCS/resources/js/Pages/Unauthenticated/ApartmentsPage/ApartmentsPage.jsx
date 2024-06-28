@@ -1,21 +1,12 @@
-import './ApartmentsPage.less';
-
 import { InertiaLink } from '@inertiajs/inertia-react';
 import { t } from 'i18next';
 import React from 'react';
 
+import SimpleButton from '@/Components/Buttons/SimpleButton';
+import ApartmentWindow from '@/Features/ApartmentWindow/ApartmentWindow';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-import ApartmentWindow from './ApartmentWindow';
-
 const AppartementsPage = ({ apartments, storagePath }) => {
-  //   const handleImageError = () => {
-  //     document.getElementById('screenshot-container')?.classList.add('!hidden');
-  //     document.getElementById('docs-card')?.classList.add('!row-span-1');
-  //     document.getElementById('docs-card-content')?.classList.add('!flex-row');
-  //     document.getElementById('background')?.classList.add('!hidden');
-  //   };
-
   return (
     <AuthenticatedLayout
       head='Welcome'
@@ -30,6 +21,12 @@ const AppartementsPage = ({ apartments, storagePath }) => {
                 key={apartment.id}
                 apartment={apartment}
                 storagePath={storagePath}
+                actions={
+                  <SimpleButton to={route('apartment.show', apartment.id)}>
+                    {t('common.details')}
+                  </SimpleButton>
+                }
+                bg='bg-strawberry'
               />
             ))}
           </div>

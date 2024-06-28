@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { useCallback } from 'react';
 
 import DropdownButton from '@/Components/Buttons/DropdownButton';
-import InputList from '@/Components/SimpleList';
+import SimpleList from '@/Components/SimpleList';
 import { getCurrentUser, getProfileLabel } from '@/utils/user';
 
 import NavLink from '../NavLink';
@@ -55,7 +55,7 @@ const DropMenu = () => {
           <NavLink href={route('logout')} method='post'>
             Log Out
           </NavLink>
-          <InputList
+          <SimpleList
             id='currentUserProfile'
             setData={setData}
             label='Profile utilisé'

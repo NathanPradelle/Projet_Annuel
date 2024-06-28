@@ -1,7 +1,5 @@
 import 'flatpickr/dist/flatpickr.min.css';
 
-import { InertiaLink } from '@inertiajs/inertia-react';
-import { usePage } from '@inertiajs/inertia-react';
 import { useForm } from '@inertiajs/react';
 import { t } from 'i18next';
 import React, { useCallback } from 'react';
@@ -27,7 +25,7 @@ const options = [
   },
 ];
 const ServiceFeePage = ({ service }) => {
-  const { data, setData, post, errors } = useForm(service);
+  const { data, setData, post, errors } = useForm({ ...service, categorie: 1 });
 
   const onSubmit = useCallback(
     (e) => {
@@ -38,12 +36,16 @@ const ServiceFeePage = ({ service }) => {
   );
 
   return (
-    <AuthenticatedLayout>
+    <AuthenticatedLayout
+      head='Welcome'
+      header={
+        <h2 className='font-semibold text-xl text-gray-800 leading-tight'>
+          {t('service.create')}
+        </h2>
+      }
+    >
       <div>
-        <h1>Ajoutez service : </h1>
         <form method='POST' action='/service/create'>
-          <input type='hidden' id='id' name='id' value='1' />
-          <br />
           <SimpleList
             id='categorie'
             setData={setData}
@@ -60,7 +62,7 @@ const ServiceFeePage = ({ service }) => {
             errorMessage={errors.nom}
             required
           />
-          <SimpleButton className='ms-4' type='submit' onClick={onSubmit}>
+          <SimpleButton type='submit' onClick={onSubmit}>
             Enregistrer nouveau service
           </SimpleButton>
         </form>

@@ -110,9 +110,9 @@ class User extends Authenticatable
 
         $user = new User($userData);
 
-        if (isset($vm?->profiles)) {
-            $user->userProfiles = $vm->profiles;
-        }
+        // if (isset($vm?->profiles)) {
+        //     $user->userProfiles = $vm->profiles;
+        // }
 
         return $user;
     }

@@ -1,7 +1,5 @@
 import 'flatpickr/dist/flatpickr.min.css';
 
-import { InertiaLink } from '@inertiajs/inertia-react';
-import { usePage } from '@inertiajs/inertia-react';
 import { useForm } from '@inertiajs/react';
 import { t } from 'i18next';
 import React, { useCallback } from 'react';
@@ -11,20 +9,11 @@ import SimpleDate from '@/Components/SimpleDate';
 import SimpleField from '@/Components/SimpleField';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-const PagePropositionService = () => {
-  window.location.href = '/';
-};
-
-const PageNouveauService = () => {
-  window.location.href = '/';
-};
-
 const demain = new Date();
 demain.setDate(new Date().getDate() + 1);
 
 const ServiceFeePage = ({ service }) => {
-  const { data, setData, post, errors } = useForm(service);
-
+  const { data, setData, post, errors } = useForm({ ...service, categorie: 1 }); // TODO change later
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -34,16 +23,21 @@ const ServiceFeePage = ({ service }) => {
   );
 
   return (
-    <AuthenticatedLayout>
+    <AuthenticatedLayout
+      head='Welcome'
+      header={
+        <h2 className='font-semibold text-xl text-gray-800 leading-tight'>
+          Changement tarrification
+        </h2>
+      }
+    >
       <div>
-        <h1>Changement tarrification : </h1>
         <form method='GET' action='/service/provider/price'>
-          <input type='hidden' id='id' name='id' value='1' />
           <SimpleDate
             id='start'
             value={data.start}
             setData={setData}
-            label={'date changement de prix'}
+            label={t('service.datePriceChange')}
             minDate={demain}
             errorMessage={errors.start}
           />
@@ -51,7 +45,7 @@ const ServiceFeePage = ({ service }) => {
             id='PrixRegulier'
             type='number'
             value={data.PrixRegulier}
-            label={'prix régulier'}
+            label={t('service.regularPrice')}
             onChange={(e) => setData('PrixRegulier', e.target.value)}
             errorMessage={errors.PrixRegulier}
             required
@@ -60,7 +54,7 @@ const ServiceFeePage = ({ service }) => {
             id='PrixSemaine'
             type='number'
             value={data.PrixSemaine}
-            label={'prix régulier'}
+            label={t('service.regularPrice')}
             onChange={(e) => setData('PrixSemaine', e.target.value)}
             errorMessage={errors.PrixSemaine}
             required
@@ -69,7 +63,7 @@ const ServiceFeePage = ({ service }) => {
             id='PrixWeekend'
             type='number'
             value={data.PrixWeekend}
-            label={'prix régulier'}
+            label={t('service.regularPrice')}
             onChange={(e) => setData('PrixWeekend', e.target.value)}
             errorMessage={errors.PrixWeekend}
             required
@@ -78,13 +72,13 @@ const ServiceFeePage = ({ service }) => {
             id='PrixFerie'
             type='number'
             value={data.PrixFerie}
-            label={'prix régulier'}
+            label={t('service.regularPrice')}
             onChange={(e) => setData('PrixFerie', e.target.value)}
             errorMessage={errors.PrixFerie}
             required
           />
           <br />
-          <SimpleButton className='ms-4' type='submit' onClick={onSubmit}>
+          <SimpleButton onClick={onSubmit}>
             Enregistrer nouveau prix
           </SimpleButton>
         </form>

@@ -51,9 +51,7 @@ const ConfirmPassword = () => {
         </div>
 
         <div className='flex items-center justify-end mt-4'>
-          <PrimaryButton className='ms-4' disabled={processing}>
-            Confirm
-          </PrimaryButton>
+          <PrimaryButton disabled={processing}>Confirm</PrimaryButton>
         </div>
       </form>
     </GuestLayout>

@@ -8,7 +8,11 @@ import SimpleField from '@/Components/SimpleField';
 import GuestLayout from '@/Layouts/GuestLayout';
 
 const Login = ({ status, canResetPassword }) => {
-  const { data, setData, post, errors, reset } = useForm();
+  const { data, setData, post, errors, reset } = useForm({
+    email: '',
+    password: '',
+    remember: '',
+  });
 
   useEffect(() => {
     return () => {
@@ -63,9 +67,7 @@ const Login = ({ status, canResetPassword }) => {
             </Link>
           )}
 
-          <SimpleButton className='ms-4' type='submit'>
-            {t('common.connection')}
-          </SimpleButton>
+          <SimpleButton type='submit'>{t('common.connection')}</SimpleButton>
         </div>
       </form>
     </GuestLayout>

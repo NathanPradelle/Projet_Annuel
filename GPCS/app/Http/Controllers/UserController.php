@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\ban;
+use App\Models\UserProfile;
 use FilePaths;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Illuminate\Validation\Rules;
@@ -148,15 +150,41 @@ class UserController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'email' => 'required|string|lowercase|email|max:255|unique:users,email,' . $request->id,
             'profiles' => 'required|array|min:1'
         ]);
 
-        $user = new User();
-        $user = $user->modelGetter((object) $validatedData);
+        $user = User::findOrFail($request->id);
+
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
         $user->save();
-        
+
+        $this->updateUserProfiles($user, $validatedData['profiles']);
+
         return response()->json('success', 200);
+    }
+
+    /**
+     * Update user profiles.
+     */
+    protected function updateUserProfiles(User $user, array $profiles)
+    {
+        $user->userProfiles()->delete();
+
+        $userProfiles = array();
+        foreach ($profiles as $profile) {
+            array_push($userProfiles, new UserProfile(
+                [
+                    'user' => $user->id,
+                    'profile' => $profile['id'],
+                ]
+            ));
+        }
+
+        $user->userProfiles()->saveMany($userProfiles);
+
+        return "test";
     }
 
     /**

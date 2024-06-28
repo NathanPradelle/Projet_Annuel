@@ -7,6 +7,7 @@
     "connection": "Se Connecter",
     "dateStart": "Date de début",
     "dateEnd": "Date de fin",
+    "delete": "Supprimer",
     "details": "Détails",
     "email": "Adresse mail",
     "modify": "Modifier",
@@ -127,8 +128,18 @@
     "perNight": "par nuit",
     "rent": "Réserver"
   },
+  "myApartment": {
+    "title": "Mes appartements",
+    "noApartment": "Vous n'avez aucun appartement..."
+
+  },
   "reservation": {
     "recap": "Récapitulatif de mes réservations",
     "noReservation": "Vous n'avez aucune réservation pour le moment"
+  },
+  "service": {
+    "datePriceChange": "Date de changement du prix",
+    "regularPrice": "Prix Régulier",
+    "create": "Créer un service"
   }
 }

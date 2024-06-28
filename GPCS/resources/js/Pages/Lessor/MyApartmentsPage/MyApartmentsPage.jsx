@@ -1,9 +1,12 @@
 import { Inertia } from '@inertiajs/inertia';
 import { InertiaLink } from '@inertiajs/inertia-react';
+import { t } from 'i18next';
 
+import SimpleButton from '@/Components/Buttons/SimpleButton';
+import ApartmentWindow from '@/Features/ApartmentWindow/ApartmentWindow';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-const MyApartmentsPage = ({ appartements, auth, storagePath }) => {
+const MyApartmentsPage = ({ apartments, storagePath }) => {
   const handleDelete = (apartmentId) => {
     const deleteTagUrl = route('apartment.destroy', { apartment: apartmentId });
     Inertia.delete(deleteTagUrl, {
@@ -17,82 +20,48 @@ const MyApartmentsPage = ({ appartements, auth, storagePath }) => {
   };
 
   return (
-    <AuthenticatedLayout user={auth.user}>
-      <div className='flex justify-center'>
-        <div className='grid grid-cols-6 gap-6 w-9/12'>
-          {appartements.length > 0 ? (
-            appartements.map((appartement) => (
-              <div key={appartement.id} className='mt-9 ml-11'>
-                <article>
-                  {appartement.images.length > 0 ? (
-                    <img
-                      className='rounded-md'
-                      src={storagePath + '/' + appartement.images[0].image}
-                      width='100%'
-                      style={{ height: '250px' }}
-                      alt='Appartement'
-                    />
-                  ) : (
-                    <p>Aucune image disponible</p>
-                  )}
-                  <h1 className='text-2xl font-extrabold'>
-                    {appartement.name}
-                  </h1>
-                  <p>
-                    <span className='font-extrabold'>{appartement.price}€</span>{' '}
-                    par nuit
-                  </p>
-                  {appartement.tags.map((tag) => (
-                    <span
-                      key={tag.id}
-                      className='bg-blue-900 text-blue-300 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-100 dark:text-blue-800'
+    <AuthenticatedLayout
+      head='Welcome'
+      header={
+        <h2 className='font-semibold text-xl text-gray-800 leading-tight'>
+          {t('myApartment.title')}
+        </h2>
+      }
+    >
+      <div className='flex flex-wrap gap-2 justify-start p-4 sm:p-8 bg-white shadow sm:rounded-lg'>
+        {apartments?.length > 0 ? (
+          <div className='flex flex-wrap gap-2 justify-start'>
+            {apartments?.map((apartment) => (
+              <ApartmentWindow
+                key={apartment.id}
+                apartment={apartment}
+                storagePath={storagePath}
+                actions={
+                  <>
+                    <SimpleButton
+                      href={route('reservation.showAll', apartment.id)}
                     >
-                      {tag.name}
-                    </span>
-                  ))}
-                </article>
-                <div className='flex'>
-                  <InertiaLink
-                    href={route('apartment.edit', appartement.id)}
-                    className='mr-2'
-                  >
-                    <button className='btn btn-primary'>Editer</button>
-                  </InertiaLink>
-                  <button
-                    onClick={() => handleDelete(appartement.id)}
-                    className='btn btn-danger'
-                  >
-                    Supprimer
-                  </button>
-                </div>
-                <InertiaLink
-                  href={route('reservation.showAll', appartement.id)}
-                  className='mr-2'
-                >
-                  <button className='btn btn-primary'>Réservations</button>
-                </InertiaLink>
-              </div>
-            ))
-          ) : (
-            <div className='py-12'>
-              <div className='max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6'>
-                <div className='p-4 sm:p-8 bg-white shadow sm:rounded-lg flex flex-col items-center'>
-                  <p className='text-center text-gray-600 text-lg'>
-                    Vous n'avez aucun appartement...
-                  </p>
-                  <InertiaLink
-                    href={route('apartment.create')}
-                    className='mt-4'
-                  >
-                    <button className='btn btn-primary font-bold'>
-                      Mettez votte bien à disposition dès maintenant
-                    </button>
-                  </InertiaLink>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
+                      Réservations
+                    </SimpleButton>
+                    <SimpleButton onClick={() => handleDelete(apartment.id)}>
+                      {t('common.delete')}
+                    </SimpleButton>
+                  </>
+                }
+                bg='bg-blue'
+              />
+            ))}
+          </div>
+        ) : (
+          <>
+            <p className='text-center text-gray-600 text-lg'>
+              {t('myApartment.noApartment')}
+            </p>
+            <InertiaLink href={route('apartment.create')} className='mt-4'>
+              Mettez votte bien à disposition dès maintenant
+            </InertiaLink>
+          </>
+        )}
       </div>
     </AuthenticatedLayout>
   );

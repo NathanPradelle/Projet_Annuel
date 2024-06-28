@@ -59,7 +59,7 @@ class ApartmentController extends Controller
         $storagePath = FilePaths::IMAGE_URL;
 
         return Inertia::render(FilePaths::MY_APARTMENTS, [
-            'appartements' => $appartements,
+            'apartments' => $appartements,
             'storagePath' => $storagePath
         ]);
     }
@@ -236,11 +236,11 @@ class ApartmentController extends Controller
      */
     public function destroy($id) : RedirectResponse
     {
-        $appartement = Apartment::findOrFail($id);
+        $apartment = Apartment::findOrFail($id);
 
 //        Gate::authorize('delete', $appartement);
 
-        $appartement->delete();
+        $apartment->delete();
 
         return redirect()->route('apartment.index');
     }

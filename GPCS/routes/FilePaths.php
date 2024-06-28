@@ -31,8 +31,8 @@ class FilePaths {
 
     /* Lessor */
     const APARTMENT_CREATION = 'Lessor/ApartmentCreationPage/ApartmentCreationPage';
-    const MY_APARTMENT = 'Lessor/MyApartment/MyApartment';
-    const MY_APARTMENTS = 'Lessor/MyApartments/MyApartments';
+    const MY_APARTMENT = 'Lessor/MyApartmentPage/MyApartmentPage';
+    const MY_APARTMENTS = 'Lessor/MyApartmentsPage/MyApartmentsPage';
 
     /* Traveler */
     const MY_RESERVATION = 'Traveler/MyReservationPage/MyReservationPage';

@@ -5,7 +5,7 @@ import NavLink from '@/Components/NavBars/NavLink';
 
 const UnauthenticatedMenu = () => {
   return (
-    <>
+    <div className='flex'>
       <NavLink href={route('login')}>{t('menu.unauthenticated.login')}</NavLink>
 
       <hr />
@@ -13,7 +13,7 @@ const UnauthenticatedMenu = () => {
       <NavLink href={route('register')}>
         {t('menu.unauthenticated.signIn')}
       </NavLink>
-    </>
+    </div>
   );
 };
 

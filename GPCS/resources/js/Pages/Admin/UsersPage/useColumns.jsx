@@ -1,8 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { t } from 'i18next';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
-import Modal from '@/Components/Modal';
 import { getProfileLabel } from '@/utils/user';
 
 import BanUserForm from './BanUserForm';

@@ -1,8 +1,9 @@
-import GuestLayout from '@/Layouts/GuestLayout/GuestLayout';
-import InputError from '@/Components/InputError';
-import PrimaryButton from '@/Components/Buttons/PrimaryButton';
-import TextInput from '@/Components/InputText';
 import { Head, useForm } from '@inertiajs/react';
+
+import PrimaryButton from '@/Components/Buttons/PrimaryButton';
+import InputError from '@/Components/InputError';
+import TextInput from '@/Components/InputText';
+import GuestLayout from '@/Layouts/GuestLayout/GuestLayout';
 
 const ForgotPassword = ({ status }) => {
   const { data, setData, post, processing, errors } = useForm({
@@ -43,7 +44,7 @@ const ForgotPassword = ({ status }) => {
         <InputError message={errors.email} className='mt-2' />
 
         <div className='flex items-center justify-end mt-4'>
-          <PrimaryButton className='ms-4' disabled={processing}>
+          <PrimaryButton disabled={processing}>
             Email Password Reset Link
           </PrimaryButton>
         </div>

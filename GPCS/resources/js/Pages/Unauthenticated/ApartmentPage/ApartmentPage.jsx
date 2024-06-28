@@ -1,5 +1,3 @@
-import 'flatpickr/dist/flatpickr.min.css';
-
 import { useForm } from '@inertiajs/react';
 import { t } from 'i18next';
 import React, { useCallback, useMemo } from 'react';
@@ -120,7 +118,7 @@ const ApartmentPage = ({
                   <input type='hidden' name='prix' id='prix' />
                 </div>
 
-                <SimpleButton className='ms-4' onClick={onSubmit}>
+                <SimpleButton onClick={onSubmit}>
                   {t('apartment.rent')}
                 </SimpleButton>
               </form>

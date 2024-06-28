@@ -4,14 +4,7 @@ import React from 'react';
 import PrimaryButton from '@/Components/Buttons/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-const PagePropositionService = () => {
-  window.location.href = '/';
-};
-
-const PageNouveauService = () => {
-  window.location.href = '/';
-};
-
+// NOMMAGE !!!
 const List = ({ service }) => {
   return (
     <AuthenticatedLayout>

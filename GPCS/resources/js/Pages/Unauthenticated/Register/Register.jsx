@@ -78,7 +78,7 @@ const Register = () => {
             {t('signIn.alreadyRegistered')}
           </Link>
 
-          <PrimaryButton className='ms-4' disabled={processing}>
+          <PrimaryButton disabled={processing}>
             {t('signIn.label')}
           </PrimaryButton>
         </div>
