@@ -2,6 +2,7 @@ import React from 'react';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
 import { Head } from "@inertiajs/react";
 import { InertiaLink } from '@inertiajs/inertia-react';
+import SimpleButton from "@/Components/Buttons/SimpleButton";
 
 const Contact = () => {
     return (
@@ -29,12 +30,9 @@ const Contact = () => {
                     </div>
                 </div>
                 <div className="border-l border-gray-300 h-full mx-4"></div>
-                <div className="flex items-center justify-center w-1/2">
-                    <InertiaLink href={route('ticket.create')}>
-                        <button className="bg-blue-500 text-white py-2 px-4 rounded">
-                            Envoyer un ticket à GPCS
-                        </button>
-                    </InertiaLink>
+                <div className="flex-col gap-2 items-center justify-center w-1/2">
+                    <SimpleButton to={route('ticket.create')}>Envoyer un ticket à GPCS</SimpleButton>
+                    <SimpleButton to={route('ticket.create')}>Voir ses tickets</SimpleButton>
                 </div>
             </div>
         </AuthenticatedLayout>

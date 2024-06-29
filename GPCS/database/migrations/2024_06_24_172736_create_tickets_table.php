@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(Ticket_category::class)->constrained()->cascadeOnDelete();
             $table->text('objet');
             $table->text('description');
+            $table->text('status')->default('new');
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

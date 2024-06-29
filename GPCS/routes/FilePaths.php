@@ -18,7 +18,8 @@ class FilePaths {
     const RESET_PASSWORD = "Authenticated/ResetPassword/ResetPassword";
     const VERIFY_EMAIL = "Authenticated/VerifyEmail/VerifyEmail";
     const CONTACT = "Authenticated/Contact/Contact";
-    const TICKET = "Authenticated/Ticket/Ticket";
+    const TICKET_CREATION = "Authenticated/TicketCreationPage/TicketCreationPage";
+    const TICKET_INDEX = "Authenticated/TicketIndex/TicketIndex";
 
     /* Admin */
     const ADMIN_CREATION = 'Admin/AdminCreationPage/AdminCreationPage';

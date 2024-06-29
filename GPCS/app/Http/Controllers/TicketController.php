@@ -16,7 +16,7 @@ class TicketController extends Controller
     public function index()
     {
         $tickets = Ticket::query()
-            ->select(['id', 'objet', 'description'])
+            ->select(['id', 'objet', 'description', 'status'])
 //            ->with(['user:id,name'])
 //            ->with(['ticketCategory:id,name'])
             ->latest()
@@ -30,7 +30,7 @@ class TicketController extends Controller
      */
     public function create()
     {
-        return Inertia::render(FilePaths::TICKET);
+        return Inertia::render(FilePaths::TICKET_CREATION);
     }
 
     /**
@@ -54,10 +54,8 @@ class TicketController extends Controller
         $ticket->description = $validateData['description'];
         $ticket->save();
 
-        return redirect()->route('dashboard')->with('success', 'Ticket créé avec succès!');
+        return redirect()->route('dashboard')->with('success', 'TicketCreationPage créé avec succès!');
     }
-
-
     /**
      * Display the specified resource.
      */
@@ -66,7 +64,7 @@ class TicketController extends Controller
         $ticket = Ticket::with(['ticketCategory', 'user'])->find($id);
 
         if (!$ticket) {
-            return response()->json(['message' => 'Ticket not found'], 404);
+            return response()->json(['message' => 'TicketCreationPage not found'], 404);
         }
 
         return response()->json($ticket);
@@ -87,21 +85,18 @@ class TicketController extends Controller
     {
         $ticket = Ticket::find($id);
         if (!$ticket) {
-            return response()->json(['message' => 'Ticket not found'], 404);
+            return response()->json(['message' => 'TicketCreationPage not found'], 404);
         }
 
         $request->validate([
-            'solution' => 'required|string',
+            'status' => 'required|string|in:new,closed,fixed',
         ]);
 
-        $ticket->solution = $request->input('solution');
+        $ticket->status = $request->input('status');
         $ticket->save();
 
         return response()->json($ticket);
     }
-
-
-
 
     /**
      * Remove the specified resource from storage.
@@ -113,16 +108,26 @@ class TicketController extends Controller
             $ticket->delete();
 
             return response()->json([
-                'message' => 'Ticket deleted successfully',
+                'message' => 'TicketCreationPage deleted successfully',
             ], 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
-                'message' => 'Ticket not found',
+                'message' => 'TicketCreationPage not found',
             ], 404);
         }
     }
     public function contact()
     {
         return Inertia::render(FilePaths::CONTACT);
+    }
+
+    public function customerIndex($id){
+
+        $tickets = Ticket::where('user_id', $id)
+            ->select(['id', 'objet', 'description', 'status'])
+            ->latest()
+            ->paginate(25);
+
+        return Inertia::render(FilePaths::TICKET_INDEX, $tickets);
     }
 }

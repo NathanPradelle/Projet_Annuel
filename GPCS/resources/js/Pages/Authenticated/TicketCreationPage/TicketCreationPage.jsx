@@ -3,7 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
 import { Head } from "@inertiajs/react";
 import { Inertia } from '@inertiajs/inertia';
 
-const Ticket = () => {
+const TicketCreationPage = () => {
     const [category, setCategory] = useState('');
     const [subject, setSubject] = useState('');
     const [description, setDescription] = useState('');
@@ -25,7 +25,7 @@ const Ticket = () => {
 
     return (
         <AuthenticatedLayout>
-            <Head title='Ticket' />
+            <Head title='TicketCreationPage' />
             <div className="flex flex-col items-center justify-center h-screen">
                 <form onSubmit={handleSubmit} className="w-full max-w-lg bg-white p-8 border border-gray-300 rounded-lg shadow-md">
                     <div className="mb-4">
@@ -94,4 +94,4 @@ const Ticket = () => {
     );
 };
 
-export default Ticket;
+export default TicketCreationPage;
